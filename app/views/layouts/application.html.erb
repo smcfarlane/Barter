@@ -6,7 +6,6 @@
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
     <!-- Custom CSS -->
-    <link href="css/landing-page.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -21,11 +20,11 @@
 </head>
 
 <body>
-  <%= render 'nav' %>
+  <%= render 'layouts/nav' %>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
   <%= yield %>
-  <%= render 'footer' %>
+  <%= render 'layouts/footer' %>
 
 </body>
 </html>

@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  # devise_for :u sers
+  get 'test/index'
+
+  # devise_for :users
+  match 'test/index', :via => :get
   match ':controller(/:action(/:id))', :via => :get
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
