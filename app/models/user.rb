@@ -5,5 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :user_info
-  has_many :services
+  has_many :services, through: :service_users
+  has_many :service_users
+  has_many :proposals
 end
