@@ -8,4 +8,7 @@ class User < ActiveRecord::Base
   has_many :services, through: :service_users
   has_many :service_users
   has_many :proposals
+  has_many :contact_infos, through: :user_info
+
+  accepts_nested_attributes_for :user_info
 end
