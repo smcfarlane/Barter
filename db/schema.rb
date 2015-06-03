@@ -41,6 +41,16 @@ ActiveRecord::Schema.define(version: 20150602225101) do
     t.string  "phone",        default: "", null: false
   end
 
+  create_table "emails", force: :cascade do |t|
+    t.integer "user_info_id"
+    t.string  "email",        null: false
+  end
+
+  create_table "phones", force: :cascade do |t|
+    t.integer "user_info_id"
+    t.string  "phone",        default: "", null: false
+  end
+
   create_table "proposals", force: :cascade do |t|
     t.date     "date_range",                    null: false
     t.integer  "services_id",                   null: false
