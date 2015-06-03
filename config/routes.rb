@@ -1,14 +1,21 @@
 Rails.application.routes.draw do
-  get 'test/index'
+ resources :services
 
-  # devise_for :users
-  match 'test/index', :via => :get
+  devise_for :users
+
+
+  authenticated :user do
+     root 'profile#index', as: "authenticated_root"
+  end
+
+  root 'welcome#index'
+
   match ':controller(/:action(/:id))', :via => :get
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

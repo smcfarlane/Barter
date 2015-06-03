@@ -1,3 +1,6 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
 // Place all the styles related to the test controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
@@ -38,7 +41,7 @@ h6 {
   padding-bottom: 50px;
   text-align: center;
   color: #f8f8f8;
-  background: url(../images/intro-bg.jpg) no-repeat center center;
+  background-image: image-url('intro-bg.jpg');
   background-size: cover;
 }
 
@@ -114,28 +117,6 @@ h6 {
   float: left;
   width: 200px;
   border-top: 3px solid #e7e7e7;
-}
-
-.banner {
-  padding: 100px 0;
-  color: #f8f8f8;
-  background-image: image-url('/images/banner-bg.jpg') no-repeat center center;
-  background-size: cover;
-}
-
-.banner h2 {
-  margin: 0;
-  text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
-  font-size: 3em;
-}
-
-.banner ul {
-  margin-bottom: 0;
-}
-
-.banner-social-buttons {
-  float: right;
-  margin-top: 0;
 }
 
 @media(max-width:1199px) {
