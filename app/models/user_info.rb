@@ -1,4 +1,4 @@
 class UserInfo < ActiveRecord::Base
-  has_many :contact_infos
+  has_many :addresses
   belongs_to :user
 end
