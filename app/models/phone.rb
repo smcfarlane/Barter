@@ -1,4 +1,4 @@
 class Phone < ActiveRecord::Base
-  belongs_to :user_info
-  belongs_to :user, through: :user_info
+  belongs_to :user
+  validates_presence_of :phone
 end

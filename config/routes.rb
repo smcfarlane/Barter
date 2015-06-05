@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'user_info/new'
+
   get 'profile/index'
 
   get 'profile/update'
@@ -10,6 +12,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   devise_for :users
+
   match ':controller(/:action(/:id))', :via => :get
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -2,7 +2,10 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email %>
+    </div>
     <%= f.fields_for :user_info do |user_info_fields| %>
         <div class="field">
           <%= user_info_fields.label :first_name %><br />
@@ -12,9 +15,8 @@
           <%= user_info_fields.label :last_name %><br />
           <%= user_info_fields.text_field :last_name %>
         </div>
-    <% end %>
-
-    <%= f.fields_for :address do |address_fields| %>
+   <% end %>
+    <%= f.fields_for :addresses do |address_fields| %>
         <div class="field">
           <%= address_fields.label :street_address %><br />
           <%= address_fields.text_field :street_address %>
@@ -36,20 +38,16 @@
           <%= address_fields.text_field :zip %>
         </div>
     <% end %>
-    <%= f.fields_for :email do |email_fields| %>
-        <div class="field">
-          <%= email_fields.label :email %><br />
-          <%= email_fields.email_field :email, autofocus: true %>
+
+    <%= f.fields_for :phones do |phones_fields| %>
+        <div class="'field">
+          <%= phones_fields.label :phone %><br />
+          <%= phones_fields.text_field :phone %>
         </div>
-
     <% end %>
 
-    <%= f.fields_for :phone do |phone_fields| %>
-    <div class="field">
-      <%= phone_fields.label :phone%><br />
-      <%= phone_fields.number_field :phone, autofocus: true %>
-    </div>
-    <% end %>
+
+
 
     <div class="field">
       <%= f.label :password %>
