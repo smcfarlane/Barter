@@ -20,15 +20,29 @@ FactoryGirl.define do
   end
 
 
-  factory :user do
-    id
-    first_name
-    last_name
-    email
+  factory :user_info do
+    first_name "Billy"
+    last_name "Bob"
+    user
+  end
+  factory :address do
     street_address
     street_address2 "unit f"
     city "San Diego"
     state "CA"
     zip "12344"
+    user
+  end
+  factory :user do
+    id
+    email
+    password "asdfasdf"
+    factory :user_with_all do
+
+      after(:create) do |user, evaluator|
+        create(:user_info)
+      end
+
+    end
   end
 end
