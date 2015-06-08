@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'groups/new'
+
+  get 'groups/show'
+
+  get 'groups/update'
+
+  get 'groups/index'
+
+  get 'groups/delete'
+
   get 'user_info/new'
 
   get 'profile/index'
