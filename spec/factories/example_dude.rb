@@ -19,12 +19,12 @@ FactoryGirl.define do
     "123#{n} thing st"
   end
 
-
   factory :user_info do
     first_name "Billy"
     last_name "Bob"
     user
   end
+
   factory :address do
     street_address
     street_address2 "unit f"
@@ -33,16 +33,10 @@ FactoryGirl.define do
     zip "12344"
     user
   end
+
   factory :user do
     id
     email
     password "asdfasdf"
-    factory :user_with_all do
-
-      after(:create) do |user, evaluator|
-        create(:user_info)
-      end
-
-    end
   end
 end

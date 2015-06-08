@@ -1,9 +1,9 @@
 class RegistrationsController < Devise::RegistrationsController
   def new
-    super
-    u = current_user
-    u.user_info ||= UserInfo.new
-    u.addresses << u.addresses.build unless u.addresses.count > 0
-    u.emails << u.emails.build unless u.emails.count > 0
+    build_resource({})
+    self.resource.user_info = UserInfo.new
+    self.resource.addresses.build
+    self.resource.phones.build
+    respond_with self.resource
   end
 end

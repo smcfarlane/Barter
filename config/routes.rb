@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: "registrations" }
 
   match ':controller(/:action(/:id))', :via => :get
   # The priority is based upon order of creation: first created -> highest priority.
