@@ -1,14 +1,17 @@
 Rails.application.routes.draw do
- resources :services
+  get 'user_info/new'
 
-  devise_for :users
+  get 'profile/index'
 
+  get 'profile/update'
 
-  authenticated :user do
-     root 'profile#index', as: "authenticated_root"
-  end
+  get 'profile/edit'
+
+  get 'profile/destroy'
 
   root 'welcome#index'
+
+  devise_for :users
 
   match ':controller(/:action(/:id))', :via => :get
   # The priority is based upon order of creation: first created -> highest priority.

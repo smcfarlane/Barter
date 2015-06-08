@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602225101) do
+ActiveRecord::Schema.define(version: 20150605184025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
-    t.integer "user_infos_id"
     t.string  "street_address",               null: false
     t.string  "street_address2", default: "", null: false
     t.string  "city",                         null: false
     t.string  "state",                        null: false
     t.string  "zip",                          null: false
+    t.integer "user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -31,28 +31,14 @@ ActiveRecord::Schema.define(version: 20150602225101) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "contact_infos", force: :cascade do |t|
-    t.integer  "user_infos_id"
-    t.string   "street_address",               null: false
-    t.string   "street_address2", default: "", null: false
-    t.string   "city",                         null: false
-    t.string   "state",                        null: false
-    t.string   "zip",                          null: false
-    t.string   "phone",           default: "", null: false
-    t.string   "email",                        null: false
-    t.string   "website",         default: "", null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-  end
-
   create_table "emails", force: :cascade do |t|
     t.integer "user_info_id"
     t.string  "email",        null: false
   end
 
   create_table "phones", force: :cascade do |t|
-    t.integer "user_info_id"
-    t.string  "phone",        default: "", null: false
+    t.string  "phone",   default: "", null: false
+    t.integer "user_id"
   end
 
   create_table "proposals", force: :cascade do |t|
