@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :message, except: [:index, :new, :edit]
+
   get 'user_info/new'
 
   get 'profile/index'

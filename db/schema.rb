@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150605184025) do
+ActiveRecord::Schema.define(version: 20150605200111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,24 @@ ActiveRecord::Schema.define(version: 20150605184025) do
   create_table "emails", force: :cascade do |t|
     t.integer "user_info_id"
     t.string  "email",        null: false
+  end
+
+  create_table "message_threads", force: :cascade do |t|
+    t.integer  "discussable_id",                  null: false
+    t.string   "discussable_type",                null: false
+    t.string   "title"
+    t.boolean  "active",           default: true
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "user_id",                          null: false
+    t.integer  "message_thread_id",                null: false
+    t.text     "text",                             null: false
+    t.boolean  "active",            default: true
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "phones", force: :cascade do |t|
@@ -68,6 +86,14 @@ ActiveRecord::Schema.define(version: 20150605184025) do
     t.integer  "user_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+  end
+
+  create_table "subscribers", primary_key: "[:user_id, :message_thread_id]", force: :cascade do |t|
+    t.integer  "user_id",                          null: false
+    t.integer  "message_thread_id",                null: false
+    t.boolean  "active",            default: true
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "user_infos", force: :cascade do |t|

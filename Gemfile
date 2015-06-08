@@ -27,6 +27,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'bootstrap-sass'
+gem 'react-rails'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -49,4 +50,5 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails', '~> 3.0'
   gem 'seed-fu'
+  gem 'faker'
 end
