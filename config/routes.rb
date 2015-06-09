@@ -1,14 +1,5 @@
 Rails.application.routes.draw do
-  get 'groups/new'
-
-  get 'groups/show'
-
-  get 'groups/update'
-
-  get 'groups/index'
-
-  get 'groups/delete'
-
+  resources :groups
   get 'user_info/new'
 
   get 'profile/index'
@@ -22,8 +13,9 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   devise_for :users, controllers: { registrations: "registrations" }
-
+  resources :skills
   match ':controller(/:action(/:id))', :via => :get
+  resources :services
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

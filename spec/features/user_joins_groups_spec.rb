@@ -3,7 +3,6 @@ require 'factory_girl'
 RSpec.feature "UserJoinsGroups", type: :feature do
   before :each do
     @user = create(:user)
-    @group = create(:group)
   end
   scenario "join a group successfully" do
     sign_in

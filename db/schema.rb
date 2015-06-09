@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608232428) do
+ActiveRecord::Schema.define(version: 20150609184911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20150608232428) do
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "name"
   end
 
   create_table "phones", force: :cascade do |t|
@@ -76,6 +75,20 @@ ActiveRecord::Schema.define(version: 20150608232428) do
     t.datetime "updated_at",                 null: false
   end
 
+  create_table "skills", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "skills_users", id: false, force: :cascade do |t|
+    t.integer "user_id",  null: false
+    t.integer "skill_id", null: false
+  end
+
+  add_index "skills_users", ["skill_id", "user_id"], name: "index_skills_users_on_skill_id_and_user_id", using: :btree
+  add_index "skills_users", ["user_id", "skill_id"], name: "index_skills_users_on_user_id_and_skill_id", using: :btree
+
   create_table "user_infos", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -97,11 +110,9 @@ ActiveRecord::Schema.define(version: 20150608232428) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "groups_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["groups_id"], name: "index_users_on_groups_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :proposals
   has_many :addresses
   has_many :phones
-  belongs_to :group
+  has_and_belongs_to_many :skills
   accepts_nested_attributes_for :user_info
   accepts_nested_attributes_for :addresses, reject_if: proc { |attributes| attributes['zip'].blank? }
   accepts_nested_attributes_for :phones

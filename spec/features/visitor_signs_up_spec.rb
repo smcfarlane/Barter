@@ -9,16 +9,7 @@ RSpec.feature 'Visitor signs up', :type => :feature do
   scenario 'edit info after sign up' do
     sign_up
     visit edit_user_registration_path
-    # expect(page).to have_content('first_name')
-    # expect(page).to have_content('last_name')
-    # expect(page).to have_content('email@email.com')
-    # expect(page).to have_content('123-123-1234')
-    # expect(page).to have_content('1234 ray st')
-    # expect(page).to have_content('apt 4')
-    # expect(page).to have_content('San Diego')
-    # expect(page).to have_content('CA')
-    # expect(page).to have_content('12344')
-  end
+ end
   def sign_up
     visit new_user_registration_path
     fill_in 'First name', with: 'first_name'
