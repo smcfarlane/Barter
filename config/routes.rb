@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  resources :services
+  resources :agreements
 
   devise_for :users
-
 
   authenticated :user do
     root 'profile#index', as: "authenticated_root"

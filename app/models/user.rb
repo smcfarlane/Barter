@@ -5,11 +5,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :user_info
-  has_many :services, through: :service_users
-  has_many :service_users
-  has_many :proposals
   has_many :addresses
   has_many :phones
+  has_many :skills_users
+  has_many :skills, through: :skills_users
+
   accepts_nested_attributes_for :user_info
   accepts_nested_attributes_for :addresses, reject_if: proc { |attributes| attributes['zip'].blank? }
   accepts_nested_attributes_for :phones

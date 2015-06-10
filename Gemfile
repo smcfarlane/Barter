@@ -49,4 +49,5 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails', '~> 3.0'
   gem 'seed-fu'
+  gem 'rails-erd'
 end
