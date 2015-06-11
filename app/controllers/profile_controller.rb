@@ -2,7 +2,8 @@ class ProfileController < ApplicationController
   before_action :authenticate_user!
 
   def index
-
+    @user = current_user
+    @skills = @user.skills
   end
 
   def update
@@ -13,6 +14,4 @@ class ProfileController < ApplicationController
 
   def destroy
   end
-
-
 end

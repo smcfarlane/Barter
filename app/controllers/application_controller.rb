@@ -24,9 +24,9 @@ class ApplicationController < ActionController::Base
                :password,
                :password_confirmation,
                :current_password,
-               user_info_attributes: [:first_name, :last_name],
-               address_attributes: [:street_address, :street_address2, :city, :state, :zip],
-               phone_attributes: [:phone])
+               :user_infos_attributes => [:first_name, :last_name],
+               :addresses_attributes => [:street_address, :street_address2, :city, :state, :zip],
+               phones_attributes: [:phone])
     end
 
     devise_parameter_sanitizer.for(:account_update) do |u|
@@ -35,10 +35,9 @@ class ApplicationController < ActionController::Base
                :password,
                :password_confirmation,
                :current_password,
-               user_info_attributes: [:first_name, :last_name],
-               address_attributes: [:street_address, :street_address2, :city, :state, :zip],
-               email_attributes: [:email],
-               phone_attributes: [:phone])
+               :user_infos_attributes => [:first_name, :last_name],
+               :addresses_attributes => [:street_address, :street_address2, :city, :state, :zip],
+               :phones_attributes => [:phone])
     end
   end
 
