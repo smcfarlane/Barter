@@ -51,4 +51,5 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'seed-fu'
   gem 'faker'
+  gem 'rails-erd'
 end

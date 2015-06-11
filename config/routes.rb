@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
+  resources :agreements
   resources :message, except: [:index, :new, :edit]
 
   get 'user_info/new'
 
   get 'profile/index'
 
-  get 'profile/update'
+  authenticated :user do
+    root 'profile#index', as: "authenticated_root"
+  end
 
   get 'profile/edit'
 

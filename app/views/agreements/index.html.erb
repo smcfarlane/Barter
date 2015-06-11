@@ -1,0 +1,32 @@
+<div class="container">
+  <div>
+    <h2>Agreements</h2>
+  </div>
+
+  <div class="row top-20">
+    <%- @agreements.each do |a| -%>
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4><%= a.user1.user_info.last_name %>, <%= a.user1.user_info.first_name %></h4>
+              <h5>Skill: <%= a.skill1.name %></h5>
+              <h4><%= a.user2.user_info.last_name %>, <%= a.user2.user_info.first_name %></h4>
+              <h5>Skill: <%= a.skill2.name %></h5>
+            </div>
+            <div class="panel-body">
+              <strong>Status:</strong>
+              <%= a.status-%></br>
+              <strong>Due date:</strong>
+              <%= a.due_date-%>
+            </div>
+            <div class="panel-footer">
+              <div class="btn-group">
+                <%= link_to "View", agreement_path(a.id), class: "btn btn-default" -%>
+                <%= link_to "Edit", edit_agreement_path(a.id), class: "btn btn-default" -%>
+              </div>
+            </div>
+          </div>
+        </div>
+    <%- end -%>
+  </div>
+</div>
