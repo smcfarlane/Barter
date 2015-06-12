@@ -1,5 +1,8 @@
-<h1><%= @user.user_info.first_name %></h1>
-<% @skills.each do |s| %>
-  <li><%= s.name %></li>
-<% end %>
-
+<div class="container">
+  <div class="row">
+    <h1><%= @user.user_info.first_name %></h1>
+    <% @skills.each do |s| %>
+      <li><%= s.name %></li>
+    <% end %>
+  </div>
+</div>

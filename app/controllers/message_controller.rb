@@ -11,7 +11,7 @@ class MessageController < ApplicationController
   end
 
   def create
-    @message = Message.create!(user_id: params[:user_id], message_thread_id: params[:thread_id], text: params[:text])
+    @message = Message.create!(user_id: current_user.id, message_thread_id: params[:thread_id], text: params[:text])
     # unless Subscriber.where(user_id: current_user.id, message_thread_id: params[:thread_id]) == []
     #   Subscriber.create!(id: 1, user_id: current_user.id, message_thread_id: params[:thread_id])
     # end

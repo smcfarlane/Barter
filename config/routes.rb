@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  resources :boards
   resources :agreements
   resources :message, except: [:index, :new, :edit]
 
