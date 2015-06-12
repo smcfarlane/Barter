@@ -1,0 +1,47 @@
+
+  <feildset class="col-md-6">
+    <div class="row">
+      <legend></legend>
+      <div class="form-group col-md-6">
+        <label for="">Skill Needed</label><br/>
+        <%= select_tag :skill_needed, options_for_select(@skills) %>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="">Skills Offered</label>
+        <%- @user.skills.each do |s| -%>
+          <div class="checkbox">
+            <label>
+              <input name="skill::<%= s.id -%>" type="checkbox"> <%= s.name -%>
+            </label>
+          </div>
+        <%- end -%>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="">When do you need this done by</label><br/>
+        <%= select_date 1.week.from_now, prefix: :needed_by %>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="">City</label><br/>
+        <input type="text" name="city" class="form-control"/>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="">Contact Email</label><br/>
+        <div class="radio">
+          <label>
+            <input type="radio" name="contact_email" id="emails" value="<%= @user.email -%>" checked>
+            <%= @user.email -%>
+          </label>
+        </div>
+        <%- @user.emails.each do |e| -%>
+          <div class="radio">
+            <label>
+              <input type="radio" name="contact_email" id="emails" value="<%= e.email -%>">
+              <%= e.email -%>
+            </label>
+          </div>
+        <%- end -%>
+      </div>
+    </div>
+
+    <input type="submit" class="btn btn-primary"/>
+  </feildset>

@@ -20,12 +20,28 @@
 
 <body>
   <%= render 'layouts/nav' %>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <%- if notice || alert -%>
+  <div class="notifier">
+    <p class="notice"><%= notice %></p>
+    <p class="alert" style="margin-bottom: 0"><%= alert %></p>
+    <script>
+      window.setTimeout(function(){
+        $('.notifier').addClass("hide-notifier");
+      }, 5000);
+      window.setTimeout(function(){
+        $('.notifier').css("display", "none");
+      }, 7000);
+    </script>
+  </div>
+  <%- end -%>
+
   <% flash.each do |key, value| %>
     <%= content_tag(:div, value, class: "alert alert-#{key}") %>
   <% end %>
-  <%= yield %>
+  <div style="margin-top: 50px; margin-bottom: 50px">
+    <%= yield %>
+  </div>
+
   <%= render 'layouts/footer' %>
 
 </body>

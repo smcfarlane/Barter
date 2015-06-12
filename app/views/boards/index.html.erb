@@ -1,0 +1,45 @@
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <h1>The Board <small>Help And Be Helped By Your Neighbors</small></h1>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="btn-group pull-right">
+      <%= link_to "Add Request", new_board_path, class: 'btn btn-success' -%>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Neighbor</th>
+        <th>Needing</th>
+        <th>Can Offer</th>
+        <th>Needed By</th>
+        <th>Details</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @board.each do |b| -%>
+        <tr>
+          <td><%= link_to "View", board_path(b), class: "btn btn-default" -%></td>
+          <td><%= b.user.user_info.first_name -%></td>
+          <td><% b.skill_needed.each do |skill| -%><%= skill -%> <%- end -%></td>
+          <td><% b.skills_offered.each do |skill| -%><%= skill -%>, <%- end -%></td>
+          <td><%= b.needed_by.strftime("%D") -%></td>
+          <td>
+            <ul class="list-group">
+              <li class="list-group-item">City: <%= b.details['city'] -%></li>
+              <li class="list-group-item">Contact Email: <%= b.details['email'] -%></li>
+            </ul>
+          </td>
+        </tr>
+      <%- end -%>
+      </tbody>
+    </table>
+  </div>
+</div>
