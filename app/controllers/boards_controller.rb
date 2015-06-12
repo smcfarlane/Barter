@@ -1,7 +1,7 @@
 class BoardsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @board = Board.all
+    @board = Board.where(status: 'awaiting')
   end
 
   def show
@@ -26,10 +26,11 @@ class BoardsController < ApplicationController
       end
     end
     @board = Board.create(user_id: current_user.id, skill_needed: [params[:skill_needed]], skills_offered: skills_offered, details: {city: params[:city], email: params[:contact_email]}, needed_by: Date.civil(params[:needed_by][:year].to_i, params[:needed_by][:month].to_i, params[:needed_by][:day].to_i))
-    @board.save
-    @thread = MessageThread.create(title: "#{current_user.user_info.first_name} Item Discussion")
-    @thread.update_attribute :discussable, @board
-    redirect_to board_path(@board)
+    if @board.save
+      @thread = MessageThread.create(title: "#{current_user.user_info.first_name} Item Discussion")
+      @thread.update_attribute :discussable, @board
+      redirect_to board_path(@board)
+    end
   end
 
   def edit
@@ -39,8 +40,30 @@ class BoardsController < ApplicationController
   end
 
   def update
+    skills_offered = []
+    params.keys.each do |item|
+      p item
+      if item.include? '::'
+        skills_offered << Skill.find(item.split('::')[1].to_i).name if params[item] == 'on'
+      end
+    end
+
+    @board.update(skill_needed: [params[:skill_needed]], skills_offered: skills_offered, details: {city: params[:city], email: params[:contact_email]}, needed_by: Date.civil(params[:needed_by][:year].to_i, params[:needed_by][:month].to_i, params[:needed_by][:day].to_i))
+    if @board.save
+      unless @board.message_thread
+        @thread = MessageThread.create(title: "#{current_user.user_info.first_name} Item Discussion")
+        @thread.update_attribute :discussable, @board
+      end
+    end
+
+    redirect_to board_path(@board)
   end
 
   def destroy
+    @board = Board.find(params[:id])
+    @board.status = 'removed'
+    if @board.save
+      redirect_to boards_path
+    end
   end
 end

@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <div class="container">
     <div class="row">
-      <h1>The Board</h1>
+      <h1><%= link_to "The Board", boards_path, class: "board-heading" -%></h1>
     </div>
     <div class="row">
       <p><strong><%= @board.user.user_info.first_name -%></strong> needs <strong><%= @board.skill_needed[0] -%></strong> by <strong><%= @board.needed_by.strftime("%D") -%></strong> and can offer <strong><%= format_skills_offered @board.skills_offered -%></strong>.</p>
