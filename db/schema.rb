@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150605184025) do
+ActiveRecord::Schema.define(version: 20150612223023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20150605184025) do
     t.integer "user_id"
   end
 
+  create_table "agreements", force: :cascade do |t|
+    t.string   "status",                     null: false
+    t.text     "details",       default: "", null: false
+    t.integer  "user1skill_id"
+    t.integer  "user2skill_id"
+    t.date     "due_date"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "category"
     t.datetime "created_at", null: false
@@ -34,6 +44,29 @@ ActiveRecord::Schema.define(version: 20150605184025) do
   create_table "emails", force: :cascade do |t|
     t.integer "user_info_id"
     t.string  "email",        null: false
+  end
+
+  create_table "message_threads", force: :cascade do |t|
+    t.integer  "discussable_id",                  null: false
+    t.string   "discussable_type",                null: false
+    t.string   "title"
+    t.boolean  "active",           default: true
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "user_id",                          null: false
+    t.integer  "message_thread_id",                null: false
+    t.text     "text",                             null: false
+    t.boolean  "active",            default: true
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "phones", force: :cascade do |t|
@@ -49,6 +82,11 @@ ActiveRecord::Schema.define(version: 20150605184025) do
     t.integer  "service_users_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "service_users", force: :cascade do |t|
@@ -68,6 +106,31 @@ ActiveRecord::Schema.define(version: 20150605184025) do
     t.integer  "user_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "skills_users", force: :cascade do |t|
+    t.integer "user_id",  null: false
+    t.integer "skill_id", null: false
+    t.text    "details"
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subscribers", primary_key: "[:user_id, :message_thread_id]", force: :cascade do |t|
+    t.integer  "user_id",                          null: false
+    t.integer  "message_thread_id",                null: false
+    t.boolean  "active",            default: true
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "user_infos", force: :cascade do |t|

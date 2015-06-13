@@ -20,3 +20,8 @@ end
   Message.create(user_id: 1, message_thread_id: 0, text: Faker::Lorem.sentences(2, true).join(' '))
   puts "message #{i}"
 end
+
+3.times do |i|
+  Skill.create(id: i, name: Faker::Hacker.ingverb)
+  SkillsUser.create(user_id: 6, skill_id: i, details: Faker::Hacker.say_something_smart)
+end
