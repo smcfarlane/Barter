@@ -1,5 +1,5 @@
 <%= form_tag({controller: :skill, action: :edit}, method: :patch) %>
 <div class="form-group">
-  <%= @skills_users
+  <%= @skills_users.details %>
 </div>
 <span><%= submit_tag 'Submit' %></span>

@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :proposals
   has_many :addresses
   has_many :phones
+  has_many :emails, through: :user_info
+  has_many :boards
   has_many :message_threads, through: :subscribers, as: :discussable
   has_many :messages
   has_many :skills, through: :skills_users

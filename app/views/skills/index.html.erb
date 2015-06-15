@@ -3,23 +3,14 @@
     <h2><%= @user.user_info.first_name %>'s Skills</h2>
   </div>
   <div class="row top-20">
-    <% @skills_users.each do |s| %>
-    <div class="col-md-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h1><%= s.skill.name %></h1>
-        </div>
-        <div class="panel-body">
-          <p><%= s.details %></p>
-        </div>
-        <div class="panel-footer">
-          <small><%= link_to 'Delete', user_skill_path(@user, s.id), method: :delete %></small>
-        </div>
-      </div>
+    <div class="skill-user-index">
+      <%= render 'index' %>
     </div>
-    <% end %>
-
-    <strong><%= link_to 'Add another skill', new_user_skill_path(@user) %></strong>
+      <strong><%= link_to 'Add another skill', new_user_skill_path(@user), remote: true, class: 'btn btn-primary' %></strong>
   </div>
 </div>
-
+<div id="skill-user-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div id="inner-skill-user-modal" class="modal-content"></div>
+  </div>
+</div>

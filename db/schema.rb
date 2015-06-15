@@ -35,6 +35,17 @@ ActiveRecord::Schema.define(version: 20150612223023) do
     t.datetime "updated_at",                 null: false
   end
 
+  create_table "boards", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "skill_needed",   default: [],           null: false, array: true
+    t.string   "skills_offered", default: [],           null: false, array: true
+    t.jsonb    "details",                               null: false
+    t.string   "status",         default: "awaiting",   null: false
+    t.date     "needed_by",      default: '2015-06-22', null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "category"
     t.datetime "created_at", null: false
@@ -47,8 +58,8 @@ ActiveRecord::Schema.define(version: 20150612223023) do
   end
 
   create_table "message_threads", force: :cascade do |t|
-    t.integer  "discussable_id",                  null: false
-    t.string   "discussable_type",                null: false
+    t.integer  "discussable_id"
+    t.string   "discussable_type"
     t.string   "title"
     t.boolean  "active",           default: true
     t.datetime "created_at",                      null: false
