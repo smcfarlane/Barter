@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'profile/index'
 
   authenticated :user do
-    root 'profile#index', as: "authenticated_root"
+    root 'skills#index', as: "authenticated_root"
   end
 
   get 'profile/edit'

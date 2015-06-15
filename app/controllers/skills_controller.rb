@@ -27,6 +27,12 @@ class SkillsController < ApplicationController
     redirect_to user_skills_path(current_user)
   end
 
+  def delete
+    @user = current_user
+    @skill = params[:id]
+    @user.skill_users.find(@skill)
+  end
+
   def edit
     @user = current_user
     @skills_users = @user.skills_users
