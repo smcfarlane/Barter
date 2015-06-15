@@ -5,7 +5,7 @@ var Thread = React.createClass({
       messages: this.props.messages,
       userId: this.props.user_id,
       userName: this.props.user_name,
-      boardCreatorId: this.props.board_creator_id
+      creatorId: this.props.creator_id
     }
   },
   newMessage: function(message){
@@ -20,7 +20,7 @@ var Thread = React.createClass({
       <div className="container panel panel-default">
         <ThreadHeader title={this.state.thread.title} />
         <ThreadBody>
-          <MessageList messages={this.state.messages} user={{userId: this.state.userId, userName: this.state.userName, creatorId: this.state.boardCreatorId}} />
+          <MessageList messages={this.state.messages} user={{userId: this.state.userId, userName: this.state.userName, creatorId: this.state.creatorId}} thread={this.state.thread} />
         </ThreadBody>
         <NewMessageForm thread={this.state.thread} newMessage={this.newMessage} />
       </div>
@@ -51,9 +51,11 @@ var ThreadBody = React.createClass({
 var MessageList = React.createClass({
   render: function() {
     var user = this.props.user;
+    var thread = this.props.thread;
     var messages = this.props.messages.map(function(message, index){
+      var agreementsURL = '/agreements/new?user2=' + message.user_id + '&' + thread.discussable_type + '=' + thread.discussable_id;
       return (
-        <Message key={index} body={message.text} first_name={message.first_name} user={user} />
+        <Message key={index} body={message.text} first_name={message.first_name} agreementsURL={agreementsURL} user={user} />
       )
     });
     return (
@@ -66,7 +68,11 @@ var MessageList = React.createClass({
 
 var Message = React.createClass({
   render: function(){
-    var handShakeImage = <img style={{float: 'right'}} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABrklEQVRIS9WV4TEEURCE+yJABGSACBABGRwRcBEgAkSAEETARcBlQASI4NSnpqvm3u279/5cKa/q6mp3Z6ene3pmR1rzGa05v/4cYEfSOFhOJb0kxqeSDiTdSXqrKQEDkrwXAdy7l3SY7j9KIumJpJt4z4/PJD0MgQAwjwoIoBKS8POZSbqIi8sCNOe8lTRJN/ZgaIAaQ6omORVn0Fo8BX7lIloAW8FqO2X8TnIAurHKiT0A9IckJEYGflTJQQYaXwVpAdA8EtBYekTTz+P/StJ1C6QFQJUkhgVy4K58sCg9qjLJAEhgP+Pv3gML2AyCGAArQp8K7QLmoPd4DkqQmQeNREiAzwHAPVTFde8xyGZis7CLSGw34BRmgOauAuEdVshxVLFfro287GgWCa2/V4MHLTNBUuSkIPpGLBKjgi38G19uU4KeUybcQ1U4yVX6MQ7yoLEiYL10htY1IATvRjQMqJCesFk/0jN0h0kevgWQ2veAF5DLK+Ipqv0MCbgG7KhY4V0MHITlXuOChACiN8yWmlmzWuuLZl2Rh+ZhQSSpfmBKoBZA7wxU4/4/wA9/mWBSqCKFOQAAAABJRU5ErkJggg=="/>;
+    var handShakeImage = (
+      <a href={this.props.agreementsURL}>
+        <img style={{float: 'right'}} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABrklEQVRIS9WV4TEEURCE+yJABGSACBABGRwRcBEgAkSAEETARcBlQASI4NSnpqvm3u279/5cKa/q6mp3Z6ene3pmR1rzGa05v/4cYEfSOFhOJb0kxqeSDiTdSXqrKQEDkrwXAdy7l3SY7j9KIumJpJt4z4/PJD0MgQAwjwoIoBKS8POZSbqIi8sCNOe8lTRJN/ZgaIAaQ6omORVn0Fo8BX7lIloAW8FqO2X8TnIAurHKiT0A9IckJEYGflTJQQYaXwVpAdA8EtBYekTTz+P/StJ1C6QFQJUkhgVy4K58sCg9qjLJAEhgP+Pv3gML2AyCGAArQp8K7QLmoPd4DkqQmQeNREiAzwHAPVTFde8xyGZis7CLSGw34BRmgOauAuEdVshxVLFfro287GgWCa2/V4MHLTNBUuSkIPpGLBKjgi38G19uU4KeUybcQ1U4yVX6MQ7yoLEiYL10htY1IATvRjQMqJCesFk/0jN0h0kevgWQ2veAF5DLK+Ipqv0MCbgG7KhY4V0MHITlXuOChACiN8yWmlmzWuuLZl2Rh+ZhQSSpfmBKoBZA7wxU4/4/wA9/mWBSqCKFOQAAAABJRU5ErkJggg=="/>
+      </a>
+    );
     var user = this.props.user;
     console.log(this.props);
     var initialUser = user.userId === user.creatorId && this.props.first_name !== user.userName;
