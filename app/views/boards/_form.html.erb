@@ -36,10 +36,16 @@
         <label for="">Contact Email</label><br/>
         <div class="radio">
           <label>
+            <%- if @board.details -%>
             <input type="radio" name="contact_email" id="emails" value="<%= @user.email -%>" <%- if @board.details['email'] && @board.details['email'] == @user.email -%>checked<%- elsif !@board.details['email'] -%>checked<%- end -%>>
-            <%= @user.email -%>
+              <%= @user.email -%>
+            <%- else -%>
+              <input type="radio" name="contact_email" id="emails" value="<%= @user.email -%>" checked>
+              <%= @user.email -%>
+            <%- end -%>
           </label>
         </div>
+        <%- unless @user.emails.empty? -%>
         <%- @user.emails.each do |e| -%>
           <div class="radio">
             <label>
@@ -47,6 +53,7 @@
               <%= e.email -%>
             </label>
           </div>
+        <%- end -%>
         <%- end -%>
       </div>
     </div>
