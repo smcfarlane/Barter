@@ -1,9 +1,6 @@
-<%= form_tag({controller: :skill, action: :update}) %>
-<div class="form-group">
-  <span><%= select_tag :name, options_from_collection_for_select( @skills, 'id', 'name', '1') %></span>
-</div>
+<%= form_tag(user_skill_path(current_user, @skill), method: :put, id: params[:id]) %>
 <div class="form-group">
   <span><%= label_tag :details %></span>
-  <span><%= text_area_tag :details %></span>
+  <span><%= text_area_tag :details, @skills_user[:details] %></span>
 </div>
-<span><%= submit_tag 'Add Skill' %></span>
+<span><%= submit_tag 'Update Skill' %></span>
