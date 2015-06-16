@@ -9,7 +9,7 @@
         </div>
         <div class="panel-footer">
           <small><%= link_to 'Delete', user_skill_delete_path(@user, s.id), remote: true %></small>
-          <small><%= link_to 'Edit', edit_user_skill_path(@user, s.id), remote: true %></small>
+          <small><%= link_to 'Edit', edit_user_skill_path(@user.id, s.skill_id), remote: true %></small>
         </div>
       </div>
     </div>

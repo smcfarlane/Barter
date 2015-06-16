@@ -44,16 +44,16 @@ class SkillsController < ApplicationController
 
   def edit
     @user = current_user
-    # @skill = Skill.find params[:id]
-    @skills = Skill.all
-    # @skills_user = SkillsUser.new
-    @skills_user = SkillsUser.find(params[:id])
+    @skill = Skill.find(params[:id])
+    @skills_user = @skill.skills_users.find(@skill.skills_users)
   end
 
   def update
-    @skills_user = SkillsUser.find(user_id: current_user.id, skill_id: @skill.id, details: @details )
+    @details = params[:details]
+    @user = params[:id]
+    @skills_user = SkillsUser.find(params[:user_id])
+    SkillsUser.update(@skills_user, user_id: @user, details: @details )
     redirect_to user_skills_path(current_user)
-
   end
   private
 
