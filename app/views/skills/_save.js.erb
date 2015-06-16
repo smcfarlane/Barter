@@ -1,9 +1,2 @@
-$("ul.errors").html("");
-<% if @skills_users.errors.any? %>
-  <% @skills_users.error.full_messages.each do |message| %>
-    $('ul.errors').append($("<li />")).html("<%= message.html_safe %>")
-  <% end %>
-<% else %>
-  $('.skill-user-index').html("<%= escape_javascript(render 'index') %>")
-  $('#skill-user-modal').modal('hide')
-<% end %>
+    $('.skill-user-index').html("<%= escape_javascript(render 'index') %>")
+    $('#skill-user-modal').modal('hide')

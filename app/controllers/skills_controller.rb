@@ -7,6 +7,8 @@ class SkillsController < ApplicationController
   def add_skill_to_user
     @skill = Skill.find(params[:name])
     @skill.users << current_user unless @skill.users.exists?
+    #TODO add method to add details
+    # @skills_user = @skill.skills_users.find(@skill.users)
     redirect_to user_skills_path(current_user)
   end
 
@@ -14,6 +16,7 @@ class SkillsController < ApplicationController
     @user = current_user
     @skill = @user.skills.build
     @skills = Skill.all
+    @skills_user = SkillsUser.new
   end
 
   def index
@@ -35,21 +38,22 @@ class SkillsController < ApplicationController
   def destroy
     @user = current_user
     @skill = params[:id]
-    @skills_user = @user.skill_users.find(params[:id])
     @user.skills_users.destroy(@skill)
-    redirect_to user_skills_path(current_user)
+    @skills_users = @user.skills_users
   end
 
 
   def edit
     @user = current_user
     @skills_users = @user.skills_users
-    @skill = @skills_users.skill.find(params[:id])
+    @skill_id = params[:id]
+    @skill_user = @skills_users.find(params[:id])
+    @skill = @skill_user.skill
   end
 
   private
 
   def skill_params
-    params.permit(:name)
+    params.permit(:name, :details)
   end
 end
