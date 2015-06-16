@@ -29,10 +29,15 @@
     <%= select_date @board.needed_by, prefix: :due_date -%>
   </div>
   <input type="hidden" name="status" value="pending">
-  <div class="form-group">
+  <div class="btn-group">
     <input value="Submit Proposed Agreement" class="btn btn-primary" type="submit"/>
+    <%- if @edit -%>
+    <input value="Agree" class="btn btn-success" name="submit" type="submit"/>
+    <%- end -%>
   </div>
 </fieldset>
+
+
 <div class="col-md-6">
   <p style="font-size: 24px"><strong><%= @board.user.user_info.first_name -%></strong> needs <strong><%= @board.skill_needed[0] -%></strong> by <strong><%= @board.needed_by.strftime("%D") -%></strong><br/> and can offer <strong><%= format_skills_offered @board.skills_offered -%></strong>.</p>
   <p><strong>Location: </strong><%= @board.details['city'] -%></p>
