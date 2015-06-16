@@ -18,6 +18,6 @@
 </div>
 <div class="container">
   <div class="row">
-    <%= react_component('Thread', {thread: @thread, messages: @messages, user: @user.id}) -%>
+    <%= react_component('Thread', {thread: @thread, messages: @messages, user_id: @user_id, user_name: @user_name, creator_id: @board.user.id}) -%>
   </div>
 </div>

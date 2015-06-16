@@ -26,13 +26,17 @@ ActiveRecord::Schema.define(version: 20150612223023) do
   end
 
   create_table "agreements", force: :cascade do |t|
-    t.string   "status",                     null: false
-    t.text     "details",       default: "", null: false
-    t.integer  "user1skill_id"
-    t.integer  "user2skill_id"
+    t.string   "status"
+    t.string   "user1skill"
+    t.string   "user2skill"
     t.date     "due_date"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "board_id"
+    t.integer  "user_id"
+    t.boolean  "user1_agrees", default: false, null: false
+    t.boolean  "user2_agrees", default: false, null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.text     "details",      default: "",    null: false
   end
 
   create_table "boards", force: :cascade do |t|
@@ -41,7 +45,7 @@ ActiveRecord::Schema.define(version: 20150612223023) do
     t.string   "skills_offered", default: [],           null: false, array: true
     t.jsonb    "details",                               null: false
     t.string   "status",         default: "awaiting",   null: false
-    t.date     "needed_by",      default: '2015-06-22', null: false
+    t.date     "needed_by",      default: '2015-06-18', null: false
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
   end
@@ -75,11 +79,6 @@ ActiveRecord::Schema.define(version: 20150612223023) do
     t.datetime "updated_at",                       null: false
   end
 
-  create_table "pages", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "phones", force: :cascade do |t|
     t.string  "phone",   default: "", null: false
     t.integer "user_id"
@@ -93,11 +92,6 @@ ActiveRecord::Schema.define(version: 20150612223023) do
     t.integer  "service_users_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-  end
-
-  create_table "sections", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "service_users", force: :cascade do |t|

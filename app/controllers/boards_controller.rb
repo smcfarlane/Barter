@@ -8,7 +8,8 @@ class BoardsController < ApplicationController
     @board = Board.find(params[:id])
     @thread = @board.message_thread
     @messages = Message.joins(:user_info).select(:text, :user_id, :first_name, :last_name).where(message_thread_id: @thread.id)
-    @user = current_user
+    @user_id = current_user.id
+    @user_name = current_user.user_info.first_name
   end
 
   def new

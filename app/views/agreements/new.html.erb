@@ -1,3 +1,7 @@
-<%= form_for @agreement, url: {action: "create"}, html: {class: "create-agreement_form"} do |f| %>
-    <%= render 'form' -%>
-<%- end -%>
+<div class="container" style="padding-top: 20px">
+  <div class="row">
+    <%= form_for @agreement, url: {action: "create"}, html: {class: "create-agreement_form"} do |f| %>
+        <%= render 'form' -%>
+    <%- end -%>
+  </div>
+</div>
