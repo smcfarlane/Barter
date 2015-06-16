@@ -1,9 +1,0 @@
-<%= form_tag({controller: :skill, action: :update }, method: :post) %>
-<div class="form-group">
-  <span><%= select_tag :name, options_from_collection_for_select( @skills, 'id', 'name', '1') %></span>
-</div>
-<div class="form-group">
-  <%= label_tag :detail %>
-  <%= text_area :detail %>
-</div>
-<span><%= submit_tag 'Update Skill' %></span>

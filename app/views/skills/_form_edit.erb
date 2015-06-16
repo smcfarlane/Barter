@@ -1,1 +1,9 @@
-#TODO add form for editing
+<%= form_tag({controller: :skill, action: :update}) %>
+<div class="form-group">
+  <span><%= select_tag :name, options_from_collection_for_select( @skills, 'id', 'name', '1') %></span>
+</div>
+<div class="form-group">
+  <span><%= label_tag :details %></span>
+  <span><%= text_area_tag :details %></span>
+</div>
+<span><%= submit_tag 'Add Skill' %></span>

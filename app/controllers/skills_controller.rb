@@ -6,9 +6,8 @@ class SkillsController < ApplicationController
 
   def add_skill_to_user
     @skill = Skill.find(params[:name])
-    @skill.users << current_user unless @skill.users.exists?
-    #TODO add method to add details
-    # @skills_user = @skill.skills_users.find(@skill.users)
+    @details = params[:details]
+    @skills_user = SkillsUser.create(user_id: current_user.id, skill_id: @skill.id, details: @details ) unless @skill.users.exists?
     redirect_to user_skills_path(current_user)
   end
 
@@ -45,15 +44,25 @@ class SkillsController < ApplicationController
 
   def edit
     @user = current_user
-    @skills_users = @user.skills_users
-    @skill_id = params[:id]
-    @skill_user = @skills_users.find(params[:id])
-    @skill = @skill_user.skill
+    # @skills_users = @user.skills_users
+    # @skill_id = params[:id]
+    # @skill_user = @skills_users.find(params[:id])
+    @skill = @user.skills.build
+    @skills = Skill.all
+    @skills_user = SkillsUser.new
+  # @skill = @skill_user.skill
   end
 
+  def update
+     # @skill = Skill.find(params[:name])
+    # @details = params[:details]
+    @skills_user = SkillsUser.find(user_id: current_user.id, skill_id: @skill.id, details: @details )
+    redirect_to user_skills_path(current_user)
+
+  end
   private
 
   def skill_params
-    params.permit(:name, :details)
+    params.permit(:details)
   end
 end
