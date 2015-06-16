@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :admins
   resources :boards
   resources :agreements
   resources :message, except: [:index, :new, :edit]
@@ -20,9 +21,8 @@ Rails.application.routes.draw do
 
   post '/skill/add_skill_to_user' => 'skills#add_skill_to_user'
 
-  # get '/skill/delete_skill_from_user' => 'skills#delete_skill_from_user'
-
   resources :services
+
 
   devise_for :users, controllers: { registrations: "registrations" }
   resources :users do
@@ -30,6 +30,9 @@ Rails.application.routes.draw do
       get 'delete'
     end
   end
+
+  # devise_for :admins
+
   match ':controller(/:action(/:id))', :via => :get
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
