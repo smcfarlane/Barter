@@ -1,5 +1,0 @@
-<%= form_tag({controller: :skill, action: :add_skill_to_user}, method: :post) %>
-    <div class="form-group">
-        <span><%= select_tag :name, options_from_collection_for_select( @skills, 'id', 'name', '1') %></span>
-    </div>
-    <span><%= submit_tag 'Add Skill' %></span>

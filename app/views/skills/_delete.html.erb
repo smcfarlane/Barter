@@ -1,0 +1,11 @@
+<div class="modal-header">
+  <h3>Delete skill on profile</h3>
+</div>
+<div class="modal-body">
+  <ul class="errors"></ul>
+  Are you sure you want to delete <b><%= @skill_name %></b>?
+</div>
+<div class="modal-footer">
+  <%= link_to 'Yes delete this skill?', user_skill_path(@user, @skills_user), method: :delete, remote: true, class: 'btn btn-danger' %>
+  <%= link_to 'No please don\'t', "#", class: 'btn', data: { dismiss: "modal" } %>
+</div>

@@ -1,0 +1,16 @@
+<% @skills_users.each do |s| %>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1><%= s.skill.name %></h1>
+        </div>
+        <div class="panel-body">
+          <p><%= s.details %></p>
+        </div>
+        <div class="panel-footer">
+          <small><%= link_to 'Delete', user_skill_delete_path(@user, s.id), remote: true %></small>
+          <small><%= link_to 'Edit', edit_user_skill_path(@user, s.id), remote: true %></small>
+        </div>
+      </div>
+    </div>
+<% end %>
