@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612223023) do
+ActiveRecord::Schema.define(version: 20150615224454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20150612223023) do
     t.string   "skills_offered", default: [],           null: false, array: true
     t.jsonb    "details",                               null: false
     t.string   "status",         default: "awaiting",   null: false
-    t.date     "needed_by",      default: '2015-06-18', null: false
+    t.date     "needed_by",      default: '2015-06-22', null: false
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
   end
@@ -79,6 +79,11 @@ ActiveRecord::Schema.define(version: 20150612223023) do
     t.datetime "updated_at",                       null: false
   end
 
+  create_table "pages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "phones", force: :cascade do |t|
     t.string  "phone",   default: "", null: false
     t.integer "user_id"
@@ -92,6 +97,11 @@ ActiveRecord::Schema.define(version: 20150612223023) do
     t.integer  "service_users_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "service_users", force: :cascade do |t|
