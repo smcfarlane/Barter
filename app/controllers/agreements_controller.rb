@@ -6,19 +6,19 @@ class AgreementsController < ApplicationController
 
   def show
     @agreement = Agreement.find(params[:id])
-    @user1 = @agreement.user1
-    @user2 = @agreement.user2
+    @user1 = @agreement.board.user
+    @user2 = @agreement.user
     @board = @agreement.board
   end
 
   def new
     @agreement = Agreement.new
 
-    @user2_id = params[:user2]     # hardcode for now; user 2 info will come via message board system
-
-    @user1 = current_user
-    @user2 = User.find(@user2_id)
+    @user2_id = params[:user2]
     @board = Board.find(params[:Board])
+    @user1 = @board.user
+    @user2 = User.find(@user2_id)
+
     # @user1skills = SkillsUser.where(:user_id => current_user.id)
     # @user2skills = SkillsUser.where(:user_id => @user2_id)
   end
@@ -26,12 +26,11 @@ class AgreementsController < ApplicationController
   def create
     @agreement = Agreement.create(
         status: 'pending',
-        user1: current_user.id,
-        user2: params[:user2],
-        boards_id: params[:board],
+        user_id: params[:user2],
+        board_id: params[:board],
         details: params[:details],
-        user1skill_id: params[:offered_skill_id],
-        user2skill_id: params[:received_skill_id],
+        user1skill: params[:offered_skill_id],
+        user2skill: params[:received_skill_id],
         due_date: Date.new(params[:due_date][:year].to_i, params[:due_date][:month].to_i, params[:due_date][:day].to_i)
     )
     if @agreement.save
@@ -43,28 +42,33 @@ class AgreementsController < ApplicationController
 
   def edit
     @agreement = Agreement.find(params[:id])
+    @board = @agreement.board
+    @user1 = @board.user
+    @user2 = @agreement.user
 
-    @user1 = User.find(@agreement.user1.id)
-    @user2 = User.find(@agreement.user2.id)
-    @user1skills = SkillsUser.where(:user_id => current_user.id)
-    @user2skills = SkillsUser.where(:user_id => @agreement.user2.id)
   end
 
   def update
     @agreement = Agreement.find(params[:id])
-    @agreement.update!(
-        status: params[:status],
+    @agreement.update(
+        status: 'pending',
+        user_id: params[:user2],
+        board_id: params[:board],
         details: params[:details],
-        user1skill_id: params[:offered_skill_id],
-        user2skill_id: params[:received_skill_id],
-        due_date: params[:due_date]
+        user1skill: params[:offered_skill_id],
+        user2skill: params[:received_skill_id],
+        due_date: Date.new(params[:due_date][:year].to_i, params[:due_date][:month].to_i, params[:due_date][:day].to_i)
     )
-    redirect_to action: :show, id: @agreement.id
+    if @agreement.save
+      redirect_to action: :show, id: @agreement.id
+    else
+      redirect_to :back
+    end
   end
 
   def destroy
     @agreement = Agreement.find(params[:id])
-    @agreement.destroy!
+    @agreement.status = 'deleted'
     redirect_to action: :index
   end
 end

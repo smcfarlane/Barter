@@ -9,23 +9,25 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3>Agreement:</h3>
-            <h3><%= @agreement.user1.user_info.last_name %>, <%= @agreement.user1.user_info.first_name %></h3>
-            <h4>Skill: <%= @agreement.skill1.name %></h4>
-            <h3><%= @agreement.user2.user_info.last_name %>, <%= @agreement.user2.user_info.first_name %></h3>
-            <h4>Skill: <%= @agreement.skill2.name %></h4>
+            <h3><%= @agreement.board.user.user_info.last_name %>, <%= @agreement.board.user.user_info.first_name %></h3>
+            <h4>Skill: <%= @agreement.user1skill %></h4>
+            <h3><%= @agreement.user.user_info.last_name %>, <%= @agreement.user.user_info.first_name %></h3>
+            <h4>Skill: <%= @agreement.user2skill %></h4>
           </div>
-          <div class="panel-body">
-            <strong>Details:</strong>
-            <%= @agreement.details-%>
-          </div>
-          <div class="panel-body">
-            <strong>Status:</strong>
-            <%= @agreement.status-%>
-          </div>
-          <div class="panel-body">
-            <strong>Due date:</strong>
-            <%= @agreement.due_date-%>
-          </div>
+          <ul class="list-group">
+            <li class="list-group-item" style="word-wrap:break-word;">
+              <strong>Details:</strong>
+              <%= @agreement.details-%>
+            </li>
+            <li class="list-group-item">
+              <strong>Status:</strong>
+              <%= @agreement.status-%>
+            </li>
+            <li class="list-group-item">
+              <strong>Due date:</strong>
+              <%= @agreement.due_date.strftime("%D")-%>
+            </li>
+          </ul>
         </div>
       </div>
   </div>
