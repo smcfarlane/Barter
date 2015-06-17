@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  post '/skill/add_skill_to_user' => 'skills#add_skill_to_user'
+
+  resources :services
+
+
+  devise_for :users, controllers: { registrations: "registrations" }
+  resources :users do
+    resources :skills do
+      get 'delete'
+    end
+  end
 
   devise_for :admins
   resources :boards
@@ -19,17 +30,6 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-  post '/skill/add_skill_to_user' => 'skills#add_skill_to_user'
-
-  resources :services
-
-
-  devise_for :users, controllers: { registrations: "registrations" }
-  resources :users do
-    resources :skills do
-      get 'delete'
-    end
-  end
 
   # devise_for :admins
 

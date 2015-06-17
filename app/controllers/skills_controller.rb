@@ -7,7 +7,7 @@ class SkillsController < ApplicationController
   def add_skill_to_user
     @skill = Skill.find(params[:name])
     @details = params[:details]
-    @skills_user = SkillsUser.create(user_id: current_user.id, skill_id: @skill.id, details: @details ) unless @skill.users.exists?
+    @skills_user = SkillsUser.create(user_id: current_user.id, skill_id: @skill.id, details: @details )
     redirect_to user_skills_path(current_user)
   end
 
