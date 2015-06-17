@@ -135,11 +135,6 @@ ActiveRecord::Schema.define(version: 20150615224454) do
     t.text    "details"
   end
 
-  create_table "subjects", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "subscribers", primary_key: "[:user_id, :message_thread_id]", force: :cascade do |t|
     t.integer  "user_id",                          null: false
     t.integer  "message_thread_id",                null: false
