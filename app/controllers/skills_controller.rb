@@ -45,7 +45,7 @@ class SkillsController < ApplicationController
   def edit
     @user = current_user
     @skill = Skill.find(params[:id])
-    @skills_user = @skill.skills_users.find(@skill.skills_users)
+    @skills_user = @skill.skills_users.where(user_id: @user.id).first
   end
 
   def update
@@ -55,9 +55,5 @@ class SkillsController < ApplicationController
     SkillsUser.update(@skills_user, user_id: @user, details: @details )
     redirect_to user_skills_path(current_user)
   end
-  private
 
-  def skill_params
-    params.permit(:details)
-  end
 end
