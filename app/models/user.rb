@@ -23,9 +23,9 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :phones
 
 
-  after_initialize :initialize_user_info
-  after_initialize :initialize_address
-  after_initialize :initialize_phone
+  # after_initialize :initialize_user_info
+  # after_initialize :initialize_address
+  # after_initialize :initialize_phone
   def initialize_user_info
     self.user_info = UserInfo.new() unless self.user_info
   end

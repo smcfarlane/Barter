@@ -28,6 +28,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'bootstrap-sass'
 gem 'react-rails'
+gem 'geocoder'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
