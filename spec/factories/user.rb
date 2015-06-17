@@ -38,6 +38,7 @@ FactoryGirl.define do
     city "San Diego"
     state "CA"
     zip "12344"
+    association :user, factory: :user, strategy: :build
   end
 
   factory :user do
