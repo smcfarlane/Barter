@@ -19,10 +19,17 @@ FactoryGirl.define do
     "123#{n} thing st"
   end
 
+  factory :emails do
+    email
+  end
+
   factory :user_info do
     first_name "Billy"
     last_name "Bob"
-    user
+  end
+
+  factory :phone do
+    phone "4445556666"
   end
 
   factory :address do
@@ -31,12 +38,14 @@ FactoryGirl.define do
     city "San Diego"
     state "CA"
     zip "12344"
-    user
   end
 
   factory :user do
     id
     email
     password "asdfasdf"
+    association :user_info, factory: :user_info, strategy: :build
+    # association :addresses, factory: :address, strategy: :build
+    # association :phones, factory: :phone, strategy: :build
   end
 end

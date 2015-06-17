@@ -1,13 +1,12 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :boards do
-    user1 1
-    user2 1
-    skill_needed "MyString"
-    skills_offered "MyString"
-    details "MyString"
-    status "MyString"
-    needed_by "2015-06-11"
+  factory :board do
+    association :user, factory: :user
+    skill_needed "plumbing"
+    skills_offered ["IT, sewing"]
+    details {{'city' => 'Cool city', 'email' => 'example@example.com'}}
+    status "awiating"
+    needed_by {1.week.from_now}
   end
 end
