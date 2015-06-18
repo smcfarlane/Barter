@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612223023) do
+ActiveRecord::Schema.define(version: 20150616195530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20150612223023) do
     t.string  "state",                        null: false
     t.string  "zip",                          null: false
     t.integer "user_id"
+    t.float   "latitude"
+    t.float   "longitude"
   end
 
   create_table "agreements", force: :cascade do |t|
@@ -123,11 +125,6 @@ ActiveRecord::Schema.define(version: 20150612223023) do
     t.integer "user_id",  null: false
     t.integer "skill_id", null: false
     t.text    "details"
-  end
-
-  create_table "subjects", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "subscribers", primary_key: "[:user_id, :message_thread_id]", force: :cascade do |t|

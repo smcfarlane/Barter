@@ -5,7 +5,8 @@ var Thread = React.createClass({
       messages: this.props.messages,
       userId: this.props.user_id,
       userName: this.props.user_name,
-      creatorId: this.props.creator_id
+      creatorId: this.props.creator_id,
+      actionTaken: this.props.action_taken
     }
   },
   newMessage: function(message){
@@ -16,11 +17,12 @@ var Thread = React.createClass({
     this.setState({ messages: m });
   },
   render: function() {
+    console.log(this.state);
     return (
       <div className="container panel panel-default">
         <ThreadHeader title={this.state.thread.title} />
         <ThreadBody>
-          <MessageList messages={this.state.messages} user={{userId: this.state.userId, userName: this.state.userName, creatorId: this.state.creatorId}} thread={this.state.thread} />
+          <MessageList messages={this.state.messages} user={{userId: this.state.userId, userName: this.state.userName, creatorId: this.state.creatorId}} thread={this.state.thread} actionTaken={this.state.actionTaken} />
         </ThreadBody>
         <NewMessageForm thread={this.state.thread} newMessage={this.newMessage} />
       </div>
@@ -52,10 +54,18 @@ var MessageList = React.createClass({
   render: function() {
     var user = this.props.user;
     var thread = this.props.thread;
+    var actionTaken = this.props.actionTaken;
     var messages = this.props.messages.map(function(message, index){
-      var agreementsURL = '/agreements/new?user2=' + message.user_id + '&' + thread.discussable_type + '=' + thread.discussable_id;
+      if (actionTaken) {
+        var agreementsURL = 'javascript:void(0)';
+        var btnCSS = 'btn btn-success disabled';
+      } else {
+        var agreementsURL = '/agreements/new?user2=' + message.user_id + '&' + thread.discussable_type + '=' + thread.discussable_id;
+        var btnCSS = 'btn btn-success';
+      }
+
       return (
-        <Message key={index} body={message.text} first_name={message.first_name} agreementsURL={agreementsURL} user={user} />
+        <Message key={index} body={message.text} first_name={message.first_name} agreementsURL={agreementsURL} user={user} btnCSS={btnCSS} />
       )
     });
     return (
@@ -69,8 +79,8 @@ var MessageList = React.createClass({
 var Message = React.createClass({
   render: function(){
     var handShakeImage = (
-      <a href={this.props.agreementsURL}>
-        <img style={{float: 'right'}} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABrklEQVRIS9WV4TEEURCE+yJABGSACBABGRwRcBEgAkSAEETARcBlQASI4NSnpqvm3u279/5cKa/q6mp3Z6ene3pmR1rzGa05v/4cYEfSOFhOJb0kxqeSDiTdSXqrKQEDkrwXAdy7l3SY7j9KIumJpJt4z4/PJD0MgQAwjwoIoBKS8POZSbqIi8sCNOe8lTRJN/ZgaIAaQ6omORVn0Fo8BX7lIloAW8FqO2X8TnIAurHKiT0A9IckJEYGflTJQQYaXwVpAdA8EtBYekTTz+P/StJ1C6QFQJUkhgVy4K58sCg9qjLJAEhgP+Pv3gML2AyCGAArQp8K7QLmoPd4DkqQmQeNREiAzwHAPVTFde8xyGZis7CLSGw34BRmgOauAuEdVshxVLFfro287GgWCa2/V4MHLTNBUuSkIPpGLBKjgi38G19uU4KeUybcQ1U4yVX6MQ7yoLEiYL10htY1IATvRjQMqJCesFk/0jN0h0kevgWQ2veAF5DLK+Ipqv0MCbgG7KhY4V0MHITlXuOChACiN8yWmlmzWuuLZl2Rh+ZhQSSpfmBKoBZA7wxU4/4/wA9/mWBSqCKFOQAAAABJRU5ErkJggg=="/>
+      <a style={{float: 'right'}} className={this.props.btnCSS} href={this.props.agreementsURL}>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABzElEQVRIS8WV8TEEYQzF36sAFdCBUwEqoAOnAlTgVIAKUIIKUAHXARU4FcT8TGI+d7e36w8jMzs7u5vNy0te8ll/bP7j+PpfgIjYknSULJ9sPxbjiBhL2pV0bfulqxImiO3X1iED30jaa97f2R5HxKGkS0mAlx3bvl0GAkBIIgMcuJMZV9lU0mk+nM+BtjGvbJ81DEcwLIAuhncZnIxb0C5/Epy1SfQBbCSrzSbiR7LlFaBrq5Q4BID+EITAV1y2yVIRQRlofCdIH8BxBqCx9Iimn+R9YvuiD6QPgEQJDAvK0SqHb0j0dBVIC0AJSs/oe6hd2J50gRQAUoQ+GZYKmIOh9jUHS0CmX4OWUSgBOp/Z3oiIST7/FmRd0qim/nsXRQSZlxpQCzNAcwHtMv55knSQDjvza6MFYFoJWPWv1cB7Bq01SgpzEqJvJEOJxyXhcv6xTSMCp4cmEurZSSVVlvX5uhm0M9uwXrCFdZ0gOG+nNwzIkJ6wWd+ab8wJTL6Hbx5h6XkQEQBQrloR95nte6qMZ8D22xU+iEE5peSe8/ne9mFEUG+YLTSzSwUrT7Rkwr+shVlEIEHOj84DZlCJhgp/iN//nslDMuzz+QQ9QcA6X4VeQAAAAABJRU5ErkJggg=="/>
       </a>
     );
     var user = this.props.user;
