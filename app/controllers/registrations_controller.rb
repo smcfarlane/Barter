@@ -10,7 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(resource)
      case resource
        when :user, User
-         resource.valid? ? user_skills_path : root_path
+         resource.valid? ? user_skills_path(current_user) : root_path
        else
          super
       end

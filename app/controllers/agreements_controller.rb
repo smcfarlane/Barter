@@ -1,7 +1,12 @@
 class AgreementsController < ApplicationController
   def index
     @user_skills = SkillsUser.where(:user_id => current_user.id)
-    @agreements = Agreement.where(:user1skill_id => @user_skills.first.id)
+    # @agreements = Agreement.where(:user1skill_id => @user_skills.first.id)
+    @agreements = []
+    @user_skills.each do |us|
+      @agreements << Agreement.where(:user1skill => us)
+    end
+    @agreements = Agreement.all
   end
 
   def show
