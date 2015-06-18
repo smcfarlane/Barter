@@ -63,3 +63,5 @@ end
   Skill.create(id: i, name: Faker::Hacker.ingverb)
   SkillsUser.create(user_id: 6, skill_id: i, details: Faker::Hacker.say_something_smart)
 end
+
+Agreement.create(status: 'pending', user1skill: 'Landscaping', user2skill: 'Mechanic', due_date: '2015-06-30', board_id: 55, user_id: 4, user1_agrees: true, user2_agrees: false, details: 'The details')
