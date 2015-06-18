@@ -1,6 +1,8 @@
-<%= form_tag(user_skill_path(current_user, @skill), method: :put, id: params[:id]) %>
-<div class="form-group">
-  <span><%= label_tag :details %></span>
-  <span><%= text_area_tag :details, @skills_user[:details] %></span>
+<%= form_tag(skill_path(@skills_user), method: :put, id: params[:id]) %>
+<div class="col-md-8 col-md-offset-2 top-20 bottom-20">
+  <div class="form-group">
+    <span><label for="">Details</label></span>
+    <span><%= text_area_tag :details, @skills_user.details, class: 'form-control' %></span>
+  </div>
+  <span><%= submit_tag 'Update Skill', class: 'btn btn-primary' %></span>
 </div>
-<span><%= submit_tag 'Update Skill' %></span>

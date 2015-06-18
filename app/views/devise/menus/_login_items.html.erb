@@ -3,7 +3,7 @@
     <%= link_to('Log Out', destroy_user_session_path, :method => :delete) %>
   </li>
     <li>
-      <%= link_to('Skills', user_skills_path(current_user)) %>
+      <%= link_to('Skills', skills_path) %>
     </li>
 <% else %>
     <li>

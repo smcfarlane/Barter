@@ -1,16 +1,18 @@
 <div class="container">
-  <div>
-    <h2><%= @user.user_info.first_name %>'s Skills</h2>
-  </div>
-  <div class="row top-20">
-    <div class="skill-user-index">
-      <%= render 'index' %>
+  <div class="row top-50 bottom-30">
+    <div>
+      <h2><%= current_user.user_info.first_name %>'s Skills</h2>
     </div>
-      <strong><%= link_to 'Add another skill', new_user_skill_path(@user), remote: true, class: 'btn btn-primary' %></strong>
+    <div class="row top-20">
+      <div class="skill-user-index">
+        <%= render 'index' %>
+      </div>
+      <strong><%= link_to 'Add another skill', new_skill_path, remote: true, class: 'btn btn-primary' %></strong>
+    </div>
   </div>
 </div>
 <div id="skill-user-modal" class="modal fade">
-  <div class="modal-dialog">
-    <div id="inner-skill-user-modal" class="modal-content"></div>
-  </div>
+    <div class="modal-dialog container">
+      <div id="inner-skill-user-modal" class="modal-content row"></div>
+    </div>
 </div>

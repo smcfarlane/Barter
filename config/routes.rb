@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   resources :services
 
   devise_for :users, controllers: { registrations: "registrations" }
-  resources :users do
+  scope :user do
     resources :skills do
       get 'delete'
     end

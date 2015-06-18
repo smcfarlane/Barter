@@ -1,9 +1,12 @@
 <%= form_tag({controller: :skill, action: :add_skill_to_user}, method: :post) %>
-<div class="form-group">
-  <span><%= select_tag :name, options_from_collection_for_select( @skills, 'id', 'name', '1') %></span>
+<div class="col-md-8 col-md-offset-2 top-20 bottom-20">
+  <div class="form-group">
+    <label for="">Select a skill</label>
+    <span><%= select_tag :name, options_from_collection_for_select( @skills, 'id', 'name', '1') %></span>
+  </div>
+  <div class="form-group">
+    <label for="">Details</label>
+    <span><%= text_area_tag :details, nil, class: 'form-control' %></span>
+  </div>
+  <span><%= submit_tag 'Add Skill', class: 'btn btn-primary' %></span>
 </div>
-<div class="form-group">
-  <span><%= label_tag :details, :details %></span>
-  <span><%= text_area_tag :details, :details %></span>
-</div>
-<span><%= submit_tag 'Add Skill' %></span>
