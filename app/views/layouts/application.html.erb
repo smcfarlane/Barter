@@ -20,10 +20,13 @@
 
 <body>
   <%= render 'layouts/nav' %>
-  <%- if notice || alert -%>
+  <%- if notice || alert || flash.count > 0 -%>
   <div class="notifier">
-    <p class="notice"><%= notice %></p>
-    <p class="alert" style="margin-bottom: 0"><%= alert %></p>
+    <!--<p class="notice"><%= notice %></p>-->
+    <!--<p class="alert" style="margin-bottom: 0"><%= alert %></p>-->
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+    <% end %>
     <script>
       window.setTimeout(function(){
         $('.notifier').addClass("hide-notifier");
@@ -35,9 +38,7 @@
   </div>
   <%- end -%>
 
-  <% flash.each do |key, value| %>
-    <%= content_tag(:div, value, class: "alert alert-#{key}") %>
-  <% end %>
+
   <div>
     <%= yield %>
   </div>

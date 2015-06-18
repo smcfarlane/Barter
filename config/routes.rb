@@ -4,25 +4,13 @@ Rails.application.routes.draw do
   resources :agreements
   resources :message, except: [:index, :new, :edit]
 
-  get 'user_info/new'
-
   get 'profile/index'
-
-  authenticated :user do
-    root 'skills#index', as: "authenticated_root"
-  end
-
-  get 'profile/edit'
-
-  get 'profile/destroy'
 
   root 'welcome#index'
 
   post '/skill/add_skill_to_user' => 'skills#add_skill_to_user'
 
   # get '/skill/delete_skill_from_user' => 'skills#delete_skill_from_user'
-
-  resources :services
 
   devise_for :users, controllers: { registrations: "registrations" }
   scope :user do
