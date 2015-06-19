@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :boards
-  resources :agreements
+  resources :agreements, except: [:show]
   resources :message, except: [:index, :new, :edit]
 
   get 'profile/index'

@@ -3,23 +3,18 @@ class AgreementsController < ApplicationController
     @agreements = Agreement.where(user: current_user)
   end
 
-  def show
-    @agreement = Agreement.find(params[:id])
-    @user1 = @agreement.board.user
-    @user2 = @agreement.user
-    @board = @agreement.board
-  end
+  # def show
+  #   @agreement = Agreement.find(params[:id])
+  #   @user1 = @agreement.board.user
+  #   @user2 = @agreement.user
+  #   @board = @agreement.board
+  # end
 
   def new
     @agreement = Agreement.new
-
-    @user2_id = params[:user2]
     @board = Board.find(params[:Board])
     @user1 = @board.user
-    @user2 = User.find(@user2_id)
-
-    # @user1skills = SkillsUser.where(:user_id => current_user.id)
-    # @user2skills = SkillsUser.where(:user_id => @user2_id)
+    @user2 = User.find(params[:user2])
   end
 
   def create
