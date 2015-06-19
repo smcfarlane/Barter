@@ -1,97 +1,116 @@
 <div class="container">
-  <div><h2>Profile (<%= @user.user_info.last_name %>, <%= @user.user_info.first_name %>)</h2></div>
-  <div class="col-md-6">
-    <h3>Agreements initiated by You</h3>
-    <table id="agreements-table" class="table table-bordered table-hover">
-      <% if @agreements.length > 0 %>
-        <% @agreements.each do |agreement| %>
-          <tr>
-            <th>Created</th>
-            <th>Other Party</th>
-            <th>Status</th>
-            <th>You Agree</th>
-            <th>Agreed by Other Party</th>
-            <th>Due Date</th>
-          </tr>
-          <tr data-link="<%= agreement_path(agreement) %>">
-
-            <td><%= agreement.created_at %></td>
-            <td><%= agreement.user.user_info.last_name %>, <%= agreement.user.user_info.first_name %></td>
-            <td><%= agreement.status %></td>
-            <td><%= agreement.user1_agrees %></td>
-            <td><%= agreement.user2_agrees %></td>
-            <td><%= agreement.due_date %></td>
-          </tr>
-        <% end %>
-      <% else %>
-          <tr><td>NONE</td></tr>
-      <% end %>
-    </table>
-
-    <h3>Agreements proposed to You</h3>
-    <table id="agreements-table" class="table table-bordered table-hover">
-      <% if @agreements_as_2nd.length > 0 %>
-        <% @agreements_as_2nd.each do |agreement| %>
-          <tr>
-            <th>Created</th>
-            <th>Other Party</th>
-            <th>Status</th>
-            <th>You Agree</th>
-            <th>Agreed by Other Party</th>
-            <th>Due Date</th>
-          </tr>
-          <tr data-link="<%= agreement_path(agreement) %>">
-            <td><%= agreement.created_at %></td>
-            <td><%= agreement.user.user_info.last_name %>, <%= agreement.user.user_info.first_name %></td>
-            <td><%= agreement.status %></td>
-            <td><%= agreement.user1_agrees %></td>
-            <td><%= agreement.user2_agrees %></td>
-            <td><%= agreement.due_date %></td>
-          </tr>
-        <% end %>
-      <% else %>
-          <tr><td>NONE</td></tr>
-      <% end %>
-    </table>
-
-    <h3>Your Skills</h3>
-    <table id="skills-table" class="table table-hover">
-      <tr>
-        <th>Skill</th>
-        <th></th>
-      </tr>
-      <% if @skills.length > 0 %>
-          <% @skills.each do |s| %>
+  <div class="row top-70 bottom-30">
+    <div class="col-md-12"><h2>Profile <%= @user.user_info.first_name %> <%= @user.user_info.last_name %> </h2></div>
+    <div class="col-md-6">
+      <h3>Agreements Initiated by You</h3>
+      <table id="agreements-table" class="table table-bordered table-hover">
+            <thead>
               <tr>
-                <td>
-                  <%= s.name %>
-                </td>
-                <td>
-                    <small><%= link_to 'Delete' , data:  {toggle:"modal", target:"#destroyModal"} %></small>
-                </td>
+                <th>Created</th>
+                <th>Other Party</th>
+                <th>Status</th>
+                <th>You Agree</th>
+                <th>Agreed by Other Party</th>
+                <th>Due Date</th>
               </tr>
-          <% end %>
-      <% else %>
-          <tr><td>NONE</td></tr>
-      <% end %>
-    </table>
-  </div>
-  <div class="col-md-6">
-    <h3>Boards Matching Skills</h3>
-    <table id="boards-match-table" class="table table-bordered table-hover">
-      <tr>
-        <th>Board</th>
-      </tr>
+            </thead>
+            <tbody>
+            <% if @agreements.length > 0 %>
+            <% @agreements.each do |agreement| %>
+            <tr data-link="<%= edit_agreement_path(agreement) %>">
 
-      <% if @boards_match.length > 0 %>
-          <% @boards_match.each do |board| %>
-              <tr data-link="<%= board_path(board) %>">
-                <td><p>[<strong><%= board.created_at.strftime("%D") -%></strong>] <%= board.user.user_info.first_name -%></strong> needs <strong><%= board.skill_needed[0] -%></strong> by <strong><%= board.needed_by.strftime("%D") -%></strong> and can offer <strong><%= format_skills_offered board.skills_offered -%></strong>.</p></td>
-              </tr>
+              <td><%= agreement.created_at.strftime("%D") %></td>
+              <td><%= agreement.user.user_info.first_name %> <%= agreement.user.user_info.last_name %></td>
+              <td><%= agreement.status.capitalize %></td>
+              <td><% if agreement.user1_agrees %><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><%- else -%><span class="glyphicon glyphicon-remove" aria-hidden="true"></span><%- end -%></td>
+              <td><% if agreement.user2_agrees %><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><%- else -%><span class="glyphicon glyphicon-remove" aria-hidden="true"></span><%- end -%></td>
+              <td><%= agreement.due_date %></td>
+            </tr>
           <% end %>
-      <% else %>
+        <% else %>
+          <tr><td colspan="6">NONE</td></tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <h3>Agreements proposed to You</h3>
+      <table id="agreements-table" class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Created</th>
+                <th>Other Party</th>
+                <th>Status</th>
+                <th>You Agree</th>
+                <th>Agreed by Other Party</th>
+                <th>Due Date</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% if @agreements_as_2nd.length > 0 %>
+              <% @agreements_as_2nd.each do |agreement| %>
+                <tr data-link="<%= edit_greement_path(agreement) %>">
+                  <td><%= agreement.created_at.strftime("%D") %></td>
+                  <td><%= agreement.user.user_info.first_name %> <%= agreement.user.user_info.last_name %></td>
+                  <td><%= agreement.status.capitaliz %></td>
+                  <td><% if agreement.user1_agrees %><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><%- else -%><span class="glyphicon glyphicon-remove" aria-hidden="true"></span><%- end -%></td>
+                  <td><% if agreement.user2_agrees %><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><%- else -%><span class="glyphicon glyphicon-remove" aria-hidden="true"></span><%- end -%></td>
+                  <td><%= agreement.due_date %></td>
+                </tr>
+              <% end %>
+        <% else %>
+          <tr><td colspan="6">NONE</td></tr>
+
+        <% end %>
+        </tbody>
+      </table>
+
+      <h3>Your Skills</h3>
+      <table id="skills-table" class="table table-hover">
+        <thead>
+        <tr>
+          <th>Skill</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% if @skills.length > 0 %>
+          <% @skills.each do |s| %>
+            <tr>
+              <td>
+                <%= s.name %>
+              </td>
+              <td>
+                <small><%= link_to 'Delete' , data:  {toggle:"modal", target:"#destroyModal"} %></small>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
           <tr><td>NONE</td></tr>
-      <% end %>
-    </table>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-6">
+      <h3>Boards Matching Skills</h3>
+      <table id="boards-match-table" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <th>Board</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% if @boards_match.length > 0 %>
+          <% @boards_match.each do |board| %>
+            <tr data-link="<%= board_path(board) %>">
+              <td><p>[<strong><%= board.created_at.strftime("%D") -%></strong>] <%= board.user.user_info.first_name -%></strong> needs <strong><%= board.skill_needed[0] -%></strong> by <strong><%= board.needed_by.strftime("%D") -%></strong> and can offer <strong><%= format_skills_offered board.skills_offered -%></strong>.</p></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr><td colspan="2">NONE</td></tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

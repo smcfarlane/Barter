@@ -33,7 +33,7 @@ class AgreementsController < ApplicationController
         due_date: Date.new(params[:due_date][:year].to_i, params[:due_date][:month].to_i, params[:due_date][:day].to_i)
     )
     if @agreement.save
-      redirect_to action: :show, id: @agreement.id
+      redirect_to action: profile_index_path
     else
       redirect_to :back
     end
@@ -72,7 +72,7 @@ class AgreementsController < ApplicationController
       end
       if @agreement.save
         p 'save'
-        redirect_to action: :show, id: @agreement.id
+        redirect_to profile_index_path
       else
         redirect_to :back
       end
@@ -84,6 +84,6 @@ class AgreementsController < ApplicationController
   def destroy
     @agreement = Agreement.find(params[:id])
     @agreement.status = 'deleted'
-    redirect_to action: :index
+    redirect_to profile_index_path
   end
 end
