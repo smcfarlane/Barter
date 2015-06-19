@@ -2,12 +2,11 @@ require 'rails_helper'
 require 'factory_girl'
 
 RSpec.describe BoardsController, type: :controller do
-  before :each do
-    @user = create(:user)
-    allow(controller).to receive(:authenticate_user!).and_return(true)
-    # https://github.com/plataformatec/devise/wiki/How-To:-Stub-authentication-in-controller-specs
-  end
+  # before :each do
+  #   allow(controller).to receive(:authenticate_user!).and_return(true)
+  # end
   describe "GET #index" do
+    login_user
     it "returns http success" do
       get :index
       expect(response).to have_http_status(:success)
@@ -23,53 +22,65 @@ RSpec.describe BoardsController, type: :controller do
       board1, board2 = create(:board), create(:board)
       get :index
 
-      expect(assigns(:boards)).to match_array([board1, board2])
+      expect(Board.all).to match_array([board1, board2])
     end
   end
 
   describe "GET #show" do
+    login_user
     it "returns http success" do
-      sign_in :user, @user
+      thread = create(:message_thread)
+      message1, message2 = create(:message), create(:message)
       board = create(:board)
+      thread.discussable_id = board.id
+      thread.save
       get :show, id: board.id
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET #new" do
+    login_user
     it "returns http success" do
-      sign_in :user, @user
       get :new
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET #create" do
+  describe "POST #create" do
+    login_user
     it "returns http success" do
-      get :create
-      expect(response).to have_http_status(:success)
+      skill1, skill2 = create(:skill), create(:skill)
+      post :create, 'skill_needed' => 'IT', "skill::#{skill1.id}" => 'on', "skill::#{skill2.id}" => 'on', 'city' => 'city', 'contact_email' => subject.current_user.email, 'needed_by' => {'year' => '2015', 'month' => '7', 'day' => '17'}
+      expect(response).to have_http_status(302)
     end
   end
 
   describe "GET #edit" do
+    login_user
     it "returns http success" do
-      sign_in :user, @user
-      get :edit
+      board = create(:board)
+      get :edit, id: board.id
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET #update" do
+    login_user
     it "returns http success" do
-      get :update
-      expect(response).to have_http_status(:success)
+      skill1, skill2 = create(:skill), create(:skill)
+      board = create(:board)
+      put :update, 'id' => board.id, 'skill_needed' => 'IT', "skill::#{skill1.id}" => 'on', "skill::#{skill2.id}" => 'on', 'city' => 'city', 'contact_email' => subject.current_user.email, 'needed_by' => {'year' => '2015', 'month' => '7', 'day' => '17'}
+      expect(response).to have_http_status(302)
     end
   end
 
   describe "GET #destroy" do
+    login_user
     it "returns http success" do
-      get :destroy
-      expect(response).to have_http_status(:success)
+      board = create(:board)
+      get :destroy, id: board.id
+      expect(response).to have_http_status(302)
     end
   end
 

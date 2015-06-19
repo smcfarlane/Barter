@@ -48,7 +48,7 @@ class BoardsController < ApplicationController
         skills_offered << Skill.find(item.split('::')[1].to_i).name if params[item] == 'on'
       end
     end
-
+    @board = Board.find(params[:id])
     @board.update(skill_needed: [params[:skill_needed]], skills_offered: skills_offered, details: {city: params[:city], email: params[:contact_email]}, needed_by: Date.civil(params[:needed_by][:year].to_i, params[:needed_by][:month].to_i, params[:needed_by][:day].to_i))
     if @board.save
       unless @board.message_thread

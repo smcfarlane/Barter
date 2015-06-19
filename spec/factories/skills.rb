@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :skill  do
-    association :user, factory: :user
-    association :skills_users, factory: :skills_user
+    # association :user, factory: :user
+    # association :skills_users, factory: :skills_user
     name 'Plumbing'
   end
 end
