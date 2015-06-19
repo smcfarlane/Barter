@@ -1,9 +1,9 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :skill  do
+  factory :skills_user do
     association :user, factory: :user
-    association :skills_users, factory: :skills_user
-    name 'Plumbing'
+    association :skills, factory: :skill
+    details "These are some riveting details."
   end
 end
