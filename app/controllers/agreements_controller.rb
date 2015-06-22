@@ -28,7 +28,7 @@ class AgreementsController < ApplicationController
         due_date: Date.new(params[:due_date][:year].to_i, params[:due_date][:month].to_i, params[:due_date][:day].to_i)
     )
     if @agreement.save
-      redirect_to action: profile_index_path
+      redirect_to action: profile_index_path(current_user)
     else
       redirect_to :back
     end
