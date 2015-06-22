@@ -2,9 +2,9 @@ Rails.application.routes.draw do
 
   resources :boards
   resources :agreements, except: [:show]
-  resources :message, except: [:index, :new, :edit]
+  resources :message, only: [:new, :create, :destroy]
 
-  get 'profile/index'
+  get 'profile' => 'profile#index'
 
   root 'welcome#index'
 

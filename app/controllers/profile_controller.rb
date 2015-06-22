@@ -32,13 +32,4 @@ class ProfileController < ApplicationController
     # Sort by create date desc (newest board entries first)
     @boards = @boards.sort{|a,b| b[:created_at] <=> a[:created_at]}
   end
-
-  def update
-  end
-
-  def edit
-  end
-
-  def destroy
-  end
 end

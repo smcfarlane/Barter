@@ -11,8 +11,8 @@ class RegistrationsController < Devise::RegistrationsController
      case resource
        when :user, User
          resource.valid? ? user_skills_path(current_user) : root_path
-       when :admin, Admin
-         resource.valid? ? admin_dash_path(current_user) : root_path
+       # when :admin, Admin
+       #   resource.valid? ? admin_dash_path(current_user) : root_path
        else
          super
       end

@@ -2,13 +2,6 @@ require 'rails_helper'
 
 RSpec.describe MessageController, type: :controller do
 
-  describe "GET #show" do
-    it "returns http success" do
-      get :show
-      expect(response).to have_http_status(:success)
-    end
-  end
-
   describe "GET #new" do
     it "returns http success" do
       get :new
@@ -17,22 +10,9 @@ RSpec.describe MessageController, type: :controller do
   end
 
   describe "GET #create" do
+    login_user
     it "returns http success" do
-      get :create
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET #edit" do
-    it "returns http success" do
-      get :edit
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET #update" do
-    it "returns http success" do
-      get :update
+      get :create, thread_id: 1, text: Faker::Hacker.say_something_smart
       expect(response).to have_http_status(:success)
     end
   end

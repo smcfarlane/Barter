@@ -28,7 +28,7 @@ class AgreementsController < ApplicationController
         due_date: Date.new(params[:due_date][:year].to_i, params[:due_date][:month].to_i, params[:due_date][:day].to_i)
     )
     if @agreement.save
-      redirect_to action: profile_index_path
+      redirect_to action: profile_path
     else
       redirect_to :back
     end
@@ -54,31 +54,31 @@ class AgreementsController < ApplicationController
           user2skill: params[:received_skill_id],
           due_date: Date.new(params[:due_date][:year].to_i, params[:due_date][:month].to_i, params[:due_date][:day].to_i)
       )
+      if params[:submit] == 'Agree'
+        if current_user == @agreement.board.user
+          @agreement.user1_agrees = true
+        elsif current_user == @agreement.user
+          @agreement.user2_agrees = true
+        end
+      end
       if @agreement.changed?
         @agreement.user1_agrees = false
         @agreement.user2_agrees = false
-        p 'changed'
-        redirect_to action: :show, id: @agreement.id
-      end
-      if current_user == @agreement.board.user && params[:submit] == 'Agree'
-        @agreement.user1_agrees = true
-      elsif current_user == @agreement.user && params[:submit] == 'Agree'
-        @agreement.user2_agrees = true
       end
       if @agreement.save
-        p 'save'
-        redirect_to profile_index_path
+        redirect_to profile_path
       else
         redirect_to :back
       end
     else
-      redirect_to :back
+      redirect_to profile_path
     end
   end
 
   def destroy
     @agreement = Agreement.find(params[:id])
     @agreement.status = 'deleted'
-    redirect_to profile_index_path
+    redirect_to profile_path
   end
+
 end

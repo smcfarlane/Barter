@@ -10,7 +10,6 @@ RSpec.describe BoardsController, type: :controller do
     it "returns http success" do
       get :index
       expect(response).to have_http_status(:success)
-      expect(response).to have_http_status(200)
     end
 
     it "renders the index template" do
@@ -19,9 +18,9 @@ RSpec.describe BoardsController, type: :controller do
     end
 
     it "loads all of the boards into @boards" do
+      s1, s2, s3 = create(:skill, name: 'IT'), create(:skill, name: 'plumbing'), create(:skill, name: 'sewing')
       board1, board2 = create(:board), create(:board)
       get :index
-
       expect(Board.all).to match_array([board1, board2])
     end
   end
@@ -29,6 +28,7 @@ RSpec.describe BoardsController, type: :controller do
   describe "GET #show" do
     login_user
     it "returns http success" do
+      s1, s2, s3 = create(:skill, name: 'IT'), create(:skill, name: 'plumbing'), create(:skill, name: 'sewing')
       thread = create(:message_thread)
       message1, message2 = create(:message), create(:message)
       board = create(:board)
@@ -50,15 +50,22 @@ RSpec.describe BoardsController, type: :controller do
   describe "POST #create" do
     login_user
     it "returns http success" do
-      skill1, skill2 = create(:skill), create(:skill)
-      post :create, 'skill_needed' => 'IT', "skill::#{skill1.id}" => 'on', "skill::#{skill2.id}" => 'on', 'city' => 'city', 'contact_email' => subject.current_user.email, 'needed_by' => {'year' => '2015', 'month' => '7', 'day' => '17'}
+      s1, s2, s3 = create(:skill, name: 'IT'), create(:skill, name: 'plumbing'), create(:skill, name: 'sewing')
+      post :create, 'skill_needed' => 'IT', "skill::#{s1.id}" => 'on', "skill::#{s2.id}" => 'on', 'city' => 'city', 'contact_email' => subject.current_user.email, 'needed_by' => {'year' => '2015', 'month' => '7', 'day' => '17'}
       expect(response).to have_http_status(302)
+    end
+
+    it "creates a thread to go with the board" do
+      s1, s2, s3 = create(:skill, name: 'IT'), create(:skill, name: 'plumbing'), create(:skill, name: 'sewing')
+      post :create, 'skill_needed' => 'IT', "skill::#{s1.id}" => 'on', "skill::#{s2.id}" => 'on', 'city' => 'city', 'contact_email' => subject.current_user.email, 'needed_by' => {'year' => '2015', 'month' => '7', 'day' => '17'}
+      expect(MessageThread.all[0].discussable_id).to be
     end
   end
 
   describe "GET #edit" do
     login_user
     it "returns http success" do
+      s1, s2, s3 = create(:skill, name: 'IT'), create(:skill, name: 'plumbing'), create(:skill, name: 'sewing')
       board = create(:board)
       get :edit, id: board.id
       expect(response).to have_http_status(:success)
@@ -68,9 +75,9 @@ RSpec.describe BoardsController, type: :controller do
   describe "GET #update" do
     login_user
     it "returns http success" do
-      skill1, skill2 = create(:skill), create(:skill)
+      s1, s2, s3 = create(:skill, name: 'IT'), create(:skill, name: 'plumbing'), create(:skill, name: 'sewing')
       board = create(:board)
-      put :update, 'id' => board.id, 'skill_needed' => 'IT', "skill::#{skill1.id}" => 'on', "skill::#{skill2.id}" => 'on', 'city' => 'city', 'contact_email' => subject.current_user.email, 'needed_by' => {'year' => '2015', 'month' => '7', 'day' => '17'}
+      put :update, 'id' => board.id, 'skill_needed' => 'IT', "skill::#{s1.id}" => 'on', "skill::#{s2.id}" => 'on', 'city' => 'city', 'contact_email' => subject.current_user.email, 'needed_by' => {'year' => '2015', 'month' => '7', 'day' => '17'}
       expect(response).to have_http_status(302)
     end
   end
@@ -78,6 +85,7 @@ RSpec.describe BoardsController, type: :controller do
   describe "GET #destroy" do
     login_user
     it "returns http success" do
+      s1, s2, s3 = create(:skill, name: 'IT'), create(:skill, name: 'plumbing'), create(:skill, name: 'sewing')
       board = create(:board)
       get :destroy, id: board.id
       expect(response).to have_http_status(302)
