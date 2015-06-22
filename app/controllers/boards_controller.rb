@@ -15,6 +15,7 @@ class BoardsController < ApplicationController
   def new
     @board = Board.new
     @skills = Skill.all.pluck(:name)
+    # @skills = ['plumbing', 'IT', 'landscaping']
     @user = current_user
   end
 
