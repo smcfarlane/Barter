@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   resources :agreements, except: [:show]
   resources :message, except: [:index, :new, :edit]
 
-  get 'profile/index'
+  authenticated :user do
+    root :to => 'profile#index', as: :authenticated_root
+  end
+    root :to => 'welcome#index'
 
-  root 'welcome#index'
 
   post '/skill/add_skill_to_user' => 'skills#add_skill_to_user'
 
