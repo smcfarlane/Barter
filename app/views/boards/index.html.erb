@@ -8,7 +8,11 @@
 <div class="container">
   <div class="row">
     <div class="btn-group pull-right">
-      <%= link_to "Add Request", new_board_path, class: 'btn btn-success' -%>
+      <% if @user.skills_users.count > 0 %>
+        <%= link_to "Add Request", new_board_path, class: 'btn btn-success' %>
+      <% else %>
+        <%= link_to 'Add Skill', skills_path, class: 'btn btn-success' %><mark>Add a skill to create a new barter request:</mark>
+      <% end %>
     </div>
   </div>
   <div class="row">

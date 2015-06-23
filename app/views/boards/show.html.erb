@@ -5,6 +5,8 @@
     </div>
     <div class="row">
       <p><strong><%= @board.user.user_info.first_name -%></strong> needs <strong><%= @board.skill_needed[0] -%></strong> by <strong><%= @board.needed_by.strftime("%D") -%></strong> and can offer <strong><%= format_skills_offered @board.skills_offered -%></strong>.</p>
+      <p>Use this area to describe your need and the skills you would like to exchange</p>
+      <p>When you have reached an agreement with another user, click the handshake icon to further clarify the details and create commitment.</p>
     </div>
     <%- if @user == @board.user -%>
     <div class="row">
