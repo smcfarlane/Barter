@@ -2,6 +2,7 @@
   <feildset class="col-md-6">
     <div class="row">
       <legend></legend>
+    </div>
       <div class="form-group col-md-6">
         <label for="">Skill Needed</label><br/>
         <%- if @board.skill_needed[0] -%>
@@ -14,7 +15,7 @@
         <label for="">Skills Offered</label>
         <%- @user.skills.each do |s| -%>
           <div class="checkbox">
-            <label>
+            <label required>
               <input name="skill::<%= s.id -%>" type="checkbox" <%- if @board.skills_offered.include?(s.name) -%> checked <%- end -%>> <%= s.name -%>
             </label>
           </div>
