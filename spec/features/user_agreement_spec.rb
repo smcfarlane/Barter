@@ -1,47 +1,32 @@
 require 'rails_helper'
 require 'factory_girl'
+require 'pry'
 RSpec.feature "UserAgreement", type: :feature do
-  # before :each do
-  #   @user = create(:user, email: 'dude_1@email.com')
-  #   @skill1, @skill2, @skill3 = create(:skill, name: 'plumbing'), create(:skill, name: 'IT'), create(:skill, name: 'landscaping')
-
-    # @user.skills << @skill1
-    # @user.save
-  # end
-  describe "user makes agreement successfully", :driver => :webkit do
+  describe "user makes agreement successfully" do
     it 'signs in' do
       sign_in
       visit profile_index_path
       expect(page).to have_content("Profile #{@user.user_info.first_name}")
     end
-    it 'visits board' do
+    it 'creates new board' do
       sign_in
       visit new_board_path
-      # expect(page).to have_content('Create A Board Entry')
-      save_and_open_page
-      select("#{@skill1.name}", :from => 'skill_needed')
-    #   expect(page).to have_content('Create')
-    #   check('plumbing')
-    #   fill_in 'City', with: 'San Diego'
-    #   click_button 'Submit'
-    #   expect(page).to have_content(@user.user_info.first_name)
-    #   expect(page).to have_content(@user.board.skill_needed[0])
-    #   expect(page).to have_content(@user.board.needed_by.strftime("%D"))
-    #   fill_in 'Post New Message', 'I need plumbing!'
-    #   click_button 'Submit'
-    #   click_link 'Log Out'
+      select("#{@skill2.name}", :from => 'skill_needed')
+      check "#{@skill1.name}"
+      click_button 'Submit'
+      expect(page).to have_content(@user.user_info.first_name)
+      expect(page).to have_content(@skill2.name)
+      expect(page).to have_content((Time.mktime Time.now.year, Time.now.month, Time.now.day + 6).strftime("%D"))
     end
   end
+  it 'allows other user to agree'
+
 
   def sign_in
     @user = create(:user, email: 'dude_1@email.com' )
     @skill1, @skill2, @skill3 = create(:skill, name: 'plumbing'), create(:skill, name: 'IT'), create(:skill, name: 'landscaping')
     @user.skills << @skill1
     @user.save
-    # visit new_user_session_path
-    # fill_in 'Email', with: @user.email
-    # fill_in 'Password', with: @user.password
-    # click_button 'Log in'
     login_as(@user, :scope => :user)
   end
 end

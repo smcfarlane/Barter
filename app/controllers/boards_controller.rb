@@ -32,6 +32,8 @@ class BoardsController < ApplicationController
       @thread = MessageThread.create(title: "#{current_user.user_info.first_name} Item Discussion")
       @thread.update_attribute :discussable, @board
       redirect_to board_path(@board)
+    else
+      redirect_to :back
     end
   end
 

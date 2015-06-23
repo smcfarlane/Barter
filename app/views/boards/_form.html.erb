@@ -1,14 +1,14 @@
 
-  <feildset class="col-md-6">
+  <fieldset class="col-md-6">
     <div class="row">
       <legend></legend>
       <div class="form-group col-md-6">
         <label for="">Skill Needed</label><br/>
-        <%- if @board.skill_needed[0] -%>
+        <% if @board.skill_needed[0] %>
           <%= select_tag :skill_needed, options_for_select(@skills, @board.skill_needed[0]) %>
-        <%- else -%>
+        <% else %>
           <%= select_tag :skill_needed, options_for_select(@skills) %>
-        <%- end -%>
+        <% end %>
       </div>
       <div class="form-group col-md-6">
         <label for="">Skills Offered</label>
@@ -58,5 +58,5 @@
       </div>
     </div>
 
-    <input type="submit" class="btn btn-primary"/>
-  </feildset>
+    <input type="submit" class="btn btn-primary"/ value="Submit">
+  </fieldset>
