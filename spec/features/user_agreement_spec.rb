@@ -19,7 +19,8 @@ RSpec.feature "UserAgreement", type: :feature do
       expect(page).to have_content((Time.mktime Time.now.year, Time.now.month, Time.now.day + 6).strftime("%D"))
     end
   end
-  it 'allows other user to agree'
+  it 'allows other user to agree to a board matching skills from profile'
+  it 'allows current user to visit board index agree'
 
 
   def sign_in
