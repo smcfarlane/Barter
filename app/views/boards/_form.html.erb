@@ -15,7 +15,7 @@
         <label for="">Skills Offered</label>
         <%- @user.skills.each do |s| -%>
           <div class="checkbox">
-            <label required>
+            <label>
               <input name="skill::<%= s.id -%>" type="checkbox" <%- if @board.skills_offered.include?(s.name) -%> checked <%- end -%>> <%= s.name -%>
             </label>
           </div>
