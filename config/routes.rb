@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   resources :agreements, except: [:show]
   resources :message, only: [:new, :create, :destroy]
 
+  authenticated :user do
+    root :to => 'profile#index', as: :authenticated_root
+  end
+    root :to => 'welcome#index'
   get 'profile' => 'profile#index'
 
   root 'welcome#index'

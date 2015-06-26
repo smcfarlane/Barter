@@ -2,6 +2,7 @@ class BoardsController < ApplicationController
   before_action :authenticate_user!
   def index
     @board = Board.where(status: 'awaiting')
+    @user = current_user || nil
   end
 
   def show
@@ -21,7 +22,6 @@ class BoardsController < ApplicationController
   def create
     skills_offered = []
     params.keys.each do |item|
-      p item
       if item.include? '::'
         skills_offered << Skill.find(item.split('::')[1].to_i).name if params[item] == 'on'
       end
@@ -31,6 +31,8 @@ class BoardsController < ApplicationController
       @thread = MessageThread.create(title: "#{current_user.user_info.first_name} Item Discussion")
       @thread.update_attribute :discussable, @board
       redirect_to board_path(@board)
+    else
+      redirect_to :back
     end
   end
 

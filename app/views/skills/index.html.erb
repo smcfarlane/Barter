@@ -7,7 +7,8 @@
       <div class="skill-user-index">
         <%= render 'index' %>
       </div>
-      <strong><%= link_to 'Add another skill', new_skill_path, remote: true, class: 'btn btn-primary' %></strong>
+      <%= link_to 'Back', root_path, class: 'btn btn-primary' %>
+      <%= link_to 'Add Skill', new_skill_path, remote: true, class: 'btn btn-primary' %>
     </div>
   </div>
 </div>
