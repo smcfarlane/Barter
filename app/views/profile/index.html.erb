@@ -19,7 +19,7 @@
             <% if @agreements.length > 0 %>
             <% @agreements.each do |agreement| %>
             <tr data-link="<%= edit_agreement_path(agreement) %>">
-              <td><%- if agreement.board.user == current_user -%><span class="glyphicon glyphicon-star"</span><%- end -%></td>
+              <td><%- if agreement.board.user == current_user -%><span class="glyphicon glyphicon-star"></span><%- end -%></td>
               <td><%= agreement.created_at.strftime("%D") %></td>
               <td><%= agreement.user.user_info.first_name %> <%= agreement.user.user_info.last_name %></td>
               <td><%= agreement.status.capitalize %></td>
