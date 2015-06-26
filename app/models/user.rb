@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  
 
   has_one :user_info
   has_many :services, through: :service_users
@@ -16,6 +17,8 @@ class User < ActiveRecord::Base
   has_many :messages
   has_many :skills_users
   has_many :skills, through: :skills_users
+  has_many :my_agreements, through: :boards, class_name: 'Agreement', source: :agreements
+  has_many :agreements
 
   has_and_belongs_to_many :skills
   accepts_nested_attributes_for :user_info

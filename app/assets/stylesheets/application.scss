@@ -1,6 +1,18 @@
 
+//Import bootstrap-sprockets
 @import "bootstrap-sprockets";
+
+// Import cerulean variables
+@import "bootswatch/United/variables";
+
+// Then bootstrap itself
 @import "bootstrap";
+
+// Bootstrap body padding for fixed navbar
+body { padding-top: 50px; }
+
+// And finally bootswatch style itself
+@import "bootswatch/United/bootswatch";
 @import "welcome";
 @import "board";
 @import "spacing";

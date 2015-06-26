@@ -16,52 +16,41 @@ Subscriber.delete_all
 #########################################
 
 
-
+# Create Skills
 skills = ['IT', 'carpentry', 'plumbing', 'interior design', 'sewing']
 skills.each do |skill|
   Skill.create(name: skill)
 end
 
-5.times do |i|
-  password = 'password' + i.to_s
-  User.create(email: Faker::Internet.email, password: password, password_confirmation: password,
-               user_info_attributes: {first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, user_id: 1},
-               addresses_attributes: [{street_address: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zip: Faker::Address.zip_code, user_id: 1}],
-               phones_attributes: [{phone: Faker::PhoneNumber.phone_number, user_id: 1}])
-  puts "user #{i}"
+# Create Users
+5.times do
+  password = 'password'
+  fname = Faker::Name.first_name
+  lname = Faker::Name.last_name
+  email = Faker::Internet.free_email("#{fname}.#{lname}")
+
+  user = User.create(email: email, password: password, password_confirmation: password)
+  UserInfo.create(first_name: fname, last_name: lname, user_id: user.id)
+  Address.create(street_address: Faker::Address.street_address, city: Faker::Address.city, state: 'CA', zip: Faker::Address.zip_code, user_id: user.id)
+  Phone.create(phone: Faker::PhoneNumber.phone_number, user_id: user.id)
 end
 
+# Add Skills to users
 User.all.each do |user|
-  skill1 = Skill.find_by_name(skills.sample)
-  skill2 = Skill.find_by_name(skills.sample)
-  user.skills << skill1
-  user.skills << skill2
+  3.times {user.skills << Skill.find_by_name(skills.sample)}
 end
 
-5.times do |i|
-  user = User.find(User.pluck(:id).sample)
+# Create Boards
+15.times do
+  users = User.all.to_a.sample(5)
+  user = users.shift
   users_skills = user.skills.pluck(:name)
-  b = Board.create(user_id: user.id, skill_needed: [skills[rand(0..4)]], skills_offered: users_skills,
-               details: {city: user.addresses[0].city, email: user.email}, needed_by: rand(1..3).week.from_now)
+  board = Board.create(user_id: user.id, skill_needed: [skills[rand(0..4)]], skills_offered: users_skills,
+               details: {city: user.addresses[0].city, email: user.email}, needed_by: Faker::Date.between(Date.today, 2.months.from_now))
 
   thread = MessageThread.create(title: "#{user.user_info.first_name} Item Discussion")
-  thread.update_attribute(:discussable, b)
+  thread.update_attribute(:discussable, board)
+  4.times {Message.create(user_id: users.sample.id, message_thread_id: thread.id, text: Faker::Hacker.say_something_smart)}
+  
+  Agreement.create(status: 'pending', user1skill: board.skills_offered.sample, user2skill: board.skill_needed[0], due_date: Faker::Date.between(Date.today, 3.months.from_now), board_id: board.id, user_id: users.sample.id, user1_agrees: [true, false].sample, user2_agrees: [true, false].sample, details: Faker::Lorem.paragraph)
 end
-
-# Messages seeding
-1.times do |i|
-  MessageThread.create(discussable_id: 1, discussable_type: 'user', title: 'User Thread')
-  puts "thread #{i}"
-end
-
-10.times do |i|
-  Message.create(user_id: 1, message_thread_id: 0, text: Faker::Lorem.sentences(2, true).join(' '))
-  puts "message #{i}"
-end
-
-3.times do |i|
-  Skill.create(id: i, name: Faker::Hacker.ingverb)
-  SkillsUser.create(user_id: 6, skill_id: i, details: Faker::Hacker.say_something_smart)
-end
-
-Agreement.create(status: 'pending', user1skill: 'Landscaping', user2skill: 'Mechanic', due_date: '2015-06-30', board_id: 55, user_id: 4, user1_agrees: true, user2_agrees: false, details: 'The details')
