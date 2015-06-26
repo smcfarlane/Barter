@@ -29,6 +29,7 @@ gem 'devise'
 gem 'bootstrap-sass'
 gem 'react-rails'
 gem 'geocoder'
+gem 'bootswatch-rails'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

@@ -1,11 +1,12 @@
 <div class="container">
   <div class="row top-70 bottom-30">
-    <div class="col-md-12"><h2>Profile <%= @user.user_info.first_name %> <%= @user.user_info.last_name %> </h2></div>
+    <div class="col-md-12"><h2>Dashboard <%= ['Awesome', 'Cool', 'Silly', 'Dorky', 'Funky'].sample -%></h2></div>
     <div class="col-md-6">
       <h3>Agreements Initiated by You</h3>
       <table id="agreements-table" class="table table-bordered table-hover">
             <thead>
               <tr>
+                <th>Yours</th>
                 <th>Created</th>
                 <th>Other Party</th>
                 <th>Status</th>
@@ -18,7 +19,7 @@
             <% if @agreements.length > 0 %>
             <% @agreements.each do |agreement| %>
             <tr data-link="<%= edit_agreement_path(agreement) %>">
-
+              <td><%- if agreement.board.user == current_user -%><span class="glyphicon glyphicon-star"</span><%- end -%></td>
               <td><%= agreement.created_at.strftime("%D") %></td>
               <td><%= agreement.user.user_info.first_name %> <%= agreement.user.user_info.last_name %></td>
               <td><%= agreement.status.capitalize %></td>
@@ -29,37 +30,6 @@
           <% end %>
         <% else %>
           <tr><td colspan="6">NONE</td></tr>
-        <% end %>
-        </tbody>
-      </table>
-
-      <h3>Agreements proposed to You</h3>
-      <table id="agreements-table" class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th>Created</th>
-                <th>Other Party</th>
-                <th>Status</th>
-                <th>You Agree</th>
-                <th>Agreed by Other Party</th>
-                <th>Due Date</th>
-              </tr>
-            </thead>
-            <tbody>
-            <% if @agreements_as_2nd.length > 0 %>
-              <% @agreements_as_2nd.each do |agreement| %>
-                <tr data-link="<%= edit_greement_path(agreement) %>">
-                  <td><%= agreement.created_at.strftime("%D") %></td>
-                  <td><%= agreement.user.user_info.first_name %> <%= agreement.user.user_info.last_name %></td>
-                  <td><%= agreement.status.capitaliz %></td>
-                  <td><% if agreement.user1_agrees %><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><%- else -%><span class="glyphicon glyphicon-remove" aria-hidden="true"></span><%- end -%></td>
-                  <td><% if agreement.user2_agrees %><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><%- else -%><span class="glyphicon glyphicon-remove" aria-hidden="true"></span><%- end -%></td>
-                  <td><%= agreement.due_date %></td>
-                </tr>
-              <% end %>
-        <% else %>
-          <tr><td colspan="6">NONE</td></tr>
-
         <% end %>
         </tbody>
       </table>
