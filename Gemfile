@@ -48,7 +48,7 @@ group :development, :test do
   # gem 'capybara-webkit
   gem 'capybara'
   gem 'factory_girl_rails'
-  
+
   gem 'database_cleaner'
   gem 'rspec'
   gem 'rspec-rails', '~> 3.0'
