@@ -1,6 +1,5 @@
 require 'rails_helper'
 require 'factory_girl'
-require 'pry'
 RSpec.feature "UserAgreement", type: :feature do
   describe "user makes agreement successfully" do
     it 'signs in' do

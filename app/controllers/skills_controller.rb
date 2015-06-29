@@ -42,4 +42,14 @@ class SkillsController < ApplicationController
     @skills_user.update(details: params[:details])
     redirect_to skills_path
   end
+
+  def kill
+    @skills = Skill.all
+  end
+
+  def kill_destroy
+    SkillsUser.where(skill_id: params[:name]).delete_all
+    Skill.destroy(params[:name])
+    redirect_to skills_path
+  end
 end

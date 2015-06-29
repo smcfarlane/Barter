@@ -1,0 +1,8 @@
+<%= form_tag({controller: :skill, action: :kill_destroy}, method: :post) %>
+<div class="col-md-8 col-md-offset-2 top-20 bottom-20">
+  <div class="form-group">
+    <label for="">Select a skill</label>
+    <span><%= select_tag :name, options_from_collection_for_select( @skills, 'id', 'name', '1') %></span>
+  </div>
+  <span><%= submit_tag 'Destroy Skill Forever', class: 'btn btn-primary' %></span>
+</div>

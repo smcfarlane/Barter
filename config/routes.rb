@@ -11,15 +11,18 @@ Rails.application.routes.draw do
   get 'profile' => 'profile#index'
 
   post '/skill/add_skill_to_user' => 'skills#add_skill_to_user'
-
-  # get '/skill/delete_skill_from_user' => 'skills#delete_skill_from_user'
+  post '/skill/kill_destroy' => 'skills#kill_destroy'
 
   devise_for :users, controllers: { registrations: "registrations" }
+
   scope :user do
     resources :skills do
       get 'delete'
     end
   end
+
+  get 'kill' => 'skills#kill'
+
   match ':controller(/:action(/:id))', :via => :get
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
