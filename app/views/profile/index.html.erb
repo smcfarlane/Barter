@@ -84,4 +84,75 @@
       </table>
     </div>
   </div>
+
+  <% if @show_intro === true %>
+
+      <div class="modal" id="introModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Welcome, <%= current_user.user_info.first_name %>, to Bartr!</h4>
+            </div>
+            <div class="modal-body">
+              <div id="myCarousel" class="carousel slide carousel-fit" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li>
+                  <li data-target="#myCarousel" data-slide-to="3"></li>
+                  <li data-target="#myCarousel" data-slide-to="4"></li>
+                  <li data-target="#myCarousel" data-slide-to="5"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <img src="<%= asset_path('intro_carousel/slide1.jpg') %>" data-src="holder.js/700x450/auto/#FFF:#FFF/text:First slide" alt="First slide">
+                    <div class="carousel-caption">
+                      <p style="font-style: italic; color: #000000">Discover a community needing your skills.</p>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img src="<%= asset_path('intro_carousel/slide2.jpg') %>" data-src="holder.js/700x450/auto/#FFF:#FFF/text:Second slide" alt="Second slide">
+                    <div class="carousel-caption">
+                      <p style="font-style: italic; color: #000000">Find the perfect match to exchange skills.</p>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img src="<%= asset_path('intro_carousel/slide3.jpg') %>" data-src="holder.js/700x450/auto/#FFF:#FFF/text:Third slide" alt="Third slide">
+                    <div class="carousel-caption">
+                      <p style="font-style: italic; color: #000000">Create an Agreement.</p>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img src="<%= asset_path('intro_carousel/slide5.jpg') %>" data-src="holder.js/700x450/auto/#777:#555/text:Fifth slide" alt="Fifth slide">
+                    <div class="carousel-caption">
+                      <p style="font-style: italic; color: #000000">Provide each others' services.</p>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img src="<%= asset_path('intro_carousel/slide6.jpg') %>" data-src="holder.js/700x450/auto/#777:#555/text:Sixth slide" alt="Sixth slide">
+                    <div class="carousel-caption">
+                      <p style="font-style: italic; color: #FFFFFF">Your need fulfilled!</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+              </div>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    <% @show_intro = false %>
+  <% end %>
+
 </div>

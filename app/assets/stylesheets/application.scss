@@ -3,7 +3,7 @@
 @import "bootstrap-sprockets";
 
 // Import cerulean variables
-@import "bootswatch/United/variables";
+@import "bootswatch/united/variables";
 
 // Then bootstrap itself
 @import "bootstrap";
@@ -12,7 +12,7 @@
 body { padding-top: 50px; }
 
 // And finally bootswatch style itself
-@import "bootswatch/United/bootswatch";
+@import "bootswatch/united/bootswatch";
 @import "welcome";
 @import "board";
 @import "spacing";

@@ -10,8 +10,6 @@ Rails.application.routes.draw do
     root :to => 'welcome#index'
   get 'profile' => 'profile#index'
 
-  root 'welcome#index'
-
   post '/skill/add_skill_to_user' => 'skills#add_skill_to_user'
 
   # get '/skill/delete_skill_from_user' => 'skills#delete_skill_from_user'

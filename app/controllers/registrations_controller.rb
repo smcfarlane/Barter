@@ -10,7 +10,8 @@ class RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(resource)
      case resource && current_user
        when :user, User
-         resource.valid? ? profile_index_path(current_user) : root_path
+         # resource.valid? ? profile_index_path(current_user) : root_path
+         resource.valid? ? authenticated_root_path(current_user, :show_intro => true) : root_path
        when :admin, Admin
          resource.valid? ? admin_dash_path(current_user) : root_path
        else
