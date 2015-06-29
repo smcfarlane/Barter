@@ -9,7 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
 
-    if resource.sign_in_count == 1
+    if resource.sign_in_count == 1 #TODO fix for admin registration
       resource.valid? ? skills_path : root_path
     else
 

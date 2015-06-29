@@ -4,6 +4,9 @@
       <h1>Create A Board Entry</h1>
       <p>Use this area to advertise the services and skills you are interested in bartering.</p>
       <p>The next page will allow you to explain the details of what you are looking for and services you can offer in exchange.  </p>
+      <% if current_user.sign_in_count == 1 && current_user.boards.count == 0  %>
+          <div class="alert alert-success" role="alert">Fill in the information below and click 'Submit' to continue.</div>
+      <% end %>
     </div>
   </div>
 </div>
