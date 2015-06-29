@@ -18,11 +18,5 @@ class ProfileController < ApplicationController
 
     # Sort by create date desc (newest board entries first)
     @boards_match.sort{|a,b| b[:created_at] <=> a[:created_at]}
-
-    if params[:show_intro] != nil
-      @show_intro = true
-    else
-      @show_intro = false
-    end
   end
 end

@@ -85,7 +85,7 @@
     </div>
   </div>
 
-  <% if @show_intro === true %>
+  <% unless (cookies[:show_intro] === nil) || (cookies[:show_intro] === false) %>
 
       <div class="modal" id="introModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -152,7 +152,7 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-    <% @show_intro = false %>
+    <% cookies.delete :show_intro %>
   <% end %>
 
 </div>
