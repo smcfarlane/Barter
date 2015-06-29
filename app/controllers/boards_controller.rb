@@ -1,14 +1,19 @@
 class BoardsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @board = Board.where(status: 'awaiting')
     @user = current_user || nil
+    @skills = Skill.all.pluck(:name)
+    if params[:skill_needed] && params[:skill_offered]
+      @board = Board.where("status = :status and :skill_needed = ANY (skill_needed) or :skill_offered = ANY (skills_offered)", {status: 'awaiting', skill_needed: params[:skill_needed], skill_offered: params[:skill_offered]})
+    else
+      @board = Board.where(status: 'awaiting')
+    end
   end
 
   def show
     @board = Board.find(params[:id])
     @thread = @board.message_thread
-    @messages = Message.joins(:user_info).select(:text, :user_id, :first_name, :last_name).where(message_thread_id: @thread.id)
+    @messages = Message.joins(:user_info).select(:text, :user_id, :first_name, :last_name, :created_at, 'md5("users"."email")').where(message_thread_id: @thread.id)
     @user_id = current_user.id
     @user_name = current_user.user_info.first_name
   end

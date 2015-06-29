@@ -16,15 +16,17 @@
             <ul class="nav navbar-nav navbar-right">
               <%- if current_user -%>
                 <li>
-                  <a href="#logged_in">Hello, &ensp;<%= current_user.user_info.first_name %></a>
+                  <p class="navbar-text">Hello, &ensp;<%= current_user.user_info.first_name %></p>
                 </li>
               <%- end -%>
+              <%- unless current_user -%>
                 <li>
                     <a href="#about">About</a>
                 </li>
                 <li>
                     <a href="#contact">Contact</a>
                 </li>
+              <%- end -%>
                 <li>
                   <%= link_to 'Boards', boards_path -%>
                 </li>
