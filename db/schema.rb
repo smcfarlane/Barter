@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20150616191738) do
     t.string   "skills_offered", default: [],           null: false, array: true
     t.jsonb    "details",                               null: false
     t.string   "status",         default: "awaiting",   null: false
-    t.date     "needed_by",      default: '2015-06-29', null: false
+    t.date     "needed_by",      default: '2015-07-06', null: false
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
   end
