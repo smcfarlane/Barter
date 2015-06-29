@@ -58,6 +58,9 @@
         <%- end -%>
       </div>
     </div>
-
-    <input type="submit" class="btn btn-primary"/>
-  </feildset>
+    <% if current_user.sign_in_count == 1 && current_user.boards.count == 0  %>
+        <input type="submit" class="btn btn-primary animated infinite pulse"/>
+    <% else %>
+        <input type="submit" class="btn btn-primary"/>
+    <% end %>
+  </fieldset>

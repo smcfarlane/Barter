@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     root :to => 'profile#index', as: :authenticated_root
   end
   root :to => 'welcome#index'
-
   get 'profile' => 'profile#index'
 
   post '/skill/add_skill_to_user' => 'skills#add_skill_to_user'
