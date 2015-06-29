@@ -16,6 +16,13 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+  <%= javascript_tag do -%>
+    <%- if current_user -%>
+      window.USER = {firstName: '<%= current_user.user_info.first_name -%>', lastName: '<%= current_user.user_info.last_name -%>', email: '<%= current_user.email -%>'}
+    <%- else -%>
+      window.USER = {firstName: 'anon', lastName: 'amous', email: 'anon@example.com'}
+    <%- end -%>
+  <%- end -%>
 </head>
 
 <body>
@@ -44,6 +51,6 @@
   </div>
 
   <%= render 'layouts/footer' %>
-
+  <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
 </body>
 </html>

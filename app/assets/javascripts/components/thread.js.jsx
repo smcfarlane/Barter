@@ -19,7 +19,7 @@ var Thread = React.createClass({
   render: function() {
     console.log(this.state);
     return (
-      <div className="container panel panel-default">
+      <div className="col-md-6 col-md-offset-2 panel panel-default">
         <ThreadHeader title={this.state.thread.title} />
         <ThreadBody>
           <MessageList messages={this.state.messages} user={{userId: this.state.userId, userName: this.state.userName, creatorId: this.state.creatorId}} thread={this.state.thread} actionTaken={this.state.actionTaken} />
@@ -65,7 +65,7 @@ var MessageList = React.createClass({
       }
 
       return (
-        <Message key={index} body={message.text} first_name={message.first_name} agreementsURL={agreementsURL} user={user} btnCSS={btnCSS} />
+        <Message key={index} body={message.text} md5={message.md5} time={message.created_at} first_name={message.first_name} agreementsURL={agreementsURL} user={user} btnCSS={btnCSS} />
       )
     });
     return (
@@ -86,10 +86,16 @@ var Message = React.createClass({
     var user = this.props.user;
     console.log(this.props);
     var initialUser = user.userId === user.creatorId && this.props.first_name !== user.userName;
+    var dateTime = new Date(Date.parse(this.props.time));
+    var gravatarURL = "http://gravatar.com/avatar/" + this.props.md5 + ".png?d=identicon&s=40";
     return (
       <li style={{margin: 0, padding: 10, borderBottom: '1px solid #ddd', listStyle: 'none'}}>
-        <div style={{fontSize: 18, fontWeight: 'bold'}}>
-          {this.props.first_name}
+        <div>
+          <img src={gravatarURL} className="avatar" alt="" style={{display: 'inline-block'}}/>
+          <div style={{display: 'inline-block', paddingLeft: '15px'}}>
+            <strong style={{fontSize: 18}}>{this.props.first_name} </strong>
+            <small>at {dateTime.toLocaleDateString()} {dateTime.toLocaleTimeString()}</small>
+          </div>
           {initialUser ? handShakeImage : ''}
         </div>
         <p style={{fontWeight: 300}}>{this.props.body}</p>
