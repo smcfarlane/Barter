@@ -16,6 +16,7 @@ body { padding-top: 50px; }
 @import "welcome";
 @import "board";
 @import "spacing";
+@import 'animate';
 
 .notifier {
   position: fixed;
@@ -34,4 +35,8 @@ body { padding-top: 50px; }
   opacity: 0;
   transition: opacity 2s;
   -webkit-transition: opacity 2s;
+}
+
+.avatar {
+  border-radius: 50%;
 }

@@ -1,12 +1,13 @@
 <div class="jumbotron">
   <div class="container">
     <div class="row">
-      <h1><%= link_to "The Board", boards_path, class: "board-heading" -%></h1>
-    </div>
-    <div class="row">
-      <p><strong><%= @board.user.user_info.first_name -%></strong> needs <strong><%= @board.skill_needed[0] -%></strong> by <strong><%= @board.needed_by.strftime("%D") -%></strong> and can offer <strong><%= format_skills_offered @board.skills_offered -%></strong>.</p>
-      <p>Use this area to describe your need and the skills you would like to exchange</p>
-      <p>When you have reached an agreement with another user, click the handshake icon to further clarify the details and create commitment.</p>
+      <h1><strong><%= @board.user.user_info.first_name -%></strong> needs <strong><%= @board.skill_needed[0] -%></strong> by <strong><%= @board.needed_by.strftime("%D") -%></strong> and can offer <strong><%= format_skills_offered @board.skills_offered -%></strong>.</h1>
+      <%- if @board.user == current_user -%>
+        <p>Use the message board below to communication with interested people.</p>
+        <p>Use the handshake button to start an aggreement with someone.</p>
+      <%- else -%>
+        <p>Use this message board to discuss what is needed.</p>
+      <%- end -%>
     </div>
     <%- if @user == @board.user -%>
     <div class="row">
@@ -19,6 +20,9 @@
   </div>
 </div>
 <div class="container">
+  <div class="row">
+    <%= link_to "< The Board", boards_path, class: "board-heading" -%>
+  </div>
   <div class="row">
     <%= react_component('Thread', {thread: @thread, messages: @messages, user_id: @user_id, user_name: @user_name, creator_id: @board.user.id, action_taken: (@board.agreements.to_a != [])}) -%>
   </div>

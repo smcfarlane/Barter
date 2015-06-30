@@ -14,7 +14,7 @@ class ProfileController < ApplicationController
     @agreements = initiator + secondary
 
     # Find boards looking for user's skills
-    @boards_match =  Board.where(@skills.map {|s|"'#{s.name}' = ANY (skill_needed)"}.join(' OR ') )
+    @boards_match =  Board.where(@skills.map {|s| "'#{s.name}' = ANY (skill_needed)"}.join(' OR ') ).limit(10)
 
     # Sort by create date desc (newest board entries first)
     @boards_match.sort{|a,b| b[:created_at] <=> a[:created_at]}
