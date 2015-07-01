@@ -48,8 +48,32 @@ class SkillsController < ApplicationController
   end
 
   def kill_destroy
-    SkillsUser.where(skill_id: params[:name]).delete_all
-    Skill.destroy(params[:name])
-    redirect_to skills_path
+    @skills_user = SkillsUser.where(skill_id: params[:id]).delete_all
+    @skill = Skill.destroy(params[:id])
+    if @skill.save
+      if params[:return_admin]
+        flash[:primary] = 'You destroyed a skill'
+        redirect_to admin_index_path(:tab_redirect => params[:tab_redirect])
+      else
+        redirect_to skills_path
+      end
+    end   
   end
+
+  def create_new_skill
+    @skill = Skill.new
+  end
+
+  def create_skill
+    @skill = Skill.create(name: params[:name])
+    if @skill.save
+      if params[:return_admin]
+        flash[:primary] = 'You created a new skill'
+        redirect_to admin_index_path(:tab_redirect => params[:tab_redirect])
+      else
+      redirect_to admin_index_path
+      end
+    end
+  end
+
 end

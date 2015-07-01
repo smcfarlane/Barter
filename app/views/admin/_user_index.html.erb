@@ -1,0 +1,21 @@
+<div class="col-md-6">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |u| %>
+      <tr>
+        <td><%= u.email %></td>
+        <td>
+          <div class="btn-group">
+            <p><%= button_to "Delete", {id: u.id, controller: 'admin', action: 'destroy_user', tab_redirect: 'users', admin_redirect: true }, data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-default' %></p>
+          </div>
+        </td>
+      </tr>
+    <%- end -%>
+    </tbody>
+  </table>
+</div>

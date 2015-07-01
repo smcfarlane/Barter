@@ -71,7 +71,12 @@ class BoardsController < ApplicationController
     @board = Board.find(params[:id])
     @board.status = 'removed'
     if @board.save
-      redirect_to boards_path
+      if params[:return_admin]
+        flash[:success] = 'You destroyed a board'
+        redirect_to admin_index_path(:tab_redirect => params[:tab_redirect])
+      else
+        redirect_to boards_path
+      end
     end
   end
 end
