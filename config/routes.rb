@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :admin, except: [:new, :edit, :destroy, :update, :create]
   resources :boards
   resources :agreements, except: [:show]
   resources :message, only: [:new, :create, :destroy]
@@ -12,6 +13,10 @@ Rails.application.routes.draw do
 
   post '/skill/add_skill_to_user' => 'skills#add_skill_to_user'
   post '/skill/kill_destroy' => 'skills#kill_destroy'
+  delete '/skill/kill_destroy' => 'skills#kill_destroy'
+  delete '/admin/destroy_user' => 'admin#destroy_user'
+ 
+  post '/skill/create_skill' => 'skills#create_skill'
 
   devise_for :users, controllers: { registrations: "registrations" }
 
@@ -22,6 +27,7 @@ Rails.application.routes.draw do
   end
 
   get 'kill' => 'skills#kill'
+  get 'create_new_skill' => 'skills#create_new_skill'
 
   match ':controller(/:action(/:id))', :via => :get
   # The priority is based upon order of creation: first created -> highest priority.
