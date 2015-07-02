@@ -10,9 +10,9 @@
 
     <!-- Nav tabs -->
     <ul id="myTabs" class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
-      <li role="presentation"><a href="#skills" aria-controls="skills" role="tab" data-toggle="tab">Skills</a></li>
-      <li role="presentation"><a href="#boards" aria-controls="boards" role="tab" data-toggle="tab">Boards</a></li>
+      <li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab" data-activetab="users">Users</a></li>
+      <li role="presentation"><a href="#skills" aria-controls="skills" role="tab" data-toggle="tab" data-activetab="skills">Skills</a></li>
+      <li role="presentation"><a href="#boards" aria-controls="boards" role="tab" data-toggle="tab" data-activetab="boards">Boards</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -37,23 +37,34 @@
     </div>
   </div> 
 </div>
-
-<% if params[:tab_redirect] == 'users'  %>
+<% if cookies[:admin_active_tab].nil? %>
     <script>
+        alert("users tab")
         $('#myTabs a[href="#users"]').tab('show')
-    </script>
-<% elsif params[:tab_redirect] == 'skills' %>
-    <script>
-        $('#myTabs a[href="#skills"]').tab('show')
-    </script>
-<% elsif params[:tab_redirect] == 'boards'  %>
-    <script>
-        $('#myTabs a[href="#boards"]').tab('show')
     </script>
 <% else %>
-    <script>
-        $('#myTabs a[href="#users"]').tab('show')
-    </script>
+    <% if cookies[:admin_active_tab] == 'users'  %>
+      <script>
+          alert("users tab")
+          $('#myTabs a[href="#users"]').tab('show')
+      </script>
+       <%= cookies[:admin_active_tab] = "users" %>
+    <% elsif cookies[:admin_active_tab] == 'skills' %>
+      <script>
+          alert("skills tab")
+        $('#myTabs a[href="#skills"]').tab('show')
+      </script>
+    <% elsif cookies[:admin_active_tab] == 'boards'  %>
+      <script>
+          alert("boards tab")
+        $('#myTabs a[href="#boards"]').tab('show')
+      </script>
+    <% else %>
+      <script>
+          alert("users tab")
+          $('#myTabs a[href="#users"]').tab('show')
+      </script>
+    <% end %>
 <% end %>
 
 <div id="skill-user-modal" class="modal fade">
