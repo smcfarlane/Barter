@@ -4,9 +4,9 @@ class AdminController < ApplicationController
   # after_action  :unset_from_admin
 
   def index
-    @skills = Skill.all.paginate(page: params[:page], per_page: 10)
+    @skills = Skill.all.order('name ASC').paginate(page: params[:page], per_page: 10)
     @boards = Board.where(status: 'awaiting').paginate(page: params[:page], per_page: 10)
-    @users = User.all.paginate(page: params[:page], per_page: 10)
+    @users = User.all.order('email ASC').paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
       format.js
