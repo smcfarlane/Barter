@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers => [:twitter]
   
 
   has_one :user_info
@@ -24,5 +25,15 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :user_info
   accepts_nested_attributes_for :addresses, reject_if: proc { |attributes| attributes['zip'].blank? }
   accepts_nested_attributes_for :phones
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      name = auth.info.name.split(' ')
+      ui = UserInfo.create(first_name: name[0], last_name: name[1])
+      user.user_info = ui  # assuming the user model has a name
+    end
+  end
 
 end

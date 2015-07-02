@@ -21,7 +21,6 @@ class BoardsController < ApplicationController
   def new
     @board = Board.new
     @skills = Skill.all.pluck(:name)
-    @user = current_user
   end
 
   def create
@@ -31,13 +30,17 @@ class BoardsController < ApplicationController
         skills_offered << Skill.find(item.split('::')[1].to_i).name if params[item] == 'on'
       end
     end
-    @board = Board.create(user_id: current_user.id, skill_needed: [params[:skill_needed]], skills_offered: skills_offered, details: {city: params[:city], email: params[:contact_email]}, needed_by: Date.civil(params[:needed_by][:year].to_i, params[:needed_by][:month].to_i, params[:needed_by][:day].to_i))
+    @board = Board.create(user_id: current_user.id, skill_needed: [params[:skill_needed]], skills_offered: skills_offered, details: {city: '', email: ''}, needed_by: Date.civil(params[:needed_by][:year].to_i, params[:needed_by][:month].to_i, params[:needed_by][:day].to_i))
     if @board.save
       @thread = MessageThread.create(title: "#{current_user.user_info.first_name} Item Discussion")
       @thread.update_attribute :discussable, @board
+      if params[:details]
+        Message.create(user_id: current_user.id, message_thread_id: @thread.id, text: params[:details])
+      end
       redirect_to board_path(@board)
     else
-      redirect_to :back
+      @skills = Skill.all.pluck(:name)
+      render :new
     end
   end
 
@@ -56,7 +59,7 @@ class BoardsController < ApplicationController
       end
     end
     @board = Board.find(params[:id])
-    @board.update(skill_needed: [params[:skill_needed]], skills_offered: skills_offered, details: {city: params[:city], email: params[:contact_email]}, needed_by: Date.civil(params[:needed_by][:year].to_i, params[:needed_by][:month].to_i, params[:needed_by][:day].to_i))
+    @board.update(skill_needed: [params[:skill_needed]], skills_offered: skills_offered, details: {}, needed_by: Date.civil(params[:needed_by][:year].to_i, params[:needed_by][:month].to_i, params[:needed_by][:day].to_i))
     if @board.save
       unless @board.message_thread
         @thread = MessageThread.create(title: "#{current_user.user_info.first_name} Item Discussion")

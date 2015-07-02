@@ -3,7 +3,7 @@ class Board < ActiveRecord::Base
   has_one :message_thread, as: :discussable
   has_many :agreements
 
-  validates :user_id, :skill_needed, :skills_offered, :details, :status, :needed_by, presence: true
+  validates :user_id, :skill_needed, :skills_offered, :status, :needed_by, presence: true
   validate :validate_skill_needed
   validate :validate_skills_offered
   validate :validates_needed_by

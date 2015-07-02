@@ -30,6 +30,7 @@ gem 'bootstrap-sass'
 gem 'react-rails'
 gem 'geocoder'
 gem 'bootswatch-rails'
+gem 'omniauth-twitter'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

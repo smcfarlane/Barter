@@ -28,6 +28,7 @@
               <%= f.submit "Log in", class: 'btn btn-default' %>
             </div>
           <% end %>
+          <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), class: 'btn btn-primary top-20' %>
 
           <%= render "devise/shared/links" %>
         </div>

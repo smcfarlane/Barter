@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   # get '/skill/delete_skill_from_user' => 'skills#delete_skill_from_user'
 
-  devise_for :users, controllers: { registrations: "registrations" }
+  devise_for :users, controllers: { registrations: "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
   scope :user do
     resources :skills do
       get 'delete'
