@@ -1,4 +1,12 @@
 <div class="col-md-6">
+  </br>
+  <%= form_tag admin_index_path, :method => 'get', :class => 'form' do %>
+      <p>
+        <%= hidden_field_tag "tab", "users" %>
+        <%= text_field_tag :search, params[:search], class: 'admin-search form-control'%>
+        <span class="pull-right"><%= submit_tag "Search", :name => nil, class: 'btn' %></span>
+      </p>
+  <% end %>
   <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
   <table class="table">
     <thead>
