@@ -25,4 +25,15 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :addresses, reject_if: proc { |attributes| attributes['zip'].blank? }
   accepts_nested_attributes_for :phones
 
+  def self.search(search)
+    if search
+      if search == ""
+        all.order('email ASC')
+      else
+        where("lower(email) LIKE ?", "%#{search.downcase}%").order('email ASC')
+      end
+    else
+      all
+    end
+  end
 end

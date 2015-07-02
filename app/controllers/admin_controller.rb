@@ -1,12 +1,25 @@
 class AdminController < ApplicationController
   before_action :authenticate_user!
-  # before_action :set_from_admin
-  # after_action  :unset_from_admin
 
   def index
-    @skills = Skill.all.order('name ASC').paginate(page: params[:page], per_page: 10)
-    @boards = Board.where(status: 'awaiting').paginate(page: params[:page], per_page: 10)
-    @users = User.all.order('email ASC').paginate(page: params[:page], per_page: 10)
+    skills_search = ''
+    boards_search = ''
+    users_search = ''
+
+    unless params[:tab].nil?
+      case params[:tab]
+        when "skills"
+          skills_search = params[:search]
+        when "boards"
+          boards_search = params[:search]
+        when "users"
+          users_search = params[:search]
+      end
+    end
+
+    @skills = Skill.search(skills_search).order('name ASC').paginate(page: params[:page], per_page: 5)
+    @boards = Board.search(boards_search).paginate(page: params[:page], per_page: 5)
+    @users = User.search(users_search).order('email ASC').paginate(page: params[:page], per_page: 5)
 
     respond_to do |format|
       format.js
@@ -22,14 +35,4 @@ class AdminController < ApplicationController
     redirect_to admin_index_path(:tab_redirect => params[:tab_redirect])
   end
 
-  private
-
-  # def set_from_admin
-  #   cookies[:from_admin] = true
-  # end
-  #
-  # def unset_from_admin
-  #   cookies.delete :from_admin
-  #   cookies.delete :admin_active_tab
-  # end
 end
