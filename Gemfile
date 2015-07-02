@@ -31,6 +31,9 @@ gem 'react-rails'
 gem 'geocoder'
 gem 'bootswatch-rails'
 
+# gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
