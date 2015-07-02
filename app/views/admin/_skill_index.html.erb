@@ -1,26 +1,3 @@
-<div class="col-md-6">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Skill</th>
-        <th>Details</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @skills.each do |s| %>
-      <tr>
-        <td><%= s.name %></td>
-        <td>
-          <div class="btn-group">
-            <%= link_to ("<i class='glyphicon glyphicon-remove'></i>").html_safe, { controller: 'skills', action: 'kill_destroy', id: s.id, 
-                                                                                    return_admin: true, tab_redirect: 'skills' }, method: :delete,
-                                                                                    data: { confirm: "Are you sure?" } %>
-          </div>
-        </td>
-      </tr>
-    <%- end -%>
-    </tbody>
-  </table>
-  <%= link_to 'Add New', create_new_skill_path, return_admin: true, tab_redirect: 'skills', remote: true, class: 'btn btn-warning btn-xs' %>
+<div id="skills">
+  <%= render 'skills' %>
 </div>

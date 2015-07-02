@@ -4,5 +4,7 @@
 jQuery ($) ->
   $('#myTabs a').click ->
     e.PreventDefault()
+    active_tab = $(this).data('activetab')
+    alert(active_tab)
     $(this).tab('show')
 
