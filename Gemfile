@@ -31,6 +31,10 @@ gem 'react-rails'
 gem 'geocoder'
 gem 'bootswatch-rails'
 gem 'omniauth-twitter'
+
+# gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -41,6 +45,9 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
+  gem 'pry'
+  # Pry with sandbox
+  gem 'pry-rails'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 

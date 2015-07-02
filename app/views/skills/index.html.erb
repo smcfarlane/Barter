@@ -22,6 +22,9 @@
     <% else %>
           <%= link_to 'Profile', root_path, class: 'btn btn-primary' %>
           <%= link_to 'Add Skill', new_skill_path, remote: true, class: 'btn btn-primary' %>
+          <% if current_user.admin? %>
+            <%= link_to 'Destroy a skill!', kill_path, remote: true, class: 'btn btn-primary' %>
+          <% end %>
       <% end %>
     </div>
   </div>

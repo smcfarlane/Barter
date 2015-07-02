@@ -22,16 +22,24 @@ skills.each do |skill|
   Skill.create(name: skill)
 end
 
+# Real Addresses
+@address_0 = {street_address: '14411 Elmport Lane', city: 'Poway', state: 'CA', zip: '92064'}
+@address_1 = {street_address: '1918 Oceanside Blvd', city: 'Oceanside', state: 'CA', zip: '92054'}
+@address_2 = {street_address: '5267 La Jolla Blvd', city: 'San Diego', state: 'CA', zip: '92037'}
+@address_3 = {street_address: '119 E Grand Ave', city: 'Escondido', state: 'CA', zip: '92025'}
+@address_4 = {street_address: '3401 E Speedway Blvd', city: 'Tucson', state: 'AZ', zip: '85716'}
+
 # Create Users
-5.times do
+5.times do |i|
   password = 'password'
   fname = Faker::Name.first_name
   lname = Faker::Name.last_name
   email = Faker::Internet.free_email("#{fname}.#{lname}")
-
   user = User.create(email: email, password: password, password_confirmation: password)
   UserInfo.create(first_name: fname, last_name: lname, user_id: user.id)
-  Address.create(street_address: Faker::Address.street_address, city: Faker::Address.city, state: 'CA', zip: Faker::Address.zip_code, user_id: user.id)
+  address = Address.create( instance_variable_get("@address_#{i}") )
+  address.user_id = i
+  user.addresses <<  address
   Phone.create(phone: Faker::PhoneNumber.phone_number, user_id: user.id)
 end
 
