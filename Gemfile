@@ -42,6 +42,8 @@ group :development, :test do
   gem 'byebug'
 
   gem 'pry'
+  # Pry with sandbox
+  gem 'pry-rails'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
