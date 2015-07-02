@@ -4,8 +4,8 @@ class Board < ActiveRecord::Base
   has_many :agreements
 
   validates :user_id, :skill_needed, :skills_offered, :details, :status, :needed_by, presence: true
-  # validate :validate_skill_needed
-  # validate :validate_skills_offered
+  validate :validate_skill_needed
+  validate :validate_skills_offered
   validate :validates_needed_by
 
   def validate_skill_needed
