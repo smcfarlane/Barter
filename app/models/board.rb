@@ -30,4 +30,16 @@ class Board < ActiveRecord::Base
   def validates_needed_by
     errors.add(:needed_by, :invalid) if needed_by.past?
   end
+
+  def self.search(search)
+    if search
+      if search == ""
+        all
+      else
+        where("lower(details->>'email') LIKE ? OR lower(details->>'city') LIKE ? OR array_to_string(skill_needed, ', ') LIKE ? OR array_to_string(skills_offered, ', ') LIKE ? OR lower(status) LIKE ?", "%#{search.downcase}%", "%#{search.downcase}%", "%#{search.downcase}%", "%#{search.downcase}%", "%#{search.downcase}%")
+      end
+    else
+      all
+    end
+  end
 end

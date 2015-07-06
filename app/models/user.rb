@@ -36,4 +36,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.search(search)
+    if search
+      if search == ""
+        all.order('email ASC')
+      else
+        where("lower(email) LIKE ?", "%#{search.downcase}%").order('email ASC')
+      end
+    else
+      all
+    end
+  end
 end

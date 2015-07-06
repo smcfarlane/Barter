@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ($) ->
   $('#myTabs a').click ->
+    $.get('admin', null, null, 'script');
+    $('.admin-search').val('')
     e.PreventDefault()
     active_tab = $(this).data('activetab')
     alert(active_tab)

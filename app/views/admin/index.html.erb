@@ -38,15 +38,15 @@
   </div> 
 </div>
 
-<% if params[:tab_redirect] == 'users'  %>
+<% if params[:tab_redirect] == 'users'  || params[:tab] == 'users' %>
     <script>
         $('#myTabs a[href="#users"]').tab('show')
     </script>
-<% elsif params[:tab_redirect] == 'skills' %>
+<% elsif params[:tab_redirect] == 'skills'  || params[:tab] == 'skills' %>
     <script>
         $('#myTabs a[href="#skills"]').tab('show')
     </script>
-<% elsif params[:tab_redirect] == 'boards'  %>
+<% elsif params[:tab_redirect] == 'boards'  || params[:tab] == 'boards'  %>
     <script>
         $('#myTabs a[href="#boards"]').tab('show')
     </script>
