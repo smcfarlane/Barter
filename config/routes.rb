@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'addresses/get_user_address'
+
+  get 'addresses/get_addresses_near_user'
+
   resources :boards
   resources :agreements, except: [:show]
   resources :message, only: [:new, :create, :destroy]

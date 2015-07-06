@@ -52,14 +52,11 @@
     </div>
     <div class="col-md-10">
 
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#list" aria-controls="list" role="tab" data-toggle="tab">List</a></li>
-        <li role="presentation"><a href="#map" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>
-      </ul>
+        <div class="col-md-12">
+          <div id="map-canvas" class="col-md-12 top-20" style="height: 300px; min-width: 500px;"></div>
+        </div>
 
-      <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="list">
+        <div class="col-md-12">
           <table class="table table-hover">
             <thead>
             <tr>
@@ -83,12 +80,7 @@
             </tbody>
           </table>
         </div>
-        <div role="tabpanel" class="tab-pane" id="map">
-          <div id="map" class="col-md-12 top-20" style="min-width: 500px; min-height: 300px;"></div>
-          <div class="popup" data-trigger="hover" data-toggle="popover" data-original-title="" title="" data-placement=""></div>
-          <div id="popup" style="background: white; padding: 5px; max-width: 80px; boarder-radius: 8px"></div>
-        </div>
-      </div>
+
 
     </div>
   </div>

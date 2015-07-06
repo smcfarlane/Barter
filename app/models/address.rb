@@ -1,5 +1,5 @@
 class Address < ActiveRecord::Base
-  belongs_to :user_info
+  belongs_to :user
   def full_street_address
     "#{self.street_address} #{self.city}, #{self.state} #{self.zip}"
   end

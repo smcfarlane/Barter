@@ -3,6 +3,15 @@ class Board < ActiveRecord::Base
   has_one :message_thread, as: :discussable
   has_many :agreements
 
+  def user_full_street_address
+    a = self.user.addresses[0]
+    "#{a.street_address} #{a.city}, #{a.state} #{a.zip}"
+  end
+
+  geocoded_by :user_full_street_address
+
+  after_validation :geocode, if: ->(obj){ obj.user.addresses[0].street_address.present? and obj.user.addresses[0].street_address_changed? }
+
   validates :user_id, :skill_needed, :skills_offered, :status, :needed_by, presence: true
   validate :validate_skill_needed
   validate :validate_skills_offered
