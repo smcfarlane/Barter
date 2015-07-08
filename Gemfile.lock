@@ -166,6 +166,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     rdoc (4.2.0)
+      json (~> 1.4)
     react-rails (1.0.0)
       coffee-script-source (~> 1.8)
       connection_pool

@@ -37,7 +37,7 @@ class BoardsController < ApplicationController
       if params[:details]
         Message.create(user_id: current_user.id, message_thread_id: @thread.id, text: params[:details])
       end
-      redirect_to board_path(@board)
+      redirect_to root_path
     else
       @skills = Skill.all.pluck(:name)
       render :new
