@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :admin, except: [:new, :edit, :destroy, :update, :create]
 
   get 'addresses/get_user_address'
 
