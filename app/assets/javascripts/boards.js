@@ -6,6 +6,11 @@ $(function(){
   function initialize() {
     var mapCanvas = document.getElementById('map-canvas');
     var coords = {lat: 0, lon: 0};
+    var boards = [];
+    $('#boards-table').children().each(function(){
+      boards.push(Number(($(this).attr('id').replace('board-', ''))))
+    });
+    console.log(boards);
     $.ajax({url: '/addresses/get_user_address'}).success(function(data){
       console.log(data);
       coords.lon = Number(data.longitude);
@@ -15,26 +20,28 @@ $(function(){
         center: center,
         zoom: 8
       });
-      $.ajax({url: '/addresses/get_addresses_near_user'}).success(function(data){
+      $.ajax({url: '/addresses/get_addresses_near_user' + location.search}).success(function(data){
         console.log(data);
         var board_ids = [];
         data.forEach(function(location){
           board_ids.push(location.id);
         });
         data.forEach(function(location){
-          var marker=new google.maps.Marker({
-            position: new google.maps.LatLng(location.latitude, location.longitude),
-            map: map,
-            title: "Skill Needed: " + location.skill_needed[0] + "\nSkills Offered: " + location.skills_offered.join(', ')
-          });
-          google.maps.event.addListener(marker, 'click', function() {
-            map.setZoom(8);
-            map.setCenter(marker.getPosition());
-            board_ids.forEach(function(id){
-              $('#board-' + id).removeClass('info');
+          if (boards.indexOf(location.id) > -1) {
+            var marker=new google.maps.Marker({
+              position: new google.maps.LatLng(location.latitude, location.longitude),
+              map: map,
+              title: "Skill Needed: " + location.skill_needed[0] + "\nSkills Offered: " + location.skills_offered.join(', ')
             });
-            $('#board-' + location.id).addClass('info');
-          });
+            google.maps.event.addListener(marker, 'click', function() {
+              map.setZoom(12);
+              map.setCenter(marker.getPosition());
+              board_ids.forEach(function(id){
+                $('#board-' + id).removeClass('info');
+              });
+              $('#board-' + location.id).addClass('info');
+            });
+          }
         })
       });
       var centerMarker=new google.maps.Marker({

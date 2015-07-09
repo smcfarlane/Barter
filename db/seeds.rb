@@ -23,21 +23,37 @@ skills.each do |skill|
 end
 
 # Real Addresses
-@address_0 = {street_address: '14411 Elmport Lane', city: 'Poway', state: 'CA', zip: '92064'}
-@address_1 = {street_address: '1918 Oceanside Blvd', city: 'Oceanside', state: 'CA', zip: '92054'}
-@address_2 = {street_address: '5267 La Jolla Blvd', city: 'San Diego', state: 'CA', zip: '92037'}
-@address_3 = {street_address: '119 E Grand Ave', city: 'Escondido', state: 'CA', zip: '92025'}
-@address_4 = {street_address: '3803 Ray St', city: 'San Diego', state: 'CA', zip: '92104'}
+
+addresses = [
+    {street_address: '14411 Elmport Lane', city: 'Poway', state: 'CA', zip: '92064'},
+    {street_address: '1918 Oceanside Blvd', city: 'Oceanside', state: 'CA', zip: '92054'},
+    {street_address: '5267 La Jolla Blvd', city: 'San Diego', state: 'CA', zip: '92037'},
+    {street_address: '119 E Grand Ave', city: 'Escondido', state: 'CA', zip: '92025'},
+    {street_address: '3803 Ray St', city: 'San Diego', state: 'CA', zip: '92104'},
+    {street_address: '373 3rd Ave', city: 'Chula Vista', state: 'CA', zip: '91910'},
+    {street_address: '7748 Regents Rd', city: 'San Diego', state: 'CA', zip: '92122'},
+    {street_address: '6904 Miramar Road', city: 'San Diego', state: 'CA', zip: '92121'},
+    {street_address: '2940 El Cajon Blvd', city: 'San Diego', state: 'CA', zip: '92104'},
+    {street_address: '2710 Garnet Ave', city: 'San Diego', state: 'CA', zip: '92109'},
+    {street_address: '6621 Montezuma Rd', city: 'San Diego', state: 'CA', zip: '92115'},
+    {street_address: '3833 Convoy St', city: 'San Diego', state: 'CA', zip: '92111'},
+    {street_address: '3500 Sports Arena Blvd', city: 'San Diego', state: 'CA', zip: '92110'},
+    {street_address: '6950 Alvarado Rd', city: 'San Diego', state: 'CA', zip: '92120'},
+    {street_address: '3406 College Ave', city: 'San Diego', state: 'CA', zip: '92115'},
+    {street_address: '6475 El Cajon Blvd', city: 'San Diego', state: 'CA', zip: '92115'},
+    {street_address: '6755 Mira Mesa Blvd', city: 'San Diego', state: 'CA', zip: '92121'}
+]
+
 
 # Create Users
-5.times do |i|
+8.times do |i|
   password = 'password'
   fname = Faker::Name.first_name
   lname = Faker::Name.last_name
   email = Faker::Internet.free_email("#{fname}.#{lname}")
   user = User.create(email: email, password: password, password_confirmation: password)
   UserInfo.create(first_name: fname, last_name: lname, user_id: user.id)
-  address = Address.create( instance_variable_get("@address_#{i}") )
+  address = Address.create(addresses[i])
   address.user_id = i
   user.addresses <<  address
   Phone.create(phone: Faker::PhoneNumber.phone_number, user_id: user.id)

@@ -4,7 +4,16 @@ class BoardsController < ApplicationController
     @user = current_user || nil
     @skills = Skill.all.pluck(:name)
     if params[:skill_needed] && params[:skill_offered]
-      @board = Board.where("status = :status and :skill_needed = ANY (skill_needed) or :skill_offered = ANY (skills_offered)", {status: 'awaiting', skill_needed: params[:skill_needed], skill_offered: params[:skill_offered]})
+      sn, so = params[:skill_needed], params[:skill_offered]
+      if sn != 'none' && so == 'none'
+        @board = Board.where('status = :status and :skill_needed = ANY (skill_needed)',
+                             {status: 'awaiting', skill_needed: params[:skill_needed], skill_offered: params[:skill_offered]})
+      elsif sn =='none' && so != 'none'
+        @board = Board.where('status = :status and :skill_offered = ANY (skills_offered)',
+                             {status: 'awaiting', skill_needed: params[:skill_needed], skill_offered: params[:skill_offered]})
+      else
+        @board = Board.where(status: 'awaiting')
+      end
     else
       @board = Board.where(status: 'awaiting')
     end

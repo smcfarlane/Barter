@@ -27,9 +27,11 @@
                     <a href="#contact">Contact</a>
                 </li>
               <%- end -%>
+              <%- if current_user -%>
                 <li>
                   <%= link_to 'Boards', boards_path -%>
                 </li>
+              <%- end -%>
                 <%= render 'devise/menus/registration_items' %>
                 <%= render 'devise/menus/login_items' %>
             </ul>

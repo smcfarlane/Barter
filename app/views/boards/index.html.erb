@@ -19,20 +19,22 @@
         </div>
         <form action="">
         <ul class="list-group" style="margin: 0">
-          <li class="list-group-item">
+          <li class="list-group-item" style="border-radius: 0">
             <div class="form-group">
               <label for="skill_needed">Skill Needed</label>
               <select name="skill_needed" id="skill_needed">
+                <option value="none" selected>None</option>
                 <%- for skill in @skills -%>
                   <option value="<%= skill -%>"><%= skill -%></option>
                 <%- end -%>
               </select>
             </div>
           </li>
-          <li class="list-group-item">
+          <li class="list-group-item" style="border-radius: 0">
             <div class="form-group">
               <label for="skill_offered">Skill Offered</label>
               <select name="skill_offered" id="skill_offered">
+                <option value="none" selected>None</option>
                 <%- for skill in @skills -%>
                   <option value="<%= skill -%>"><%= skill -%></option>
                 <%- end -%>
@@ -63,7 +65,7 @@
             <th>Needed By</th>
           </tr>
           </thead>
-          <tbody>
+          <tbody id="boards-table">
           <% @board.each do |b| -%>
             <tr id="board-<%= b.id -%>" class="">
               <td><%= link_to "View", board_path(b), class: "btn btn-default" -%></td>
