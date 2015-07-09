@@ -22,10 +22,10 @@
   </div>
   <div class="form-group col-md-6">
     <label for="">When do you need this done by</label><br/>
-    <%- if @board.needed_by -%>
-      <%= select_date @board.needed_by, prefix: :needed_by -%>
-    <%- else -%>
+    <%- if current_page? new_board_path -%>
       <%= select_date 30.days.from_now, prefix: :needed_by %>
+    <%- else -%>
+      <%= select_date @board.needed_by, prefix: :needed_by -%>
     <%- end -%>
   </div>
   <%- unless @board.id -%>

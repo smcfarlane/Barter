@@ -45,17 +45,33 @@
                 <%= agreement.status.capitalize %>
               </td>
               <td>
-                <% if agreement.user1_agrees %>
-                  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <%- if current_user == agreement.board.user -%>
+                  <% if agreement.user1_agrees %>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  <%- else -%>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <%- end -%>
                 <%- else -%>
-                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <% if agreement.user2_agrees %>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  <%- else -%>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <%- end -%>
                 <%- end -%>
               </td>
               <td>
-                <% if agreement.user2_agrees %>
-                  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <%- if current_user != agreement.board.user -%>
+                  <% if agreement.user1_agrees %>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  <%- else -%>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <%- end -%>
                 <%- else -%>
-                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <% if agreement.user2_agrees %>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  <%- else -%>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <%- end -%>
                 <%- end -%>
               </td>
               <td>

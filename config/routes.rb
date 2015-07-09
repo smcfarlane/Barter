@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'user_info/edit'
+
+  post 'user_info/update'
+
   get 'addresses/get_user_address'
 
   get 'addresses/get_addresses_near_user'

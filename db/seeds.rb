@@ -59,6 +59,6 @@ end
   thread = MessageThread.create(title: "#{user.user_info.first_name} Item Discussion")
   thread.update_attribute(:discussable, board)
   4.times {Message.create(user_id: users.sample.id, message_thread_id: thread.id, text: Faker::Hacker.say_something_smart)}
-  
-  Agreement.create(status: 'pending', user1skill: board.skills_offered.sample, user2skill: board.skill_needed[0], due_date: Faker::Date.between(Date.today, 3.months.from_now), board_id: board.id, user_id: users.sample.id, user1_agrees: [true, false].sample, user2_agrees: [true, false].sample, details: Faker::Lorem.paragraph)
+
+  Agreement.create(status: 'pending', user1skill: board.skills_offered.sample, user2skill: board.skill_needed[0], due_date: Faker::Date.between(Date.today, 3.months.from_now), board_id: board.id, user_id: users.sample.id, user1_agrees: [true, false].sample, user2_agrees: [true, false].sample, details: Faker::Lorem.paragraph) if board.id.odd?
 end

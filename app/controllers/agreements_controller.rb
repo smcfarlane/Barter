@@ -20,12 +20,12 @@ class AgreementsController < ApplicationController
   def create
     @agreement = Agreement.create(
         status: 'pending',
-        user_id: params[:user2],
-        board_id: params[:board],
-        details: params[:details],
-        user1skill: params[:offered_skill_id],
-        user2skill: params[:received_skill_id],
-        due_date: Date.new(params[:due_date][:year].to_i, params[:due_date][:month].to_i, params[:due_date][:day].to_i)
+        user_id: params[:agreement][:user2],
+        board_id: params[:agreement][:board],
+        details: params[:agreement][:details],
+        user1skill: params[:agreement][:user1skill],
+        user2skill: params[:agreement][:user2skill],
+        due_date: Date.new(params[:agreement][:due_date][:year].to_i, params[:agreement][:due_date][:month].to_i, params[:agreement][:due_date][:day].to_i)
     )
     if @agreement.save
       redirect_to action: profile_path
@@ -45,25 +45,20 @@ class AgreementsController < ApplicationController
   def update
     @agreement = Agreement.find(params[:id])
     unless @agreement.user1_agrees && @agreement.user2_agrees
-      @agreement.update(
-          status: 'pending',
-          user_id: params[:user2],
-          board_id: params[:board],
-          details: params[:details],
-          user1skill: params[:offered_skill_id],
-          user2skill: params[:received_skill_id],
-          due_date: Date.new(params[:due_date][:year].to_i, params[:due_date][:month].to_i, params[:due_date][:day].to_i)
-      )
+      @agreement.details = params[:agreement][:details]
+      @agreement.user1skill = params[:agreement][:user1skill]
+      @agreement.user2skill = params[:agreement][:user2skill]
+      @agreement.due_date = Date.new(params[:agreement][:due_date][:year].to_i, params[:agreement][:due_date][:month].to_i, params[:agreement][:due_date][:day].to_i)
+      if @agreement.changed?
+        @agreement.user1_agrees = false
+        @agreement.user2_agrees = false
+      end
       if params[:submit] == 'Agree'
         if current_user == @agreement.board.user
           @agreement.user1_agrees = true
         elsif current_user == @agreement.user
           @agreement.user2_agrees = true
         end
-      end
-      if @agreement.changed?
-        @agreement.user1_agrees = false
-        @agreement.user2_agrees = false
       end
       if @agreement.save
         redirect_to profile_path
