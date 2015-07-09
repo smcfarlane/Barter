@@ -1,0 +1,82 @@
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <h1>The Board <small>Be Neighborly</small></h1>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+      <% if @user.skills_users.count > 0 %>
+        <%= link_to "Add Request", new_board_path, class: 'btn btn-success', style: 'margin: 10px auto; margin-top: 0; float: none; display: block;' %>
+      <% else %>
+        <%= link_to 'Add Skill', skills_path, class: 'btn btn-success' %><mark>Add a skill to create a new barter request:</mark>
+      <% end %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3>Filter Posts</h3>
+        </div>
+        <form action="">
+        <ul class="list-group" style="margin: 0">
+          <li class="list-group-item">
+            <div class="form-group">
+              <label for="skill_needed">Skill Needed</label>
+              <select name="skill_needed" id="skill_needed">
+                <%- for skill in @skills -%>
+                  <option value="<%= skill -%>"><%= skill -%></option>
+                <%- end -%>
+              </select>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="form-group">
+              <label for="skill_offered">Skill Offered</label>
+              <select name="skill_offered" id="skill_offered">
+                <%- for skill in @skills -%>
+                  <option value="<%= skill -%>"><%= skill -%></option>
+                <%- end -%>
+              </select>
+            </div>
+          </li>
+        </ul>
+          <div class="panel-footer">
+            <input type="submit" value="Filter" class="btn btn-primary" style="margin: 0 auto;display: block;"/>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-10">
+
+      <div class="col-md-12">
+        <div id="map-canvas" class="col-md-12 top-20" style="height: 300px; min-width: 500px; margin-top: 0"></div>
+      </div>
+
+      <div class="col-md-12">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Needing</th>
+            <th>Neighbor</th>
+            <th>Can Offer</th>
+            <th>Needed By</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @board.each do |b| -%>
+            <tr id="board-<%= b.id -%>" class="">
+              <td><%= link_to "View", board_path(b), class: "btn btn-default" -%></td>
+              <td><% b.skill_needed.each do |skill| -%><%= skill -%> <%- end -%></td>
+              <td><%= b.user.user_info.first_name -%></td>
+              <td><% b.skills_offered.each do |skill| -%><%= skill -%>, <%- end -%></td>
+              <td><%= b.needed_by.strftime("%D") -%></td>
+            </tr>
+          <%- end -%>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

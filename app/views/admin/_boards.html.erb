@@ -1,0 +1,42 @@
+<div class="col-md-6">
+  </br>
+  <%= form_tag admin_index_path, :method => 'get', :class => 'form' do %>
+      <p>
+        <%= hidden_field_tag "tab", "boards" %>
+        <%= text_field_tag :search, params[:search], class: 'admin-search form-control' %>
+        <span class="pull-right"><%= submit_tag "Search", :name => nil, class: 'btn' %></span>
+      </p>
+  <% end %>
+  <%= will_paginate @boards, renderer: BootstrapPagination::Rails %>
+  <table class="table">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Details</th>
+        <th>Skill Needed</th>
+        <th>Skills Offered</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+          <% @boards.each do |b| %>
+            <tr>
+              <td><%= b.id %></td>
+              <td><%= b.details %></td>
+              <td><%= b.skill_needed %></td>
+              <td><%= b.skills_offered %></td>
+              <td><%= b.status %></td>
+              <td>
+                <div class="btn-group">
+                  <%= link_to ("<i class='glyphicon glyphicon-remove'></i>").html_safe, board_path(b.id, :return_admin => true, :tab_redirect => 'boards'), method: :delete, data: {confirm: "Are you sure you want to remove this?"}  -%>
+                </div>
+              </td>
+            </tr>
+          <%- end -%>
+      </tbody>
+  </table>
+  </br>
+  <%= will_paginate @boards, renderer: BootstrapPagination::Rails %>
+</div>
+

@@ -1,0 +1,31 @@
+<div class="col-md-6">
+  </br>
+  <%= form_tag admin_index_path, :method => 'get', :class => 'form' do %>
+      <p>
+        <%= hidden_field_tag "tab", "users" %>
+        <%= text_field_tag :search, params[:search], class: 'admin-search form-control'%>
+        <span class="pull-right"><%= submit_tag "Search", :name => nil, class: 'btn' %></span>
+      </p>
+  <% end %>
+  <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |u| %>
+        <tr>
+          <td><%= u.email %></td>
+          <td>
+            <div class="btn-group">
+              <p><%= link_to ("<i class='glyphicon glyphicon-remove'></i>").html_safe, {id: u.id, controller: 'admin', action: 'destroy_user', tab_redirect: 'users', admin_redirect: true }, data: { confirm: "Are you sure?" }, method: :delete %></p>
+            </div>
+          </td>
+        </tr>
+    <%- end -%>
+    </tbody>
+  </table>
+  <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+</div>

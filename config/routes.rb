@@ -1,17 +1,43 @@
 Rails.application.routes.draw do
-  get 'user_info/new'
+  resources :admin, except: [:new, :edit, :destroy, :update, :create]
 
-  get 'profile/index'
+  get 'user_info/edit'
 
-  get 'profile/update'
+  post 'user_info/update'
 
-  get 'profile/edit'
+  get 'addresses/get_user_address'
 
-  get 'profile/destroy'
+  get 'addresses/get_addresses_near_user'
 
-  root 'welcome#index'
+  resources :boards
+  resources :agreements, except: [:show]
+  post 'agreements/:id/agree' => 'agreements#agree', as: :agreements_agree
+  resources :message, only: [:new, :create, :destroy]
 
-  devise_for :users
+  authenticated :user do
+    root :to => 'profile#index', as: :authenticated_root
+  end
+  root :to => 'welcome#index'
+  get 'profile' => 'profile#index'
+
+  post '/skill/add_skill_to_user' => 'skills#add_skill_to_user'
+  post '/skill/kill_destroy' => 'skills#kill_destroy'
+  delete '/skill/kill_destroy' => 'skills#kill_destroy'
+  delete '/admin/destroy_user' => 'admin#destroy_user'
+ 
+  post '/skill/create_skill' => 'skills#create_skill'
+
+  # get '/skill/delete_skill_from_user' => 'skills#delete_skill_from_user'
+
+  devise_for :users, controllers: { registrations: "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
+  scope :user do
+    resources :skills do
+      get 'delete'
+    end
+  end
+
+  get 'kill' => 'skills#kill'
+  get 'create_new_skill' => 'skills#create_new_skill'
 
   match ':controller(/:action(/:id))', :via => :get
   # The priority is based upon order of creation: first created -> highest priority.

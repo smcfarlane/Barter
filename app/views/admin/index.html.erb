@@ -1,0 +1,63 @@
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <h1>Admin Dashboard</h1>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div>
+
+    <!-- Nav tabs -->
+    <ul id="myTabs" class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
+      <li role="presentation"><a href="#skills" aria-controls="skills" role="tab" data-toggle="tab">Skills</a></li>
+      <li role="presentation"><a href="#boards" aria-controls="boards" role="tab" data-toggle="tab">Boards</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane fade in active" id="users">
+        <div class="row">
+          <%= render 'user_index' %>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="skills">
+        <div class="row">
+          <div class="skill-user-index">
+            <%= render 'skill_index' %>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="boards">
+        <div class="row">
+          <%= render 'board_index' %>
+        </div>   
+      </div>
+    </div>
+  </div> 
+</div>
+
+<% if params[:tab_redirect] == 'users'  || params[:tab] == 'users' %>
+    <script>
+        $('#myTabs a[href="#users"]').tab('show')
+    </script>
+<% elsif params[:tab_redirect] == 'skills'  || params[:tab] == 'skills' %>
+    <script>
+        $('#myTabs a[href="#skills"]').tab('show')
+    </script>
+<% elsif params[:tab_redirect] == 'boards'  || params[:tab] == 'boards'  %>
+    <script>
+        $('#myTabs a[href="#boards"]').tab('show')
+    </script>
+<% else %>
+    <script>
+        $('#myTabs a[href="#users"]').tab('show')
+    </script>
+<% end %>
+
+<div id="skill-user-modal" class="modal fade">
+   <div class="modal-dialog container">
+     <div id="inner-skill-user-modal" class="modal-content row"></div>
+   </div>
+</div>

@@ -76,4 +76,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.react.jsx_transform_options = {
+      harmony: true,
+      strip_types: true # for removing Flow type annotations
+  }
+  config.react.addons = true
 end
