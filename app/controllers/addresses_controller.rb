@@ -5,6 +5,7 @@ class AddressesController < ApplicationController
   end
 
   def get_addresses_near_user
+    binding.pry
     @address = current_user.addresses[0]
     @address = Address.near("#{@address.city}, #{@address.state}, US", 30)
     users = []

@@ -16,7 +16,6 @@ class RegistrationsController < Devise::RegistrationsController
 
      case resource && current_user
        when :user, User
-         # resource.valid? ? profile_index_path(current_user) : root_path
          resource.valid? ? authenticated_root_path(current_user) : root_path
          resource.valid? ? profile_path(current_user) : root_path
        when :admin, Admin
