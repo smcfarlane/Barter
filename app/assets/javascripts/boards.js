@@ -13,16 +13,9 @@ $(function(){
       center = new google.maps.LatLng(coords.lat, coords.lon);
       map = new google.maps.Map(document.getElementById('map-canvas'), {
         center: center,
-        zoom: 13
+        zoom: 10
       });
-
-      $('#toggle-map').click(function(){
-        console.log('resized');
-        setTimeout(google.maps.event.trigger(map, "resize"), 500);
-      });
-      $.ajax({
-        url: '/addresses/get_addresses_near_user'
-      }).success(function(data){
+      $.ajax({url: '/addresses/get_addresses_near_user'}).success(function(data){
         console.log(data);
         data.forEach(function(location){
           var marker=new google.maps.Marker({
@@ -39,14 +32,4 @@ $(function(){
   }
   google.maps.event.addDomListener(window, 'load', initialize);
   google.maps.event.trigger(map, "resize");
-
-  $('#toggle-map').click(function(){
-    console.log('resized');
-    setTimeout(google.maps.event.trigger(map, "resize"), 500);
-  });
-  $.ajax({
-    url: '/addresses/get_addresses_near_user'
-  }).success(function(data){
-    console.log(data);
-  })
 });
