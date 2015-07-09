@@ -36,7 +36,10 @@ class User < ActiveRecord::Base
       end
       user.password = Devise.friendly_token[0,20]
       name = auth.info.name.split(' ')
-      ui = UserInfo.create(first_name: name[0], last_name: name[1])
+      if name.length < 2
+        ui = UserInfo.create(first_name: name[0], last_name: '')
+      end
+      ui = UserInfo.create(first_name: name[0], last_name: name[1]) unless name.length < 2
       user.user_info = ui  # assuming the user model has a name
     end
   end
