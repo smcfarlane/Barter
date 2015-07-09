@@ -106,11 +106,14 @@
             </tr>
           <% end %>
         <% else %>
-          <tr><td>You have not added any skills.  </td></tr></tr>
+          <tr>
+            <td>You have not added any skills.</td>
+          </tr>
+
         <% end %>
-        <tr><td><a href="<%= skills_path %>" class="btn btn-primary">Add/Edit</a></td>
         </tbody>
       </table>
+      <a href="<%= skills_path %>" class="btn btn-primary">Add/Edit</a>
     </div>
 
     <div class="col-md-5">

@@ -27,7 +27,7 @@ end
 @address_1 = {street_address: '1918 Oceanside Blvd', city: 'Oceanside', state: 'CA', zip: '92054'}
 @address_2 = {street_address: '5267 La Jolla Blvd', city: 'San Diego', state: 'CA', zip: '92037'}
 @address_3 = {street_address: '119 E Grand Ave', city: 'Escondido', state: 'CA', zip: '92025'}
-@address_4 = {street_address: '3401 E Speedway Blvd', city: 'Tucson', state: 'AZ', zip: '85716'}
+@address_4 = {street_address: '3803 Ray St', city: 'San Diego', state: 'CA', zip: '92104'}
 
 # Create Users
 5.times do |i|

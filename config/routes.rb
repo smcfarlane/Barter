@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :boards
   resources :agreements, except: [:show]
+  post 'agreements/:id/agree' => 'agreements#agree', as: :agreements_agree
   resources :message, only: [:new, :create, :destroy]
 
   authenticated :user do

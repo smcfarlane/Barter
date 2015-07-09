@@ -18,17 +18,9 @@ class AgreementsController < ApplicationController
   end
 
   def create
-    @agreement = Agreement.create(
-        status: 'pending',
-        user_id: params[:agreement][:user2],
-        board_id: params[:agreement][:board],
-        details: params[:agreement][:details],
-        user1skill: params[:agreement][:user1skill],
-        user2skill: params[:agreement][:user2skill],
-        due_date: Date.new(params[:agreement][:due_date][:year].to_i, params[:agreement][:due_date][:month].to_i, params[:agreement][:due_date][:day].to_i)
-    )
+    @agreement = Agreement.create(get_new_agreement_params)
     if @agreement.save
-      redirect_to action: profile_path
+      redirect_to profile_path
     else
       redirect_to :back
     end
@@ -42,6 +34,17 @@ class AgreementsController < ApplicationController
     @edit = true
   end
 
+  def agree
+    @agreement = Agreement.find(params[:id])
+    if current_user == @agreement.board.user
+      @agreement.user1_agrees = true
+    elsif current_user == @agreement.user
+      @agreement.user2_agrees = true
+    end
+    @agreement.save
+    redirect_to profile_path
+  end
+
   def update
     @agreement = Agreement.find(params[:id])
     unless @agreement.user1_agrees && @agreement.user2_agrees
@@ -49,17 +52,8 @@ class AgreementsController < ApplicationController
       @agreement.user1skill = params[:agreement][:user1skill]
       @agreement.user2skill = params[:agreement][:user2skill]
       @agreement.due_date = Date.new(params[:agreement][:due_date][:year].to_i, params[:agreement][:due_date][:month].to_i, params[:agreement][:due_date][:day].to_i)
-      if @agreement.changed?
-        @agreement.user1_agrees = false
-        @agreement.user2_agrees = false
-      end
-      if params[:submit] == 'Agree'
-        if current_user == @agreement.board.user
-          @agreement.user1_agrees = true
-        elsif current_user == @agreement.user
-          @agreement.user2_agrees = true
-        end
-      end
+      @agreement.user1_agrees = false
+      @agreement.user2_agrees = false
       if @agreement.save
         redirect_to profile_path
       else
@@ -74,6 +68,18 @@ class AgreementsController < ApplicationController
     @agreement = Agreement.find(params[:id])
     @agreement.status = 'deleted'
     redirect_to profile_path
+  end
+
+  private
+
+  def get_new_agreement_params
+    p = params.require(:agreement).permit(:user_id, :board_id, :details, :user1skill, :user2skill, due_date: [:year, :month, :day])
+    {status: 'pending',user_id: p[:user_id], board_id: p[:board_id], details: p[:details], user1skill: p[:user1skill], user2skill: p[:user2skill], due_date: Date.new(p[:due_date][:year].to_i, p[:due_date][:month].to_i, p[:due_date][:day].to_i)}
+  end
+
+  def get_edit_agreement_params
+    params.require(:agreement).permit(:details, :user1skill, :user2skill, due_date: [:year, :month, :day])
+    {details: p[:details], user1skill: p[:user1skill], user2skill: p[:user2skill], due_date: Date.new(p[:due_date][:year].to_i, p[:due_date][:month].to_i, p[:due_date][:day].to_i)}
   end
 
 end
