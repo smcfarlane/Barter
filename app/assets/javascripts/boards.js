@@ -13,21 +13,36 @@ $(function(){
       center = new google.maps.LatLng(coords.lat, coords.lon);
       map = new google.maps.Map(document.getElementById('map-canvas'), {
         center: center,
-        zoom: 10
+        zoom: 8
       });
       $.ajax({url: '/addresses/get_addresses_near_user'}).success(function(data){
         console.log(data);
+        var board_ids = [];
+        data.forEach(function(location){
+          board_ids.push(location.id);
+        });
         data.forEach(function(location){
           var marker=new google.maps.Marker({
-            position: new google.maps.LatLng(location.latitude, location.longitude)
+            position: new google.maps.LatLng(location.latitude, location.longitude),
+            map: map,
+            title: "Skill Needed: " + location.skill_needed[0] + "\nSkills Offered: " + location.skills_offered.join(', ')
           });
-          marker.setMap(map);
+          google.maps.event.addListener(marker, 'click', function() {
+            map.setZoom(8);
+            map.setCenter(marker.getPosition());
+            board_ids.forEach(function(id){
+              $('#board-' + id).removeClass('info');
+            });
+            $('#board-' + location.id).addClass('info');
+          });
         })
       });
       var centerMarker=new google.maps.Marker({
-        position: center
+        position: center,
+        map: map,
+        title: 'You'
       });
-      centerMarker.setMap(map);
+
     });
   }
   google.maps.event.addDomListener(window, 'load', initialize);

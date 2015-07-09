@@ -7,16 +7,12 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="clo-md-1 btn-group pull-right">
+    <div class="col-md-2">
       <% if @user.skills_users.count > 0 %>
-        <%= link_to "Add Request", new_board_path, class: 'btn btn-success' %>
+        <%= link_to "Add Request", new_board_path, class: 'btn btn-success', style: 'margin: 10px auto; margin-top: 0; float: none; display: block;' %>
       <% else %>
         <%= link_to 'Add Skill', skills_path, class: 'btn btn-success' %><mark>Add a skill to create a new barter request:</mark>
       <% end %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-2">
       <div class="panel panel-primary">
         <div class="panel-heading">
           <h3>Filter Posts</h3>
@@ -52,35 +48,34 @@
     </div>
     <div class="col-md-10">
 
-        <div class="col-md-12">
-          <div id="map-canvas" class="col-md-12 top-20" style="height: 300px; min-width: 500px;"></div>
-        </div>
+      <div class="col-md-12">
+        <div id="map-canvas" class="col-md-12 top-20" style="height: 300px; min-width: 500px; margin-top: 0"></div>
+      </div>
 
-        <div class="col-md-12">
-          <table class="table table-hover">
-            <thead>
-            <tr>
-              <th></th>
-              <th>Needing</th>
-              <th>Neighbor</th>
-              <th>Can Offer</th>
-              <th>Needed By</th>
+      <div class="col-md-12">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Needing</th>
+            <th>Neighbor</th>
+            <th>Can Offer</th>
+            <th>Needed By</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @board.each do |b| -%>
+            <tr id="board-<%= b.id -%>" class="">
+              <td><%= link_to "View", board_path(b), class: "btn btn-default" -%></td>
+              <td><% b.skill_needed.each do |skill| -%><%= skill -%> <%- end -%></td>
+              <td><%= b.user.user_info.first_name -%></td>
+              <td><% b.skills_offered.each do |skill| -%><%= skill -%>, <%- end -%></td>
+              <td><%= b.needed_by.strftime("%D") -%></td>
             </tr>
-            </thead>
-            <tbody>
-            <% @board.each do |b| -%>
-              <tr>
-                <td><%= link_to "View", board_path(b), class: "btn btn-default" -%></td>
-                <td><% b.skill_needed.each do |skill| -%><%= skill -%> <%- end -%></td>
-                <td><%= b.user.user_info.first_name -%></td>
-                <td><% b.skills_offered.each do |skill| -%><%= skill -%>, <%- end -%></td>
-                <td><%= b.needed_by.strftime("%D") -%></td>
-              </tr>
-            <%- end -%>
-            </tbody>
-          </table>
-        </div>
-
+          <%- end -%>
+          </tbody>
+        </table>
+      </div>
 
     </div>
   </div>
