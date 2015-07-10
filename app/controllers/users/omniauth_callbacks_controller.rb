@@ -7,7 +7,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       sign_in @user #this will throw if @user is not activated
       set_flash_message(:notice, :success, :kind => "Twitter") if is_navigational_format?
-      redirect_to user_info_edit_url
+      if current_user.sign_in_count <= 1
+        redirect_to user_info_edit_url
+      else
+        redirect_to profile_path
+      end
     else
       session["devise.twitter_data"] = request.env["omniauth.auth"].except("extra")
       redirect_to new_user_registration_url

@@ -1,5 +1,12 @@
+<div class="jumbotron" style="margin: 0; padding-top: 30px; padding-bottom: 30px">
+  <div class="container">
+    <div class="row">
+      <h3>Check out the <%= link_to 'Boards', boards_path -%> for the latest listings.</h3>
+    </div>
+  </div>
+</div>
 <div class="container">
-  <div class="row top-70 bottom-30">
+  <div class="row bottom-30">
     <div class="col-md-12">
       <img style="display: inline-block; margin-bottom: 13px;" src="<%= gravatar_url(current_user.email, 30) -%>" class="avatar" alt=""/>
       <h2 style="display: inline-block" ><%= ['Awesome', 'Cool', 'Silly', 'Dorky', 'Funky'].sample -%> Dashboard </h2>
@@ -8,11 +15,10 @@
       <h3>Agreements</h3>
       <table id="agreements-table" class="table table-bordered table-hover">
             <thead>
-              <tr>
+              <tr class="warning">
                 <th>Owner</th>
                 <th>Created</th>
                 <th>Other Party</th>
-                <th>Status</th>
                 <th>You Agree</th>
                 <th>Agreed by Other Party</th>
                 <th>Due Date</th>
@@ -31,7 +37,7 @@
               </td>
               <td><%= agreement.created_at.strftime("%D") %></td>
               <td>
-                <div style="width: 110px;">
+                <div style="width: 120px;">
                   <%- if agreement.user == current_user -%>
                     <img src="<%= gravatar_url(agreement.board.user.email, 30) -%>" class="avatar pull-left top-5" alt=""/>
                     <p class="pull-left"><%= agreement.board.user.user_info.first_name -%> <br/> <%= agreement.board.user.user_info.last_name -%></p>
@@ -41,9 +47,7 @@
                   <%- end -%>
                 </div>
               </td>
-              <td>
-                <%= agreement.status.capitalize %>
-              </td>
+
               <td>
                 <%- if current_user == agreement.board.user -%>
                   <% if agreement.user1_agrees %>
@@ -90,7 +94,6 @@
         <thead>
         <tr>
           <th>Skill</th>
-          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -99,9 +102,6 @@
             <tr>
               <td>
                 <%= s.name %>
-              </td>
-              <td>
-                <small><%= link_to 'Delete' , data:  {toggle:"modal", target:"#destroyModal"} %></small>
               </td>
             </tr>
           <% end %>
@@ -118,10 +118,10 @@
 
     <div class="col-md-5">
       <div class = "col-md-12">
-        <h3>Boards Created</h3>
+        <h3>Your Boards</h3>
         <table id="boards-match-table" class="table table-bordered table-hover">
           <thead>
-          <tr>
+          <tr class="success">
             <th>Date</th>
             <th>Board</th>
           </tr>
@@ -146,10 +146,10 @@
       </div>
 
       <div class = "col-md-12">
-        <h3>Boards Matching Skills</h3>
+        <h3>Explore Boards</h3>
         <table id="boards-match-table" class="table table-bordered table-hover">
           <thead>
-          <tr>
+          <tr class="info">
             <th>Date</th>
             <th>Board</th>
           </tr>

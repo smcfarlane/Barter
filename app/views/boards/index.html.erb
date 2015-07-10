@@ -21,7 +21,7 @@
         <ul class="list-group" style="margin: 0">
           <li class="list-group-item" style="border-radius: 0">
             <div class="form-group">
-              <label for="skill_needed">Skill Needed</label>
+              <label for="skill_needed">Needing</label>
               <select name="skill_needed" id="skill_needed">
                 <option value="none" selected>None</option>
                 <%- for skill in @skills -%>
@@ -32,7 +32,7 @@
           </li>
           <li class="list-group-item" style="border-radius: 0">
             <div class="form-group">
-              <label for="skill_offered">Skill Offered</label>
+              <label for="skill_offered">Can Offer</label>
               <select name="skill_offered" id="skill_offered">
                 <option value="none" selected>None</option>
                 <%- for skill in @skills -%>
@@ -68,7 +68,7 @@
           <tbody id="boards-table">
           <% @board.each do |b| -%>
             <tr id="board-<%= b.id -%>" class="">
-              <td><%= link_to "View", board_path(b), class: "btn btn-default" -%></td>
+              <td><%= link_to "View", board_path(b), class: "btn btn-info" -%></td>
               <td><% b.skill_needed.each do |skill| -%><%= skill -%> <%- end -%></td>
               <td><%= b.user.user_info.first_name -%></td>
               <td><% b.skills_offered.each do |skill| -%><%= skill -%>, <%- end -%></td>

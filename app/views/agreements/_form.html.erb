@@ -7,7 +7,7 @@
     <div class="form-group">
       <p>Date: <%= Date.today %></p>
       <div class="form-group">
-        <label for="received_skill_id">Skill provided by: <%= @user2.user_info.first_name %> <%= @user2.user_info.last_name %></label>
+        <label for="received_skill_id">Providing: <%= @user2.user_info.first_name %> <%= @user2.user_info.last_name %></label>
         <select name="agreement[user2skill]" id="received_skill_id" class="form-control">
           <option value="<%= @board.skill_needed[0] -%>"><%= @board.skill_needed[0] -%></option>
         </select>
@@ -28,7 +28,7 @@
       <div class="form-group">
         <p>Date: <%= Date.today %></p>
         <div class="form-group">
-          <label for="received_skill_id">Skill provided by: <%= @user2.user_info.first_name %> <%= @user2.user_info.last_name %></label>
+          <label for="received_skill_id">Providing: <%= @user2.user_info.first_name %> <%= @user2.user_info.last_name %></label>
           <select name="agreement[user2skill]" id="received_skill_id" class="form-control">
             <option value="<%= @agreement.user2skill -%>"><%= @agreement.user2skill -%></option>
           </select>
@@ -46,7 +46,7 @@
       <div class="form-group">
         <p>Date: <%= Date.today %></p>
         <div class="form-group">
-          <label for="received_skill_id">Skill provided by: <%= @user1.user_info.first_name %> <%= @user1.user_info.last_name %></label>
+          <label for="received_skill_id">Providing: <%= @user1.user_info.first_name %> <%= @user1.user_info.last_name %></label>
           <select name="agreement[user1skill]" id="received_skill_id" class="form-control">
             <option value="<%= @agreement.user1skill -%>"><%= @agreement.user1skill -%></option>
           </select>
