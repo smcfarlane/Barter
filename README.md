@@ -9,6 +9,13 @@ Demo
 -------------------
 A live demo version is available at [LINK](http://)
 
+Contributors
+-------------------
+- [trodrigu](http://github.com/trodrigu)
+- [therahl](http://github.com/therahl)
+- [warrendevs](http://github.com/warrendevs)
+- [smcfarlane](http://github.com/smcfarlane)
+
 Prerequisites
 -------------
 
