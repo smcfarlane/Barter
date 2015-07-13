@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="row top-70 bottom-30">
+    <%= form_for @agreement, url: {action: "update"}, method: "PUT", html: {class: "update-agreement_form"} do |f| %>
+      <%= render 'form' -%>
+    <%- end -%>
+  </div>
+</div>

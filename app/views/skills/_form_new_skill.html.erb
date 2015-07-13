@@ -1,0 +1,8 @@
+<%= form_tag({controller: :skill, action: :create_skill, return_admin: true, tab_redirect: 'skills'}, method: :post) %>
+<div class="col-md-8 col-md-offset-2 top-20 bottom-20">
+  <div class="form-group">
+    <%= label_tag 'name' %>
+    <span><%= text_field_tag :name  %></span>
+  </div>
+  <span><%= submit_tag 'Create', class: 'btn btn-primary' %></span>
+</div>

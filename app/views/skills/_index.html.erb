@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>Details</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @skills_users.each do |s| %>
+          <tr>
+            <td><%= s.skill.name %></td>
+            <td><%= s.details %></td>
+            <td>
+              <div class="btn-group">
+                <%= link_to 'Edit', edit_skill_path(s.id), remote: true, class: 'btn btn-warning btn-xs' %>
+                <%= link_to 'Delete', skill_delete_path(s.id), remote: true, class: 'btn btn-danger btn-xs' %>
+              </div>
+            </td>
+          </tr>
+        <%- end -%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

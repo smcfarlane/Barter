@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="btn-group">
+      <%= link_to "View All", agreements_path, class: "btn btn-default", role: "button" -%>
+    </div>
+  </div>
+  <div class="row top-40">
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3>Agreement:</h3>
+            <h3><%= @agreement.board.user.user_info.last_name %>, <%= @agreement.board.user.user_info.first_name %></h3>
+            <h4>Skill: <%= @agreement.user1skill %></h4>
+            <h3><%= @agreement.user.user_info.last_name %>, <%= @agreement.user.user_info.first_name %></h3>
+            <h4>Skill: <%= @agreement.user2skill %></h4>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item" style="word-wrap:break-word;">
+              <strong>Details:</strong>
+              <%= @agreement.details-%>
+            </li>
+            <li class="list-group-item">
+              <div>
+                <strong>Status:</strong>
+                <%= @agreement.status-%>
+              </div>
+              <div>
+                <%= @agreement.board.user.user_info.first_name -%>: <%= @agreement.user1_agrees -%>
+                <%= @agreement.user.user_info.first_name -%>: <%= @agreement.user2_agrees -%>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <strong>Due date:</strong>
+              <%= @agreement.due_date.strftime("%D")-%>
+            </li>
+          </ul>
+        </div>
+      </div>
+  </div>
+  <div class="btn-group">
+    <%= link_to "Edit", edit_agreement_path(@agreement.id), class: "btn btn-default" -%>
+    <button type="button" class="btn" data-toggle="modal" data-target="#destroyModal">Delete</button>
+
+  </div>
+</div>
+<%= render "destroy_modal" -%>

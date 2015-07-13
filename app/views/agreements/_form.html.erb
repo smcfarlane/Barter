@@ -1,0 +1,93 @@
+<fieldset class="col-md-6">
+  <legend>Agreement</legend>
+  <input type="hidden" name="agreement[user_id]" value="<%= @user2.id -%>"/>
+  <input type="hidden" name="agreement[board_id]" value="<%= @board.id -%>"/>
+  <%- if current_page? new_agreement_path -%>
+
+    <div class="form-group">
+      <p>Date: <%= Date.today %></p>
+      <div class="form-group">
+        <label for="received_skill_id">Providing: <%= @user2.user_info.first_name %> <%= @user2.user_info.last_name %></label>
+        <select name="agreement[user2skill]" id="received_skill_id" class="form-control">
+          <option value="<%= @board.skill_needed[0] -%>"><%= @board.skill_needed[0] -%></option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="offered_skill_id">Skill you are providing: </label>
+      <select name="agreement[user1skill]" id="offered_skill_id" class="form-control">
+        <%- @board.skills_offered.each do |skill| -%>
+          <option value="<%= skill -%>"><%= skill -%></option>
+        <%- end -%>
+      </select>
+    </div>
+
+  <%- else  -%>
+
+    <%- if current_user == @agreement.board.user -%>
+      <div class="form-group">
+        <p>Date: <%= Date.today %></p>
+        <div class="form-group">
+          <label for="received_skill_id">Providing: <%= @user2.user_info.first_name %> <%= @user2.user_info.last_name %></label>
+          <select name="agreement[user2skill]" id="received_skill_id" class="form-control">
+            <option value="<%= @agreement.user2skill -%>"><%= @agreement.user2skill -%></option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="offered_skill_id">Skill you are providing: </label>
+        <select name="agreement[user1skill]" id="offered_skill_id" class="form-control">
+          <%- current_user.skills.pluck(:name).each do |skill| -%>
+            <option value="<%= skill -%>" <%- if skill == @agreement.user1skill -%>selected<%- end -%>><%= skill -%></option>
+          <%- end -%>
+        </select>
+      </div>
+    <%- elsif current_user == @agreement.user -%>
+      <div class="form-group">
+        <p>Date: <%= Date.today %></p>
+        <div class="form-group">
+          <label for="received_skill_id">Providing: <%= @user1.user_info.first_name %> <%= @user1.user_info.last_name %></label>
+          <select name="agreement[user1skill]" id="received_skill_id" class="form-control">
+            <option value="<%= @agreement.user1skill -%>"><%= @agreement.user1skill -%></option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="offered_skill_id">Skill you are providing: </label>
+        <select name="agreement[user2skill]" id="offered_skill_id" class="form-control">
+          <%- current_user.skills.pluck(:name).each do |skill| -%>
+            <option value="<%= skill -%>" <%- if skill == @agreement.user2skill -%>selected<%- end -%>><%= skill -%></option>
+          <%- end -%>
+        </select>
+      </div>
+    <%- end -%>
+
+  <%- end -%>
+
+  <div class="form-group">
+    <label for="details">Details <br/><small>Location, directions, scope of work, etc.</small></label>
+    <textarea name="agreement[details]" id="details" cols="30" rows="5" class="form-control"><%= @agreement.details -%></textarea>
+  </div>
+  <div class="form-group">
+    <label for="name">Due Date</label>
+    <%- if @agreement.id -%>
+      <%= select_date @agreement.due_date, prefix: 'agreement[due_date]' -%>
+    <%- else -%>
+      <%= select_date @board.needed_by, prefix: 'agreement[due_date]' -%>
+    <%- end -%>
+  </div>
+  <input type="hidden" name="status" value="pending">
+  <div class="btn-group">
+    <input value="Submit Proposed Agreement" class="btn btn-primary" type="submit"/>
+    <%- if @edit -%>
+      <%= link_to 'Agree', agreements_agree_path(@agreement), method: :post, class: 'btn btn-success' -%>
+    <%- end -%>
+  </div>
+</fieldset>
+
+
+<div class="col-md-6">
+  <p style="font-size: 24px"><strong><%= @board.user.user_info.first_name -%></strong> needs <strong><%= @board.skill_needed[0] -%></strong> by <strong><%= @board.needed_by.strftime("%D") -%></strong><br/> and can offer <strong><%= format_skills_offered @board.skills_offered -%></strong>.</p>
+  <p><strong>Location: </strong><%= @board.details['city'] -%></p>
+  <p><strong>Contact Email: </strong><%= @board.details['email'] -%></p>
+</div>

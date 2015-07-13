@@ -1,0 +1,9 @@
+if ($('#users').hasClass("active")) {
+    $("#users").html("<%= escape_javascript(render("users")) %>");
+} else if ($('#skills').hasClass("active")) {
+    $("#skills").html("<%= escape_javascript(render("skills")) %>");
+} else if ($('#boards').hasClass("active")) {
+    $("#boards").html("<%= escape_javascript(render("boards")) %>");
+} else {
+    $("#users").html("<%= escape_javascript(render("users")) %>");
+}

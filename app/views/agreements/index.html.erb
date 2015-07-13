@@ -1,0 +1,36 @@
+<div class="container">
+  <div>
+    <h2>Agreements</h2>
+  </div>
+
+  <div class="row top-20">
+    <% if @agreements.length > 0 %>
+        <%- @agreements.each do |a| -%>
+            <div class="col-md-4">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4><%= a.board.user.user_info.last_name %>, <%= a.board.user.user_info.first_name %></h4>
+                  <h5>Skill: <%= a.user1skill %></h5>
+                  <h4><%= a.user.user_info.last_name %>, <%= a.user.user_info.first_name %></h4>
+                  <h5>Skill: <%= a.user2skill %></h5>
+                </div>
+                <div class="panel-body">
+                  <strong>Status:</strong>
+                  <%= a.status-%></br>
+                  <strong>Due date:</strong>
+                  <%= a.due_date-%>
+                </div>
+                <div class="panel-footer">
+                  <div class="btn-group">
+                    <%= link_to "View", agreement_path(a.id), class: "btn btn-default" -%>
+                    <%= link_to "Edit", edit_agreement_path(a.id), class: "btn btn-default" -%>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <%- end -%>
+     <% else %>
+        <p>No Agreements Found</p>
+    <% end %>
+  </div>
+</div>

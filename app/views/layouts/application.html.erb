@@ -2,13 +2,13 @@
 <html>
 <head>
   <title>Barter</title>
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
     <!-- Custom CSS -->
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -17,14 +17,41 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+  <%= javascript_tag do -%>
+    <%- if current_user -%>
+      window.USER = {firstName: '<%= current_user.user_info.first_name -%>', lastName: '<%= current_user.user_info.last_name -%>', email: '<%= current_user.email -%>'}
+    <%- else -%>
+      window.USER = {firstName: 'anon', lastName: 'amous', email: 'anon@example.com'}
+    <%- end -%>
+  <%- end -%>
 </head>
 
 <body>
   <%= render 'layouts/nav' %>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-  <%= yield %>
-  <%= render 'layouts/footer' %>
+  <%- if notice || alert || flash.count > 0 -%>
+  <div class="notifier">
+    <!--<p class="notice"><%= notice %></p>-->
+    <!--<p class="alert" style="margin-bottom: 0"><%= alert %></p>-->
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+    <% end %>
+    <script>
+      window.setTimeout(function(){
+        $('.notifier').addClass("hide-notifier");
+      }, 5000);
+      window.setTimeout(function(){
+        $('.notifier').css("display", "none");
+      }, 7000);
+    </script>
+  </div>
+  <%- end -%>
 
+
+  <div>
+    <%= yield %>
+  </div>
+
+  <%= render 'layouts/footer' %>
+  <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
 </body>
 </html>

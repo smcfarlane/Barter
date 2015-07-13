@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row top-50 bottom-30">
+    <div>
+      <h2><%= current_user.user_info.first_name %>'s Skills</h2>
+      <p>Use this area to add or remove skills from your profile.</p>
+      <% if current_user.sign_in_count == 1 && current_user.skills.count == 0 %>
+          <div class="alert alert-success" role="alert">Welcome! Please add a personal skill to barter before continuing.</div>
+      <% elsif current_user.sign_in_count == 1 && current_user.boards.count == 0 %>
+          <div class="alert alert-success" role="alert">Click 'Next' to connect with other users!</div>
+          <% else %>
+      <% end %>
+    </div>
+    <div class="row top-20">
+      <div class="skill-user-index">
+        <%= render 'index' %>
+      </div>
+      <% if current_user.sign_in_count == 1 && current_user.skills.count == 0 %>
+          <%= link_to 'Add Skill', new_skill_path, remote: true, class: 'btn btn-primary animated pulse infinite' %>
+      <% elsif current_user.sign_in_count == 1 && current_user.skills.count < 3 %>
+          <%= link_to 'Add Additional Skill', new_skill_path, remote: true, class: 'btn btn-primary' %>
+          <%= link_to 'Next', new_board_path, class: 'btn btn-primary animated pulse infinite' %>
+    <% else %>
+          <%= link_to 'Profile', root_path, class: 'btn btn-primary' %>
+          <%= link_to 'Add Skill', new_skill_path, remote: true, class: 'btn btn-primary' %>
+          <% if current_user.admin? %>
+            <%= link_to 'Destroy a skill!', kill_path, remote: true, class: 'btn btn-primary' %>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div id="skill-user-modal" class="modal fade">
+    <div class="modal-dialog container">
+      <div id="inner-skill-user-modal" class="modal-content row"></div>
+    </div>
+</div>

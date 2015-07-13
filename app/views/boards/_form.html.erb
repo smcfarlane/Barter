@@ -1,0 +1,45 @@
+<fieldset class="col-md-6">
+  <% @board.errors.each do |error| -%>
+    <p><%= error -%></p>
+  <%- end -%>
+  <div class="form-group col-md-6">
+    <label for="">Needing</label><br/>
+    <%- if @board.skill_needed[0] -%>
+      <%= select_tag :skill_needed, options_for_select(@skills, @board.skill_needed[0]) %>
+    <%- else -%>
+      <%= select_tag :skill_needed, options_for_select(@skills) %>
+    <%- end -%>
+  </div>
+  <div class="form-group col-md-6">
+    <label for="">Offering</label>
+    <%- current_user.skills.each do |s| -%>
+      <div class="checkbox">
+        <label>
+          <input name="skill::<%= s.id -%>" type="checkbox" <%- if @board.skills_offered.include?(s.name) -%> checked <%- end -%>> <%= s.name -%>
+        </label>
+      </div>
+    <%- end -%>
+  </div>
+  <div class="form-group col-md-6">
+    <label for="">When do you need this?</label><br/>
+    <%- if current_page? new_board_path -%>
+      <%= select_date 30.days.from_now, prefix: :needed_by %>
+    <%- else -%>
+      <%= select_date @board.needed_by, prefix: :needed_by -%>
+    <%- end -%>
+  </div>
+  <%- unless @board.id -%>
+    <div class="form-group col-md-12">
+      <label for="deatils">Details</label>
+      <textarea name="details" id="" class="form-control" rows="5"></textarea>
+    </div>
+  <%- end -%>
+  <div class="col-md-12">
+    <% if current_user.sign_in_count == 1 && current_user.boards.count == 0  %>
+      <input type="submit" class="btn btn-primary animated infinite pulse" value="Next"/>
+      <%= link_to "Skip", root_path, class: "btn btn-primary", method: "get" %>
+    <% else %>
+      <input type="submit" value="Ok" class="btn btn-primary"/>
+    <% end %>
+  </div>
+</fieldset>

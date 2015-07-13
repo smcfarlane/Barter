@@ -1,0 +1,29 @@
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <h1><strong><%= @board.user.user_info.first_name -%></strong> needs <strong><%= @board.skill_needed[0] -%></strong> by <strong><%= @board.needed_by.strftime("%D") -%></strong> and can offer <strong><%= format_skills_offered @board.skills_offered -%></strong>.</h1>
+      <%- if @board.user == current_user -%>
+        <p>Use the message board below to communication with interested people.</p>
+        <p>Use the handshake button to start an aggreement with someone.</p>
+      <%- else -%>
+        <p>Use this message board to discuss what is needed.</p>
+      <%- end -%>
+    </div>
+    <%- if @user == @board.user -%>
+    <div class="row">
+      <div class="btn-group">
+        <%= link_to "Edit", edit_board_path(@board), class: "btn btn-warning" -%>
+        <%= link_to "Remove", board_path(@board), method: :delete, data: {confirm: "Are you sure you want to remove this?"}, class: "btn btn-danger" -%>
+      </div>
+    </div>
+    <%- end -%>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <%= link_to "< The Board", boards_path, class: "board-heading" -%>
+  </div>
+  <div class="row">
+    <%= react_component('Thread', {thread: @thread, messages: @messages, user_id: @user_id, user_name: @user_name, creator_id: @board.user.id, action_taken: (@board.agreements.to_a != [])}) -%>
+  </div>
+</div>
