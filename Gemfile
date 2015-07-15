@@ -37,6 +37,7 @@ gem 'will_paginate-bootstrap'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
+gem 'faker'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -61,7 +62,6 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails', '~> 3.0'
   gem 'seed-fu'
-  gem 'faker'
   gem 'rails-erd'
   gem 'launchy'
 end
