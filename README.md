@@ -7,7 +7,7 @@ Barter is built in Rails 4 with postgresql 9.4 and includes seed data.
 
 Demo
 -------------------
-A live demo version is available at [LINK](http://)
+A live demo version is available at [LINK](https://fast-taiga-6118.herokuapp.com/)
 
 Contributors
 -------------------
