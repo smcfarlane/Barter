@@ -64,6 +64,9 @@ User.all.each do |user|
   3.times {user.skills << Skill.find_by_name(skills.sample)}
 end
 
+# Assign Admin rights to random user
+User.find(User.all.sample.id).update(admin: true)
+
 # Create Boards
 15.times do
   users = User.all.to_a.sample(5)
