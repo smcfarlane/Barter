@@ -18,6 +18,12 @@ body { padding-top: 50px; }
 @import "spacing";
 @import 'animate';
 
+.demo-intro {
+  background-color: black;
+  opacity: .5;
+  padding: 10px;
+}
+
 .notifier {
   position: fixed;
   z-index: 9999;

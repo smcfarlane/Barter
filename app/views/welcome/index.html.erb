@@ -1,3 +1,50 @@
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Users List</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          This database is regularly re-seeded.  Default password is 'password' for all users.  Have fun!
+        </p>
+        <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Login Email</th>
+                  <th>Admin</th>
+                </tr>
+              </thead>
+              <tbody>
+        <% @user_list.each do |user| %>
+                <tr>
+                  <th scope="row"><%= user.id + 1 %></th>
+                  <td><%= user.user_info.first_name %></td>
+                  <td><%= user.user_info.first_name %></td>
+                  <td><%= user.email %></td>
+                  <td>
+                    <% if user.admin %>
+                      <i class="glyphicon glyphicon-ok" style="color: green"></i>                      
+                    <% end %>
+                  </td>
+                </tr>
+        <% end %>
+
+              </tbody>
+            </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <a name="about"></a>
 <div class="intro-header">
   <div class="container">
@@ -5,6 +52,13 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="intro-message">
+          <div class="demo-intro" style="">
+            <h3>This is a demo.  Click below to see login info for multiple users and admin access.</h3>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+              View Demo User Info
+            </button>
+          </div>
+
           <h1>BARTR</h1>
           <h3>Help And Be Helped By Your Neighbors</h3>
           <hr class="intro-divider">
